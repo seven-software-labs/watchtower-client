@@ -186,6 +186,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
     data() {
         return {
@@ -239,6 +241,19 @@ export default {
                 },
             ],
         };
+    },
+    computed: {
+        ...mapGetters("statusModule", {
+            tickets: "getItems",
+        }),
+    },
+    created() {
+        this.fetchAllStatuses();
+    },
+    methods: {
+        ...mapActions("statusModule", {
+            fetchAllStatuses: "fetchAllItems",
+        }),
     },
 };
 </script>
