@@ -9,6 +9,8 @@ import ApplicationLogo from "./components/application/logo.vue";
 
 // Layout Components
 import LayoutsAuth from "./components/layouts/auth/index.vue";
+import LayoutsContainer from "./components/layouts/utils/container.vue";
+import LayoutsPanel from "./components/layouts/panel/index.vue";
 
 // Regular Components
 import Badge from "./components/badge.vue";
@@ -16,7 +18,9 @@ import Button from "./components/button.vue";
 import Card from "./components/card.vue";
 import CardContent from "./components/card-content.vue";
 import Container from "./components/container.vue";
+import FormCheckbox from "./components/form/checkbox.vue";
 import Icon from "./components/icon.vue";
+import SectionHeader from "./components/section-header.vue";
 import Table from "./components/table.vue";
 import TableTata from "./components/table-data.vue";
 import TableHeader from "./components/table-header.vue";
@@ -30,7 +34,9 @@ const components = {
     "x-card": Card,
     "x-card-content": CardContent,
     "x-container": Container,
+    "x-form-checkbox": FormCheckbox,
     "x-icon": Icon,
+    "x-section-header": SectionHeader,
     "x-table": Table,
     "x-table-data": TableTata,
     "x-table-header": TableHeader,
@@ -45,6 +51,8 @@ const registerComponents = (app = null) => {
 
     // Layout Components
     app.component("x-layouts-auth", LayoutsAuth);
+    app.component("x-layouts-container", LayoutsContainer);
+    app.component("x-layouts-panel", LayoutsPanel);
 
     Object.keys(components).forEach((key) => {
         app.component(key, components[key]);

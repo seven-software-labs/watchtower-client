@@ -1,11 +1,7 @@
 <template>
     <x-layouts-panel>
-        <template v-slot:asideLeft>
-            asideLeft!
-        </template>
-
         <template v-slot:default>
-            Dashboard!
+            Tickets Create.
         </template>
     </x-layouts-panel>
 </template>

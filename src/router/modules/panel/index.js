@@ -6,6 +6,9 @@
 
 import Index from "./../../../views/panel/index.vue";
 import Dashboard from "./../../../views/panel/dashboard.vue";
+import OrganizationRoutes from "./organization-routes";
+import TicketRoutes from "./ticket-routes.js";
+import UserRoutes from "./user-routes";
 
 const routes = [
     {
@@ -19,6 +22,9 @@ const routes = [
                 name: "panel.dashboard",
                 component: Dashboard,
             },
+            ...OrganizationRoutes,
+            ...TicketRoutes,
+            ...UserRoutes,
         ],
     },
 ];

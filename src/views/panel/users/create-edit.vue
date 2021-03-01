@@ -1,11 +1,7 @@
 <template>
     <x-layouts-panel>
-        <template v-slot:asideLeft>
-            asideLeft!
-        </template>
-
         <template v-slot:default>
-            Dashboard!
+            Users Create & Edit.
         </template>
     </x-layouts-panel>
 </template>

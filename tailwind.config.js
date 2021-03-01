@@ -43,7 +43,7 @@ module.exports = {
                 success: colors.green,
                 warning: colors.amber,
                 danger: customColors.vermilion,
-                gray: colors.warmGray,
+                gray: colors.trueGray,
             },
             fontFamily: {
                 sans: ["Inter var", ...defaultTheme.fontFamily.sans],

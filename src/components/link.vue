@@ -1,13 +1,18 @@
 <template>
-    <a :class="classes">
+    <router-link :to="to" :class="classes">
         <slot></slot>
-    </a>
+    </router-link>
 </template>
 
 <script>
 export default {
     name: "x-link",
     props: {
+        to: {
+            type: [Object, String],
+            required: false,
+            default: () => "#",
+        },
         color: {
             type: String,
             required: false,
