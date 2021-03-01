@@ -20,36 +20,38 @@
                             <ul class="space-y-4">
                                 <li>
                                     Department
-                                    <input class="block w-full py-2 px-4 border border-gray-300 rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:text-sm">
+                                    <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                        <option selected>Client Success</option>
+                                        <option>Technical Support</option>
+                                    </select>
                                 </li>
 
                                 <li>
                                     <div class="grid grid-cols-2 gap-2">
                                         <div>
                                             Status
-                                            <input class="block w-full py-2 px-4 border border-gray-300 rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:text-sm">
+                                            <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                                <option selected>Open</option>
+                                                <option>Pending</option>
+                                                <option>Closed</option>
+                                            </select>
                                         </div>
 
                                         <div>
                                             Priority
-                                            <input class="block w-full py-2 px-4 border border-gray-300 rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:text-sm">
+                                            <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                                <option>Low</option>
+                                                <option>Medium</option>
+                                                <option selected>High</option>
+                                                <option>Critical</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li>
                                     Due Time
-                                    <input class="block w-full py-2 px-4 border border-gray-300 rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:text-sm">
-                                </li>
-
-                                <li>
-                                    Linked Tickets
-                                    <input class="block w-full py-2 px-4 border border-gray-300 rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:text-sm">
-                                </li>
-
-                                <li>
-                                    Assigned Users
-                                    <input class="block w-full py-2 px-4 border border-gray-300 rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:text-sm">
+                                    <input class="block w-full py-2 px-4 border border-gray-300 rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:text-sm" value="April 1, 2021">
                                 </li>
                             </ul>
                         </x-table-data>
@@ -93,81 +95,118 @@
 
             <ul class="py-4 space-y-2 sm:px-6 sm:space-y-4">
               
-                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6">
-                  <div class="sm:flex sm:justify-between sm:items-baseline">
-                    <h3 class="text-base font-medium">
-                      <span class="text-gray-900">Joe Armstrong</span>
-                      <!-- space -->
-                      <span class="text-gray-600">wrote</span>
-                    </h3>
-                    <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
-                      <time datetime="2021-01-28T19:24">Yesterday at 7:24am</time>
-                    </p>
-                  </div>
-                  <div class="mt-4 space-y-6 text-sm text-gray-800">
-                    <p>Thanks so much! Can't wait to try it out.</p>
-                  </div>
+                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose mr-auto">
+                    <div class="sm:flex sm:justify-between sm:items-baseline">
+                        <h3 class="text-base font-medium">
+                            <span class="text-gray-900">Mark Cuban</span>
+                        </h3>
+
+                        <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
+                            <time datetime="2021-01-28T19:24">Yesterday at 7:24am</time>
+                        </p>
+                    </div>
+
+                    <div class="mt-4 space-y-6 text-sm text-gray-800">
+                        <p>Sweat equity is the most valuable equity there is. Know your business and industry better than anyone else in the world. Love what you do or don't do it.</p>
+                        
+                    </div>
                 </li>
               
-                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6">
-                  <div class="sm:flex sm:justify-between sm:items-baseline">
-                    <h3 class="text-base font-medium">
-                      <span class="text-gray-900">Monica White</span>
-                      <!-- space -->
-                      <span class="text-gray-600">wrote</span>
-                    </h3>
-                    <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
-                      <time datetime="2021-01-27T16:35">Wednesday at 4:35pm</time>
-                    </p>
-                  </div>
-                  <div class="mt-4 space-y-6 text-sm text-gray-800">
-                    
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies tincidunt elit et, enim. Habitant nunc, adipiscing non fermentum, sed est a, aliquet. Lorem in vel libero vel augue aliquet dui commodo.
-                    </p>
-                    <p>
-                    Nec malesuada sed sit ut aliquet. Cras ac pharetra, sapien purus vitae vestibulum auctor faucibus ullamcorper. Leo quam tincidunt porttitor neque, velit sed. Tortor mauris ornare ut tellus sed aliquet amet venenatis condimentum. Convallis accumsan et nunc eleifend.
-                    </p>
-                    <p>
-                    <strong style="font-weight: 600;">Monica White</strong><br>
-                    Customer Service
-                    </p>
-          
-                  </div>
+                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose ml-auto">
+                    <div class="sm:flex sm:justify-between sm:items-baseline">
+                        <h3 class="text-base font-medium">
+                            <span class="text-gray-900">Monica White</span>
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
+                            <time datetime="2021-01-27T16:35">Wednesday at 4:35pm</time>
+                        </p>
+                    </div>
+                    <div class="mt-4 space-y-6 text-sm text-gray-800">
+                        
+                        <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies tincidunt elit et, enim. Habitant nunc, adipiscing non fermentum, sed est a, aliquet. Lorem in vel libero vel augue aliquet dui commodo.
+                        </p>
+            
+                    </div>
+                </li>
+
+                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose mr-auto">
+                    <div class="sm:flex sm:justify-between sm:items-baseline">
+                        <h3 class="text-base font-medium">
+                            <span class="text-gray-900">Mark Cuban</span>
+                        </h3>
+
+                        <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
+                            <time datetime="2021-01-28T19:24">Wednesday at 6:09pm</time>
+                        </p>
+                    </div>
+
+                    <div class="mt-4 space-y-6 text-sm text-gray-800">
+                        <p>You just got to stay focused and believe in yourself and trust your own ability and judgment.</p>
+                    </div>
                 </li>
               
-                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6">
-                  <div class="sm:flex sm:justify-between sm:items-baseline">
-                    <h3 class="text-base font-medium">
-                      <span class="text-gray-900">Joe Armstrong</span>
-                      <!-- space -->
-                      <span class="text-gray-600">wrote</span>
-                    </h3>
-                    <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
-                      <time datetime="2021-01-27T16:09">Wednesday at 4:09pm</time>
-                    </p>
-                  </div>
-                  <div class="mt-4 space-y-6 text-sm text-gray-800">
-                    
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies tincidunt elit et, enim. Habitant nunc, adipiscing non fermentum, sed est a, aliquet. Lorem in vel libero vel augue aliquet dui commodo.
-            </p>
-            <p>
-              Nec malesuada sed sit ut aliquet. Cras ac pharetra, sapien purus vitae vestibulum auctor faucibus ullamcorper. Leo quam tincidunt porttitor neque, velit sed. Tortor mauris ornare ut tellus sed aliquet amet venenatis condimentum. Convallis accumsan et nunc eleifend.
-            </p>
-            <p>
-              – Joe
-            </p>
-          
-                  </div>
-                </li>
               
+                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose ml-auto">
+                    <div class="sm:flex sm:justify-between sm:items-baseline">
+                        <h3 class="text-base font-medium">
+                            <span class="text-gray-900">Monica White</span>
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
+                            <time datetime="2021-01-27T16:35">Wednesday at 4:35pm</time>
+                        </p>
+                    </div>
+                    <div class="mt-4 space-y-6 text-sm text-gray-800">
+                        
+                        <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies.
+                        </p>
+            
+                    </div>
+                </li>
+
+                <li class="bg-yellow-100 px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose ml-auto">
+                    <div class="sm:flex sm:justify-between sm:items-baseline">
+                        <h3 class="text-base font-medium">
+                            <span class="text-gray-900">Monica White</span>
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
+                            Noted on <time datetime="2021-01-27T16:35">Wednesday at 4:35pm</time>
+                        </p>
+                    </div>
+                    <div class="mt-4 space-y-6 text-sm text-gray-800">
+                        
+                        <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies tincidunt elit et, enim. Habitant nunc, adipiscing non fermentum, sed est a, aliquet. Lorem in vel libero vel augue aliquet dui commodo.
+                        </p>
+            
+                    </div>
+                </li>
             </ul>
             </div>
 
             <div class="py-4 bg-white">
                 <x-container>
-                    test
+                    <div class="flex flex-col space-y-2">
+                        <textarea rows="5" class="block w-full py-2 px-4 border border-gray-300 rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:text-sm"></textarea>
+                        <div class="flex items-center justify-between flex-shrink-0">
+                            <x-text color="muted">
+                                <span class="text-sm italic">
+                                    &check; Draft Saved at 2:00PM
+                                </span>
+                            </x-text>
+
+                            <div class="space-x-2">
+                                <x-button color="white">
+                                    Send Note
+                                </x-button>
+
+                                <x-button color="blue">
+                                    Send Reply
+                                </x-button>
+                            </div>
+                        </div>
+                    </div>
                 </x-container>
             </div>
         </template>

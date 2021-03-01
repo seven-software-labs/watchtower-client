@@ -160,7 +160,7 @@
 
                                             <x-table-data>
                                                 <x-badge color="success">
-                                                    Active
+                                                    Open
                                                 </x-badge>
                                             </x-table-data>
 
