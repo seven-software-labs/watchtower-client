@@ -1,12 +1,12 @@
 /**
- * Status Service
+ * Priority Service
  */
 
 // import RequestClient from "../request-client";
 import BaseService from "./base-service";
 
-const statusService = BaseService.create("statuses", {
+const priorityService = BaseService.create("priorities", {
     // ...
 });
 
-export default statusService;
+export default priorityService;

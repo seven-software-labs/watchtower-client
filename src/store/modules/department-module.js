@@ -1,9 +1,9 @@
 /**
- * Status Module
+ * Department Module
  */
 
 import BaseModule from "./base-module";
-import StatusService from "./../../services/modules/status-service";
+import DepartmentService from "../../services/modules/department-service";
 
 /**
  * Generate the default state.
@@ -38,15 +38,15 @@ const actions = {
     // ...
 };
 
-const statusModule = BaseModule.create({
+const departmentModule = BaseModule.create({
     state,
     getters,
     mutations,
     actions,
-    service: StatusService,
+    service: DepartmentService,
 });
 
 /**
  * Build and export the created module.
  */
-export default statusModule;
+export default departmentModule;

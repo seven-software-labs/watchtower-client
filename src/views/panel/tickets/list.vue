@@ -24,11 +24,11 @@
                     <x-table-row v-for="(status, statusIndex) in statuses" :key="'status_' + statusIndex">
                         <x-table-data>
                             <x-icon name="circle" :color="status.color"/>
-                            {{ status.label }}
+                            {{ status.name }}
                         </x-table-data>
 
                         <x-table-data align="right">
-                            <x-badge>{{ status.count }}</x-badge>
+                            <x-badge>{{ status.tickets_count }}</x-badge>
                         </x-table-data>
                     </x-table-row>
                 </tbody>
@@ -49,11 +49,11 @@
                     <x-table-row v-for="(priority, priorityIndex) in priorities" :key="'priority_' + priorityIndex">
                         <x-table-data>
                             <x-icon name="square" :color="priority.color"/>
-                            {{ priority.label }}
+                            {{ priority.name }}
                         </x-table-data>
 
                         <x-table-data align="right">
-                            <x-badge>{{ priority.count }}</x-badge>
+                            <x-badge>{{ priority.tickets_count }}</x-badge>
                         </x-table-data>
                     </x-table-row>
                 </tbody>
@@ -74,13 +74,13 @@
                     <x-table-row v-for="(department, departmentIndex) in departments" :key="'department_' + departmentIndex">
                         <x-table-data>
                             <div class="flex items-center">
-                                <x-icon name="folder-small"/>
-                                {{ department.label }}
+                                <x-icon name="folder-small" :color="department.color"/>
+                                {{ department.name }}
                             </div>
                         </x-table-data>
 
                         <x-table-data align="right">
-                            <x-badge>{{ department.count }}</x-badge>
+                            <x-badge>{{ department.tickets_count }}</x-badge>
                         </x-table-data>
                     </x-table-row>
                 </tbody>
@@ -186,74 +186,28 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
     data() {
         return {
-            statuses: [
-                {
-                    label: "Open",
-                    count: 5,
-                    color: "success",
-                },
-                {
-                    label: "Pending",
-                    count: 2,
-                    color: "warning",
-                },
-                {
-                    label: "Closed",
-                    count: 0,
-                    color: "black",
-                },
-            ],
-            priorities: [
-                {
-                    label: "Low",
-                    count: 5,
-                    color: "gray",
-                },
-                {
-                    label: "Medium",
-                    count: 5,
-                    color: "blue",
-                },
-                {
-                    label: "High",
-                    count: 5,
-                    color: "warning",
-                },
-                {
-                    label: "Critical",
-                    count: 0,
-                    color: "danger",
-                },
-            ],
-            departments: [
-                {
-                    label: "Client Success",
-                    count: 5,
-                },
-                {
-                    label: "Technical Support",
-                    count: 2,
-                },
-            ],
         };
     },
     computed: {
         ...mapGetters("statusModule", {
-            tickets: "getItems",
+            statuses: "getItems",
+        }),
+        ...mapGetters("priorityModule", {
+            priorities: "getItems",
+        }),
+        ...mapGetters("departmentModule", {
+            departments: "getItems",
         }),
     },
     created() {
-        this.fetchAllStatuses();
-    },
-    methods: {
-        ...mapActions("statusModule", {
-            fetchAllStatuses: "fetchAllItems",
-        }),
+        this.$store.dispatch("departmentModule/fetchAllItems");
+        this.$store.dispatch("priorityModule/fetchAllItems");
+        this.$store.dispatch("statusModule/fetchAllItems");
     },
 };
 </script>

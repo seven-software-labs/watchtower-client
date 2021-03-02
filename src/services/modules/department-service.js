@@ -1,12 +1,12 @@
 /**
- * Status Service
+ * Department Service
  */
 
 // import RequestClient from "../request-client";
 import BaseService from "./base-service";
 
-const statusService = BaseService.create("statuses", {
+const departmentService = BaseService.create("departments", {
     // ...
 });
 
-export default statusService;
+export default departmentService;

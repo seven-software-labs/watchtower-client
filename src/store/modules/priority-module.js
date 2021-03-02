@@ -1,9 +1,9 @@
 /**
- * Status Module
+ * Priority Module
  */
 
 import BaseModule from "./base-module";
-import StatusService from "./../../services/modules/status-service";
+import PriorityService from "../../services/modules/priority-service";
 
 /**
  * Generate the default state.
@@ -38,15 +38,15 @@ const actions = {
     // ...
 };
 
-const statusModule = BaseModule.create({
+const priorityModule = BaseModule.create({
     state,
     getters,
     mutations,
     actions,
-    service: StatusService,
+    service: PriorityService,
 });
 
 /**
  * Build and export the created module.
  */
-export default statusModule;
+export default priorityModule;

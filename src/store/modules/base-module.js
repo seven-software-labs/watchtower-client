@@ -5,7 +5,7 @@
 import Collect from "collect.js";
 
 const baseModule = {
-    create({ state = {}, getters = {}, mutations = {}, actions = {} }, service) {
+    create({ state = {}, getters = {}, mutations = {}, actions = {}, service }) {
         const generateState = (state = {}) => {
             return {
                 ...{
@@ -15,7 +15,7 @@ const baseModule = {
                 ...state,
             };
         };
-    
+
         const generateGetters = (getters = {}) => {
             return {
                 ...{
@@ -43,11 +43,24 @@ const baseModule = {
     
         const generateActions = (actions = {}) => {
             return {
-                fetchAllItems({ commit }) {
+                fetchAllItems({ commit }, payload = { commit: true }) {
                     return new Promise((resolve, reject) => {
                         const handleSuccess = (response) => {
-                            const items = Collect(response.data);
-                            commit("setItems", items);
+                            let items = response.data;
+
+                            if(payload.paginated) {
+                                items = {
+                                    ...response.data,
+                                    data: Collect(response.data.data),
+                                };
+                            } else {
+                                items = Collect(response.data.data);
+                            }
+
+                            if(payload.commit) {
+                                commit("setItems", items);
+                            }
+                            
                             resolve(items);
                         };
     
