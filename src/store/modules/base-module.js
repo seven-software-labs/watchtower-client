@@ -78,6 +78,27 @@ const baseModule = {
                             .finally(handleFinally);
                     });
                 },
+                fetchOneItem(context, id) {
+                    return new Promise((resolve, reject) => {
+                        const handleSuccess = (response) => {
+                            let item = response.data.data;
+                            resolve(item);
+                        };
+    
+                        const handleFailure = (error) => {
+                            reject(error);
+                        };
+    
+                        const handleFinally = () => {
+                            // ...
+                        };
+    
+                        service.fetchOneItem(id)
+                            .then(handleSuccess)
+                            .catch(handleFailure)
+                            .finally(handleFinally);
+                    });
+                },
                 ...actions,
             };
         };

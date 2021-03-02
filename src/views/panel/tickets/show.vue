@@ -19,39 +19,34 @@
                         <x-table-data>
                             <ul class="space-y-4">
                                 <li>
-                                    Department
-                                    <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                                        <option selected>Client Success</option>
-                                        <option>Technical Support</option>
-                                    </select>
-                                </li>
-
-                                <li>
                                     <div class="grid grid-cols-2 gap-2">
                                         <div>
                                             Status
-                                            <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                                                <option selected>Open</option>
-                                                <option>Pending</option>
-                                                <option>Closed</option>
+                                            <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md" v-model="ticket.status_id">
+                                                <option value="" v-for="(status, statusIndex) in statuses" :key="'status_' + statusIndex">
+                                                    {{ status.name }}
+                                                </option>
                                             </select>
                                         </div>
 
                                         <div>
                                             Priority
-                                            <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                                                <option>Low</option>
-                                                <option>Medium</option>
-                                                <option selected>High</option>
-                                                <option>Critical</option>
+                                            <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md" v-model="ticket.priority_id">
+                                                <option value="" v-for="(priority, priorityIndex) in priorities" :key="'priority_' + priorityIndex">
+                                                    {{ priority.name }}
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li>
-                                    Due Time
-                                    <input class="block w-full py-2 px-4 border border-gray-300 rounded-md leading-5 bg-white shadow-sm placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:text-sm" value="April 1, 2021">
+                                    Department
+                                    <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md" v-model="ticket.department_id">
+                                        <option value="" v-for="(department, departmentIndex) in departments" :key="'department_' + departmentIndex">
+                                            {{ department.name }}
+                                        </option>
+                                    </select>
                                 </li>
                             </ul>
                         </x-table-data>
@@ -81,13 +76,13 @@
                 </template>
             </x-section-header>
 
-            <x-section-header>
+            <x-section-header v-if="ticket.user">
                 <template v-slot:title>
-                    #000001 - This is a random ticket subject.
+                    #{{ ticket.id }} - {{ ticket.subject }}
                 </template>
 
                 <template v-slot:description>
-                    <x-link :to="{ name: 'users.edit', params: { user: 1 } }">Mark Cuban</x-link>, <x-link :to="{ name: 'organizations.edit', params: { organization: 1 } }">Dallas Mavericks, Inc.</x-link>
+                    <x-link :to="{ name: 'users.edit', params: { user: ticket.user.id } }">{{ ticket.user.name }}</x-link>, <x-link :to="{ name: 'organizations.edit', params: { organization: ticket.user.primary_organization.id } }">{{ ticket.user.primary_organization.name }}</x-link>
                 </template>
             </x-section-header>
 
@@ -212,3 +207,43 @@
         </template>
     </x-layouts-panel>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+    data() {
+        return {
+            ticket: {
+                department_id: null,
+                statis_id: null,
+                priority_id: null,
+            },
+        };
+    },
+    computed: {
+        ...mapGetters("statusModule", {
+            statuses: "getItems",
+        }),
+        ...mapGetters("priorityModule", {
+            priorities: "getItems",
+        }),
+        ...mapGetters("departmentModule", {
+            departments: "getItems",
+        }),
+    },
+    created() {
+        this.$store.dispatch("departmentModule/fetchAllItems");
+        this.$store.dispatch("priorityModule/fetchAllItems");
+        this.$store.dispatch("statusModule/fetchAllItems");
+        this.$store.dispatch("ticketModule/fetchOneItem", this.$route.params.ticket)
+            .then((response) => {
+                const ticket = response;
+                this.ticket = ticket;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
+};
+</script>

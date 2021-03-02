@@ -142,36 +142,39 @@
                                     </thead>
 
                                     <tbody>
-                                        <x-table-row>
+                                        <x-table-row v-for="(ticket, ticketIndex) in tickets" :key="'ticket_' + ticketIndex">
                                             <x-table-data>
                                                 <x-form-checkbox/>
                                             </x-table-data>
 
                                             <x-table-data class="flex flex-col">
-                                                <x-link :to="{ name: 'tickets.show', params: { ticket: 1 } }" class="font-medium">This is a random ticket subject.</x-link>
+                                                <x-link :to="{ name: 'tickets.show', params: { ticket: ticket.id } }" class="font-medium">
+                                                    {{ ticket.subject }}
+                                                </x-link>
+
                                                 <x-text color="muted">
-                                                    Mark Cuban, Dallas Mavericks, Inc.
+                                                    {{ ticket.user.name }}, {{ ticket.user.primary_organization.name }}
                                                 </x-text>
                                             </x-table-data>
 
                                             <x-table-data>
-                                                Client Success
+                                                {{ ticket.department.name }}
                                             </x-table-data>
 
                                             <x-table-data>
-                                                <x-badge color="success">
-                                                    Open
+                                                <x-badge :color="ticket.status.color">
+                                                    {{ ticket.status.name }}
                                                 </x-badge>
                                             </x-table-data>
 
                                             <x-table-data>
-                                                <x-badge color="warning">
-                                                    High
+                                                <x-badge :color="ticket.priority.color">
+                                                    {{ ticket.priority.name }}
                                                 </x-badge>
                                             </x-table-data>
 
                                             <x-table-data>
-                                                2 hours ago
+                                                <!-- {{ ticket.created_at }} -->
                                             </x-table-data>
                                         </x-table-row>
                                     </tbody>
@@ -189,10 +192,6 @@
 import { mapGetters } from "vuex";
 
 export default {
-    data() {
-        return {
-        };
-    },
     computed: {
         ...mapGetters("statusModule", {
             statuses: "getItems",
@@ -203,11 +202,15 @@ export default {
         ...mapGetters("departmentModule", {
             departments: "getItems",
         }),
+        ...mapGetters("ticketModule", {
+            tickets: "getItems",
+        }),
     },
     created() {
         this.$store.dispatch("departmentModule/fetchAllItems");
         this.$store.dispatch("priorityModule/fetchAllItems");
         this.$store.dispatch("statusModule/fetchAllItems");
+        this.$store.dispatch("ticketModule/fetchAllItems");
     },
 };
 </script>

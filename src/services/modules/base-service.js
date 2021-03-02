@@ -10,7 +10,7 @@ const baseService = {
             fetchAllItems(payload) {
                 return RequestClient.get(`/${endpoint}`, { params: payload });
             },
-            fetchItem(id, payload) {
+            fetchOneItem(id, payload) {
                 return RequestClient.get(`/${endpoint}/${id}`, { params: payload });
             },
             ...customFunctions,
