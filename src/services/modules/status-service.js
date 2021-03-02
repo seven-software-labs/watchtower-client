@@ -2,15 +2,16 @@
  * Status Service
  */
 
-import requestClient from "../request-client";
+import RequestClient from "../request-client";
+import BaseService from "./base-service";
 
-const statusService = {
+const statusService = BaseService.create({
     fetchAllItems(payload) {
-        return requestClient.get("/statuses", { params: payload });
+        return RequestClient.get("/statuses", { params: payload });
     },
     fetchItem(id, payload) {
-        return requestClient.get(`/statuses/${id}`, { params: payload });
+        return RequestClient.get(`/statuses/${id}`, { params: payload });
     },
-};
+});
 
 export default statusService;
