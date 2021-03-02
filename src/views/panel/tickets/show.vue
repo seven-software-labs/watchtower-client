@@ -88,12 +88,11 @@
 
             <div class="max-h-full border-b border-gray-200 overflow-x-hidden overflow-y-auto">
 
-            <ul class="py-4 space-y-2 sm:px-6 sm:space-y-4">
-              
-                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose mr-auto">
+            <ul class="py-4 space-y-2 sm:px-6 sm:space-y-4" v-if="ticket.messages">
+                <li class="px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose" :class="message.message_type_id == 1 ? 'bg-white':'bg-yellow-100'" v-for="(message, messageIndex) in ticket.messages" :key="'message_' + messageIndex">
                     <div class="sm:flex sm:justify-between sm:items-baseline">
                         <h3 class="text-base font-medium">
-                            <span class="text-gray-900">Mark Cuban</span>
+                            <span class="text-gray-900">{{ message.user.name }}</span>
                         </h3>
 
                         <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
@@ -102,8 +101,7 @@
                     </div>
 
                     <div class="mt-4 space-y-6 text-sm text-gray-800">
-                        <p>Sweat equity is the most valuable equity there is. Know your business and industry better than anyone else in the world. Love what you do or don't do it.</p>
-                        
+                        <p v-html="message.content"></p>
                     </div>
                 </li>
               
