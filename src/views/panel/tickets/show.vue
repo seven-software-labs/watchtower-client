@@ -86,96 +86,25 @@
                 </template>
             </x-section-header>
 
-            <div class="max-h-full border-b border-gray-200 overflow-x-hidden overflow-y-auto">
+            <div class="h-full border-b border-gray-200 overflow-x-hidden overflow-y-auto">
 
-            <ul class="py-4 space-y-2 sm:px-6 sm:space-y-4" v-if="ticket.messages">
-                <li class="px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose" :class="message.message_type_id == 1 ? 'bg-white':'bg-yellow-100'" v-for="(message, messageIndex) in ticket.messages" :key="'message_' + messageIndex">
-                    <div class="sm:flex sm:justify-between sm:items-baseline">
-                        <h3 class="text-base font-medium">
-                            <span class="text-gray-900">{{ message.user.name }}</span>
-                        </h3>
+                <ul class="h-full py-4 space-y-2 sm:px-6 sm:space-y-4" v-if="ticket.messages">
+                    <li class="px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose" :class="(message.message_type_id == 1 ? 'bg-white':'bg-yellow-100') + ' ' + (message.user.is_customer ? 'mr-auto':'ml-auto')" v-for="(message, messageIndex) in ticket.messages" :key="'message_' + messageIndex">
+                        <div class="sm:flex sm:justify-between sm:items-baseline">
+                            <h3 class="text-base font-medium">
+                                <span class="text-gray-900">{{ message.user.name }}</span>
+                            </h3>
 
-                        <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
-                            <time datetime="2021-01-28T19:24">Yesterday at 7:24am</time>
-                        </p>
-                    </div>
+                            <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
+                                <time datetime="2021-01-28T19:24">Yesterday at 7:24am</time>
+                            </p>
+                        </div>
 
-                    <div class="mt-4 space-y-6 text-sm text-gray-800">
-                        <p v-html="message.content"></p>
-                    </div>
-                </li>
-              
-                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose ml-auto">
-                    <div class="sm:flex sm:justify-between sm:items-baseline">
-                        <h3 class="text-base font-medium">
-                            <span class="text-gray-900">Monica White</span>
-                        </h3>
-                        <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
-                            <time datetime="2021-01-27T16:35">Wednesday at 4:35pm</time>
-                        </p>
-                    </div>
-                    <div class="mt-4 space-y-6 text-sm text-gray-800">
-                        
-                        <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies tincidunt elit et, enim. Habitant nunc, adipiscing non fermentum, sed est a, aliquet. Lorem in vel libero vel augue aliquet dui commodo.
-                        </p>
-            
-                    </div>
-                </li>
-
-                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose mr-auto">
-                    <div class="sm:flex sm:justify-between sm:items-baseline">
-                        <h3 class="text-base font-medium">
-                            <span class="text-gray-900">Mark Cuban</span>
-                        </h3>
-
-                        <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
-                            <time datetime="2021-01-28T19:24">Wednesday at 6:09pm</time>
-                        </p>
-                    </div>
-
-                    <div class="mt-4 space-y-6 text-sm text-gray-800">
-                        <p>You just got to stay focused and believe in yourself and trust your own ability and judgment.</p>
-                    </div>
-                </li>
-              
-              
-                <li class="bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose ml-auto">
-                    <div class="sm:flex sm:justify-between sm:items-baseline">
-                        <h3 class="text-base font-medium">
-                            <span class="text-gray-900">Monica White</span>
-                        </h3>
-                        <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
-                            <time datetime="2021-01-27T16:35">Wednesday at 4:35pm</time>
-                        </p>
-                    </div>
-                    <div class="mt-4 space-y-6 text-sm text-gray-800">
-                        
-                        <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies.
-                        </p>
-            
-                    </div>
-                </li>
-
-                <li class="bg-yellow-100 px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose ml-auto">
-                    <div class="sm:flex sm:justify-between sm:items-baseline">
-                        <h3 class="text-base font-medium">
-                            <span class="text-gray-900">Monica White</span>
-                        </h3>
-                        <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
-                            Noted on <time datetime="2021-01-27T16:35">Wednesday at 4:35pm</time>
-                        </p>
-                    </div>
-                    <div class="mt-4 space-y-6 text-sm text-gray-800">
-                        
-                        <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies tincidunt elit et, enim. Habitant nunc, adipiscing non fermentum, sed est a, aliquet. Lorem in vel libero vel augue aliquet dui commodo.
-                        </p>
-            
-                    </div>
-                </li>
-            </ul>
+                        <div class="mt-4 space-y-6 text-sm text-gray-800">
+                            <p v-html="message.content"></p>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <div class="py-4 bg-white">
