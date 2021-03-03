@@ -76,20 +76,28 @@
                 </template>
             </x-section-header>
 
-            <x-section-header v-if="ticket.user">
+            <x-section-header v-if="ticket && ticket.user">
                 <template v-slot:title>
                     #{{ ticket.id }} - {{ ticket.subject }}
                 </template>
 
                 <template v-slot:description>
-                    <x-link :to="{ name: 'users.edit', params: { user: ticket.user.id } }">{{ ticket.user.name }}</x-link>, <x-link :to="{ name: 'organizations.edit', params: { organization: ticket.user.primary_organization.id } }">{{ ticket.user.primary_organization.name }}</x-link>
+                    <x-link :to="{ name: 'users.edit', params: { user: ticket.user.id } }" v-if="ticket.user">
+                        {{ ticket.user.name }}
+                    </x-link>
+                    <span v-if="ticket.user.primary_organization">
+                        ,
+                        <x-link :to="{ name: 'organizations.edit', params: { organization: ticket.user.primary_organization.id } }">
+                            {{ ticket.user.primary_organization.name }}
+                        </x-link>
+                    </span>
                 </template>
             </x-section-header>
 
             <div class="h-full border-b border-gray-200 overflow-x-hidden overflow-y-auto">
 
-                <ul class="h-full py-4 space-y-2 sm:px-6 sm:space-y-4" v-if="ticket.messages">
-                    <li class="px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-prose" :class="(message.message_type_id == 1 ? 'bg-white':'bg-yellow-100') + ' ' + (message.user.is_customer ? 'mr-auto':'ml-auto')" v-for="(message, messageIndex) in ticket.messages" :key="'message_' + messageIndex">
+                <ul class="h-full py-4 space-y-2 sm:px-6 sm:space-y-4 overflow-x-hidden overflow-y-auto" v-if="ticket.messages">
+                    <li class="px-4 py-6 shadow sm:rounded-lg sm:px-6 max-w-3xl " :class="(message.message_type_id == 1 ? 'bg-white':'bg-yellow-100') + ' ' + (message.user.is_customer ? 'mr-auto':'ml-auto')" v-for="(message, messageIndex) in ticket.messages" :key="'message_' + messageIndex">
                         <div class="sm:flex sm:justify-between sm:items-baseline">
                             <h3 class="text-base font-medium">
                                 <span class="text-gray-900">{{ message.user.name }}</span>
@@ -100,8 +108,8 @@
                             </p>
                         </div>
 
-                        <div class="mt-4 space-y-6 text-sm text-gray-800">
-                            <p v-html="message.content"></p>
+                        <div class="mt-4 space-y-6 text-sm text-gray-800" v-if="message">
+                            <x-iframe :content="message.content"/>
                         </div>
                     </li>
                 </ul>

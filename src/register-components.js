@@ -20,6 +20,7 @@ import CardContent from "./components/card-content.vue";
 import Container from "./components/container.vue";
 import FormCheckbox from "./components/form/checkbox.vue";
 import Icon from "./components/icon.vue";
+import Iframe from "./components/iframe.vue";
 import SectionHeader from "./components/section-header.vue";
 import Table from "./components/table.vue";
 import TableTata from "./components/table-data.vue";
@@ -36,6 +37,7 @@ const components = {
     "x-container": Container,
     "x-form-checkbox": FormCheckbox,
     "x-icon": Icon,
+    "x-iframe": Iframe,
     "x-section-header": SectionHeader,
     "x-table": Table,
     "x-table-data": TableTata,
