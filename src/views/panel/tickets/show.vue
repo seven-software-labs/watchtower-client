@@ -104,7 +104,7 @@
                             </h3>
 
                             <p class="mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
-                                <time datetime="2021-01-28T19:24">Yesterday at 7:24am</time>
+                                <time datetime="2021-01-28T19:24">{{ message.source_created_at }}</time>
                             </p>
                         </div>
 
