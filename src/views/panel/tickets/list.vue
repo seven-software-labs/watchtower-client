@@ -174,7 +174,7 @@
                                             </x-table-data>
 
                                             <x-table-data>
-                                                <!-- {{ ticket.created_at }} -->
+                                                {{ ticket.last_reply }}
                                             </x-table-data>
                                         </x-table-row>
                                     </tbody>
