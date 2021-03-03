@@ -2,14 +2,14 @@
     <!--
         Return an anchor element if there's an href.
     -->
-    <a :href="href" :class="classes" v-if="href">
+    <a :href="href" :class="classes" v-bind="attrs" v-if="href">
         <slot></slot>
     </a>
 
     <!--
         Return a button element if there's no href.
     -->
-    <button :class="classes" v-else>
+    <button :class="classes" v-bind="attrs" v-else>
         <slot></slot>
     </button>
 </template>
@@ -38,6 +38,11 @@ export default {
             type: String,
             required: false,
             default: () => "rounded",
+        },
+    },
+    computed: {
+        attrs() {
+            return this.$attrs;
         },
     },
     setup(props) {

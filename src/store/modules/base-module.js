@@ -99,6 +99,28 @@ const baseModule = {
                             .finally(handleFinally);
                     });
                 },
+                storeItem(context, payload = {}) {
+                    return new Promise((resolve, reject) => {
+                        const handleSuccess = (response) => {
+                            console.log("storeItem", response);
+                            let item = response.data;
+                            resolve(item);
+                        };
+    
+                        const handleFailure = (error) => {
+                            reject(error);
+                        };
+    
+                        const handleFinally = () => {
+                            // ...
+                        };
+    
+                        service.storeItem(payload)
+                            .then(handleSuccess)
+                            .catch(handleFailure)
+                            .finally(handleFinally);
+                    });
+                },
                 ...actions,
             };
         };

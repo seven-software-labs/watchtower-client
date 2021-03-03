@@ -3,7 +3,7 @@
         <iframe 
             scrolling="no"
             :id="identifier" 
-            :style="`width: 100%; height: ${height}px; overflow: hidden;`" 
+            :style="`width: 100%; height: ${height + 25}px; overflow: hidden;`" 
             :srcdoc="content" 
             @load="resizeIframe"/>
     </div>
