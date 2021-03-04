@@ -6,7 +6,7 @@
 
         <!-- Left Column -->
         <aside class="hidden xl:block xl:flex-shrink-0 xl:order-first" v-if="showAsideLeft">
-            <div class="h-full relative w-72 border-r border-gray-200 bg-gray-100">
+            <div class="h-full relative w-72 border-r border-gray-200 bg-white">
                 <slot name="asideLeft"></slot>
             </div>
         </aside>
