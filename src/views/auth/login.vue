@@ -45,8 +45,6 @@
 </template>
 
 <script>
-import AuthService from "./../../services/modules/auth-service";
-
 export default {
     data() {
         return {
@@ -58,7 +56,7 @@ export default {
     },
     methods: {
         submitLoginForm(payload) {
-            AuthService.login(payload)
+            this.$store.dispatch("authModule/login", payload)
                 .then(() => {
                     this.$router.push({
                         name: "tickets.list"

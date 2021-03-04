@@ -3,6 +3,7 @@
  */
 
 import Axios from "axios";
+import RequestClient from "../request-client";
 
 const authRequestClient = Axios.create({
     baseURL: "http://localhost:8000/",
@@ -31,6 +32,9 @@ const authService = {
     },
     resetPassword() {
         // ...
+    },
+    me(payload) {
+        return RequestClient.get("/me", payload);
     },
 };
 

@@ -9,6 +9,7 @@ import Dashboard from "./../../../views/panel/dashboard.vue";
 import OrganizationRoutes from "./organization-routes";
 import TicketRoutes from "./ticket-routes.js";
 import UserRoutes from "./user-routes";
+import Store from "./../../../store/index";
 
 const routes = [
     {
@@ -26,6 +27,21 @@ const routes = [
             ...TicketRoutes,
             ...UserRoutes,
         ],
+        beforeEnter: (to, from, next) => {
+            const user = Store.getters["authModule/getUser"];
+
+            if(!user) {
+                Store.dispatch("authModule/fetchUser")
+                    .then(() => {
+                        next();
+                    })
+                    .catch(() => {
+                        next({ name: "auth.logout" });
+                    });
+            } else {
+                next();
+            }
+        },
     },
 ];
 
