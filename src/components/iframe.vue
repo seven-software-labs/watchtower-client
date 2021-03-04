@@ -49,13 +49,13 @@ export default {
         resizeIframe() {
             const frame = document.getElementById(this.identifier);
             const frameScrollHeight = frame.contentWindow.document.body.scrollHeight;
-            const frameOffsetHeight = frame.contentWindow.document.body.offsetHeight;
+            // const frameOffsetHeight = frame.contentWindow.document.body.offsetHeight;
             this.height = frameScrollHeight;
 
-            console.table([
-                ["Scroll Height", "Offset Height"],
-                [frameScrollHeight, frameOffsetHeight],
-            ]);
+            // console.table([
+            //     ["Scroll Height", "Offset Height"],
+            //     [frameScrollHeight, frameOffsetHeight],
+            // ]);
         },
     },
 };

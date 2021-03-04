@@ -16,15 +16,17 @@
                 </thead>
 
                 <tbody>
-                    <x-table-row>
+                    <x-table-row v-for="(organization, organizationIndex) in organizations" :key="'organization_' + organizationIndex">
                         <x-table-data>
                             <x-link href="#">
-                                O'Leary Funds
+                                {{ organization.name }}
                             </x-link>
                         </x-table-data>
 
                         <x-table-data align="right">
-                            <x-badge>15</x-badge>
+                            <x-badge>
+                                {{ organization.users_count }}
+                            </x-badge>
                         </x-table-data>
                     </x-table-row>
                 </tbody>
@@ -32,3 +34,18 @@
         </template>
     </x-layouts-panel>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+    computed: {
+        ...mapGetters("organizationModule", {
+            organizations: "getItems",
+        }),
+    },
+    created() {
+        this.$store.dispatch("organizationModule/fetchAllItems");
+    },
+};
+</script>
