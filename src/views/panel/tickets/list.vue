@@ -7,84 +7,62 @@
                 </template>
             </x-section-header>
 
-            <x-table>
-                <thead>
-                    <x-table-row>
-                        <x-table-header>
-                            Statuses
-                        </x-table-header>
+            <div>
+                <x-vertical-menu-header>
+                    Statuses
+                </x-vertical-menu-header>
 
-                        <x-table-header>
-                            <span class="sr-only">Count</span>
-                        </x-table-header>
-                    </x-table-row>
-                </thead>
-
-                <tbody>
-                    <x-table-row v-for="(status, statusIndex) in statuses" :key="'status_' + statusIndex">
-                        <x-table-data>
+                <x-vertical-menu-item v-for="(status, statusIndex) in statuses" :key="'status_' + statusIndex">
+                    <div class="flex items-center justify-between">
+                        <div>
                             <x-icon name="circle" :color="status.color"/>
                             {{ status.name }}
-                        </x-table-data>
+                        </div>
 
-                        <x-table-data align="right">
-                            <x-badge>{{ status.tickets_count }}</x-badge>
-                        </x-table-data>
-                    </x-table-row>
-                </tbody>
-                
-                <thead>
-                    <x-table-row>
-                        <x-table-header>
-                            Priorities
-                        </x-table-header>
+                        <x-badge>
+                            {{ status.tickets_count }}
+                        </x-badge>
+                    </div>
+                </x-vertical-menu-item>
+            </div>
 
-                        <x-table-header>
-                            <span class="sr-only">Count</span>
-                        </x-table-header>
-                    </x-table-row>
-                </thead>
+            <div>
+                <x-vertical-menu-header>
+                    Priorities
+                </x-vertical-menu-header>
 
-                <tbody>
-                    <x-table-row v-for="(priority, priorityIndex) in priorities" :key="'priority_' + priorityIndex">
-                        <x-table-data>
-                            <x-icon name="square" :color="priority.color"/>
+                <x-vertical-menu-item v-for="(priority, priorityIndex) in priorities" :key="'priority_' + priorityIndex">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <x-icon name="circle" :color="priority.color"/>
                             {{ priority.name }}
-                        </x-table-data>
+                        </div>
 
-                        <x-table-data align="right">
-                            <x-badge>{{ priority.tickets_count }}</x-badge>
-                        </x-table-data>
-                    </x-table-row>
-                </tbody>
-                
-                <thead>
-                    <x-table-row>
-                        <x-table-header>
-                            Departments
-                        </x-table-header>
+                        <x-badge>
+                            {{ priority.tickets_count }}
+                        </x-badge>
+                    </div>
+                </x-vertical-menu-item>
+            </div>
 
-                        <x-table-header>
-                            <span class="sr-only">Count</span>
-                        </x-table-header>
-                    </x-table-row>
-                </thead>
+            <div>
+                <x-vertical-menu-header>
+                    Departments
+                </x-vertical-menu-header>
 
-                <tbody>
-                    <x-table-row v-for="(department, departmentIndex) in departments" :key="'department_' + departmentIndex">
-                        <x-table-data>
-                            <div class="flex items-center">
-                                <x-icon name="folder-small" :color="department.color"/>
-                                {{ department.name }}
-                            </div>
-                        </x-table-data>
+                <x-vertical-menu-item v-for="(department, departmentIndex) in departments" :key="'department_' + departmentIndex">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <x-icon name="folder-small" :color="department.color"/>
+                            {{ department.name }}
+                        </div>
 
-                        <x-table-data align="right">
-                            <x-badge>{{ department.tickets_count }}</x-badge>
-                        </x-table-data>
-                    </x-table-row>
-                </tbody>
-            </x-table>
+                        <x-badge>
+                            {{ department.tickets_count }}
+                        </x-badge>
+                    </div>
+                </x-vertical-menu-item>
+            </div>
         </template>
 
         <template v-slot:default>

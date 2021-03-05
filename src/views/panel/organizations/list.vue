@@ -18,7 +18,7 @@
                 <tbody>
                     <x-table-row v-for="(organization, organizationIndex) in organizations" :key="'organization_' + organizationIndex">
                         <x-table-data>
-                            <x-link href="#">
+                            <x-link :to="{ name: 'organizations.edit', params: { organization: organization.id } }">
                                 {{ organization.name }}
                             </x-link>
                         </x-table-data>
@@ -40,12 +40,12 @@ import { mapGetters } from "vuex";
 
 export default {
     computed: {
-        ...mapGetters("organizationModule", {
+        ...mapGetters("organizationModule/organizationModule", {
             organizations: "getItems",
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/organizationModule/fetchAllItems");
     },
 };
 </script>
