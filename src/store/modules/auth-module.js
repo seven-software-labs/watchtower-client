@@ -3,6 +3,7 @@
  */
 
 import AuthService from "../../services/modules/auth-service";
+import Cookies from "js-cookie";
 
 /**
  * Generate the default state.
@@ -60,6 +61,7 @@ const actions = {
             const handleSuccess = (response) => {
                 const user = response.data.data;
                 commit("setUser", user);
+                Cookies.set("user", user);
                 resolve(user);
             };
 

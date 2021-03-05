@@ -5,7 +5,7 @@
 import Collect from "collect.js";
 
 const baseModule = {
-    create({ state = {}, getters = {}, mutations = {}, actions = {}, service }) {
+    create({ state = {}, getters = {}, mutations = {}, actions = {}, modules = {}, service }) {
         const generateState = (state = {}) => {
             return {
                 ...{
@@ -131,6 +131,7 @@ const baseModule = {
             getters: generateGetters(getters),
             mutations: generateMutations(mutations),
             actions: generateActions(actions),
+            modules,
         };
     },
 };

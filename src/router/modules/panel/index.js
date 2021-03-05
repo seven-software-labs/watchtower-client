@@ -9,6 +9,7 @@ import Dashboard from "./../../../views/panel/dashboard.vue";
 import OrganizationRoutes from "./organization-routes";
 import TicketRoutes from "./ticket-routes.js";
 import UserRoutes from "./user-routes";
+import SettingsRoutes from "./settings-routes";
 import Store from "./../../../store/index";
 
 const routes = [
@@ -26,6 +27,7 @@ const routes = [
             ...OrganizationRoutes,
             ...TicketRoutes,
             ...UserRoutes,
+            ...SettingsRoutes,
         ],
         beforeEnter: (to, from, next) => {
             const user = Store.getters["authModule/getUser"];

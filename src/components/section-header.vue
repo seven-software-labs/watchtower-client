@@ -2,7 +2,7 @@
     <div class="flex-shrink-0 bg-white border-b border-gray-200">
         <x-container class="py-4 bg-white flex flex-col justify-center">
             <div class="flex">
-                <div :class="showDescription ? '':'py-1.5 mt-0.5'">
+                <div class="" :class="showDescription ? '':'py-1.5 mt-0.5'">
                     <h2 class="text-ls font-medium text-gray-900">
                         <slot name="title"></slot>
                     </h2>

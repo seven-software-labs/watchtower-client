@@ -2,9 +2,9 @@
     <!--
         Return an anchor element if there's an href.
     -->
-    <a :href="href" :class="classes" v-bind="attrs" v-if="href">
+    <router-link :to="to" :class="classes" v-bind="attrs" v-if="to">
         <slot></slot>
-    </a>
+    </router-link>
 
     <!--
         Return a button element if there's no href.
@@ -19,10 +19,10 @@ export default {
     name: "x-button",
     inheritAttrs: false,
     props: {
-        href: {
-            type: String,
+        to: {
+            type: [Object, String],
             required: false,
-            default: () => "",
+            default: () => null,
         },
         color: {
             type: String,
@@ -53,7 +53,7 @@ export default {
         const colors = {
             primary: "border-primary-500 text-white bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-secondary-500 focus:ring-primary-500",
             blue: "border-blue-500 text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 focus:ring-blue-600",
-            white: "bg-white border-gray-300 text-gray-900 hover:bg-gray-50 focus:ring-gray-900",
+            white: "bg-white border-gray-300 text-gray-900 hover:bg-gray-100 focus:ring-gray-900",
         };
 
         // List of available sizes for the component.

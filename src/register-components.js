@@ -17,8 +17,14 @@ import Badge from "./components/badge.vue";
 import Button from "./components/button.vue";
 import Card from "./components/card.vue";
 import CardContent from "./components/card-content.vue";
+import CardFooter from "./components/card-footer.vue";
 import Container from "./components/container.vue";
+import Form from "./components/form/form.vue";
 import FormCheckbox from "./components/form/checkbox.vue";
+import FormGroup from "./components/form/group.vue";
+import FormInput from "./components/form/input.vue";
+import FormLabel from "./components/form/label.vue";
+import FormSelect from "./components/form/select.vue";
 import Icon from "./components/icon.vue";
 import Iframe from "./components/iframe.vue";
 import SectionHeader from "./components/section-header.vue";
@@ -34,8 +40,14 @@ const components = {
     "x-button": Button,
     "x-card": Card,
     "x-card-content": CardContent,
+    "x-card-footer": CardFooter,
     "x-container": Container,
+    "x-form": Form,
     "x-form-checkbox": FormCheckbox,
+    "x-form-group": FormGroup,
+    "x-form-input": FormInput,
+    "x-form-label": FormLabel,
+    "x-form-select": FormSelect,
     "x-icon": Icon,
     "x-iframe": Iframe,
     "x-section-header": SectionHeader,

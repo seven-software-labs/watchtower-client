@@ -6,6 +6,7 @@
 
 import { createStore } from "vuex";
 import AuthModule from "./modules/auth-module.js";
+import ChannelModule from "./modules/channel-module.js";
 import DepartmentModule from "./modules/department-module.js";
 import MessageModule from "./modules/message-module.js";
 import OrganizationModule from "./modules/organizations-module.js";
@@ -18,6 +19,7 @@ import UserModule from "./modules/user-module.js";
 const store = createStore({
     modules: {
         authModule: AuthModule,
+        channelModule: ChannelModule,
         statusModule: StatusModule,
         departmentModule: DepartmentModule,
         messageModule: MessageModule,
