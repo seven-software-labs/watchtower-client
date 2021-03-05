@@ -191,24 +191,24 @@ import { mapGetters } from "vuex";
 
 export default {
     computed: {
-        ...mapGetters("statusModule", {
+        ...mapGetters("organizationModule/statusModule", {
             statuses: "getItems",
         }),
-        ...mapGetters("priorityModule", {
+        ...mapGetters("organizationModule/priorityModule", {
             priorities: "getItems",
         }),
-        ...mapGetters("departmentModule", {
+        ...mapGetters("organizationModule/departmentModule", {
             departments: "getItems",
         }),
-        ...mapGetters("ticketModule", {
+        ...mapGetters("organizationModule/ticketModule", {
             tickets: "getItems",
         }),
     },
     created() {
-        this.$store.dispatch("departmentModule/fetchAllItems");
-        this.$store.dispatch("priorityModule/fetchAllItems");
-        this.$store.dispatch("statusModule/fetchAllItems");
-        this.$store.dispatch("ticketModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/ticketModule/fetchAllItems");
     },
 };
 </script>

@@ -56,7 +56,7 @@ const organizationModule = BaseModule.create({
         organizationModule: BaseModule.create({
             service: OrganizationService.organizations(),
         }),
-        prioritieModule: BaseModule.create({
+        priorityModule: BaseModule.create({
             service: OrganizationService.priorities(),
         }),
         statusModule: BaseModule.create({
