@@ -31,17 +31,7 @@
                             </x-form-select>
                         </x-form-group>
 
-                        <x-form-group class="col-span-2">
-                            <x-form-label>Organization</x-form-label>
-                            <x-form-select name="is_active" v-model="createEditForm.organization_id" :required="true">
-                                <option :value="null">Select Organization</option>
-                                <option :value="organizationOption.id" v-for="(organizationOption, organizationOptionIndex) in organizations" :key="'organizationOption_' + organizationOptionIndex">
-                                    {{ organizationOption.name}}
-                                </option>
-                            </x-form-select>
-                        </x-form-group>
-
-                        <x-form-group class="col-span-2">
+                        <x-form-group class="col-span-3">
                             <x-form-label>Department</x-form-label>
                             <x-form-select name="is_active" v-model="createEditForm.department_id" :required="true">
                                 <option :value="null">Select Department</option>
@@ -51,7 +41,7 @@
                             </x-form-select>
                         </x-form-group>
 
-                        <x-form-group class="col-span-2">
+                        <x-form-group class="col-span-3">
                             <x-form-label>Status</x-form-label>
                             <x-form-select name="is_active" v-model="createEditForm.is_active" :required="true">
                                 <option :value="1">Active</option>
@@ -102,7 +92,6 @@ export default {
             createEditForm: {
                 channel_id: null,
                 department_id: null,
-                organization_id: null,
                 is_active: 0,
                 name: "",
                 settings: {},
@@ -110,9 +99,6 @@ export default {
         };
     },
     computed: {
-        ...mapGetters("organizationModule/organizationModule", {
-            organizations: "getItems",
-        }),
         ...mapGetters("organizationModule/departmentModule", {
             departments: "getItems",
         }),
@@ -155,7 +141,6 @@ export default {
                 // Lets set the channel information.
                 this.createEditForm.name = channel.name;
                 this.createEditForm.department_id = channel.department_id;
-                this.createEditForm.organization_id = channel.organization_id;
                 this.createEditForm.is_active = channel.is_active;
                 // We add the settings values to the form.
                 Object.keys(settings).forEach((key) => {
