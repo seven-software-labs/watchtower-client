@@ -24,7 +24,7 @@ const organizationRoutes = [
                 component: ChannelsCreateEdit,
             },
             {
-                path: "channels/:pivot_id/edit",
+                path: "channels/:channel_organization_id/edit",
                 name: "settings.channels.edit",
                 component: ChannelsCreateEdit,
             },

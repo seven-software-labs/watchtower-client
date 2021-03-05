@@ -6,49 +6,47 @@
             </template>
         </x-section-header>
 
-        <x-section-header>
-            <template v-slot:toolbar>
-                <x-button :to="{ name: 'settings.channels.create' }" color="blue">
-                    Add Channel
-                </x-button>
-            </template>
-        </x-section-header>
+        <x-section-toolbar>
+            <x-button :to="{ name: 'settings.channels.create' }" color="blue">
+                Add Channel
+            </x-button>
+        </x-section-toolbar>
 
         <x-table>
             <thead>
                 <x-table-row>
                     <x-table-header>Nickname</x-table-header>
                     <x-table-header>Channel</x-table-header>
-                    <x-table-header>Tickets</x-table-header>
+                    <x-table-header>Department</x-table-header>
                     <x-table-header>Status</x-table-header>
                 </x-table-row>
             </thead>
 
             <tbody>
-                <x-table-row v-for="(channel, channelIndex) in channels" :key="'channel_' + channelIndex">
+                <x-table-row v-for="(channelOrganization, channelOrganizationIndex) in channelOrganizations" :key="'channelOrganization_' + channelOrganizationIndex">
                     <x-table-data>
-                        <x-link :to="{ name: 'settings.channels.edit', params: { pivot_id: channel.pivot.id } }">
-                            {{ channel.pivot.name }}
+                        <x-link :to="{ name: 'settings.channels.edit', params: { channel_organization_id: channelOrganization.id } }">
+                            {{ channelOrganization.name }}
                         </x-link>
                     </x-table-data>
                     
                     <x-table-data>
-                        {{ channel.name }}
+                        {{ channelOrganization.channel.name }}
                     </x-table-data>
                     
                     <x-table-data>
-                        <x-badge>{{ channel.tickets_count }}</x-badge>
+                        {{ channelOrganization.department.name }}
                     </x-table-data>
                     
                     <x-table-data>
-                        <x-badge :color="channel.pivot.is_active ? 'green':'gray'">
-                            <span v-if="channel.pivot.is_active">Active</span>
+                        <x-badge :color="channelOrganization.is_active ? 'green':'gray'">
+                            <span v-if="channelOrganization.is_active">Active</span>
                             <span v-else>Disabled</span>
                         </x-badge>
                     </x-table-data>
                 </x-table-row>
 
-                <x-table-row v-if="!channels">
+                <x-table-row v-if="!channelOrganizations">
                     <x-table-data align="center">
                         No results found.
                     </x-table-data>
@@ -64,7 +62,7 @@ import { mapGetters } from "vuex";
 export default {
     computed: {
         ...mapGetters("organizationModule/channelModule", {
-            channels: "getItems",
+            channelOrganizations: "getItems",
         }),
     },
     created() {

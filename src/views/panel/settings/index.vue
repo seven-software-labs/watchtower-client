@@ -7,55 +7,15 @@
                 </template>
             </x-section-header>
 
-            <x-table>
-                <thead>
-                    <x-table-row>
-                        <x-table-header>
-                            Organization Settings
-                        </x-table-header>
-                    </x-table-row>
-                </thead>
+            <div v-for="(menu, menuIndex) in menu" :key="'menu_' + menuIndex">
+                <x-vertical-menu-header>
+                    {{ menu.header }}
+                </x-vertical-menu-header>
 
-                <tbody>
-                    <x-table-row>
-                        <x-table-data>General</x-table-data>
-                    </x-table-row>
-
-                    <x-table-row>
-                        <x-table-data>Channels</x-table-data>
-                    </x-table-row>
-                </tbody>
-            </x-table>
-
-            <x-table>
-                <thead>
-                    <x-table-row>
-                        <x-table-header>
-                            Data Management
-                        </x-table-header>
-                    </x-table-row>
-                </thead>
-
-                <tbody>
-                    <x-table-row>
-                        <x-table-data>
-                            Departments
-                        </x-table-data>
-                    </x-table-row>
-
-                    <x-table-row>
-                        <x-table-data>
-                            Priorities
-                        </x-table-data>
-                    </x-table-row>
-
-                    <x-table-row>
-                        <x-table-data>
-                            Statuses
-                        </x-table-data>
-                    </x-table-row>
-                </tbody>
-            </x-table>
+                <x-vertical-menu-item :to="menuItem.route" :active="$route.name == menuItem.route.name" v-for="(menuItem, menuItemIndex) in menu.items" :key="'menuItem_' + menuItemIndex">
+                    {{ menuItem.label }}
+                </x-vertical-menu-item>
+            </div>
         </template>
 
         <template v-slot:default>
@@ -65,5 +25,45 @@
 </template>
 
 <script>
-
+export default {
+    data() {
+        return {
+            menu: [
+                {
+                    header: "Organization Settings",
+                    items: [
+                        {
+                            label: "General",
+                            route: { path: "#" },
+                        },
+                        {
+                            label: "Channels",
+                            route: { name: "settings.channels.list" },
+                        },
+                    ],
+                },
+                {
+                    header: "Data Management",
+                    items: [
+                        {
+                            label: "Departments",
+                            route: { path: "#" },
+                        },
+                        {
+                            label: "Priorities",
+                            route: { path: "#" },
+                        },
+                        {
+                            label: "Statuses",
+                            route: { path: "#" },
+                        },
+                    ],
+                },
+            ],
+        };
+    },
+    methods: {
+        // ...
+    },
+};
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="flex-shrink-0 bg-white border-b border-gray-200">
         <x-container class="py-4 bg-white flex flex-col justify-center">
-            <div class="flex">
+            <div class="flex items-center justify-between">
                 <div class="" :class="showDescription ? '':'py-1.5 mt-0.5'">
                     <h2 class="text-ls font-medium text-gray-900">
                         <slot name="title"></slot>
@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="flex space-x-2">
-                    <slot name="toolbar"></slot>
+                    <slot name="actions"></slot>
                 </div>
             </div>
         </x-container>

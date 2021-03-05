@@ -11,16 +11,8 @@ const user = JSON.parse(Cookies.get("user"));
 
 const organizationService = BaseService.create("organizations", {
     channels() {
-        return BaseService.create(`organizations/${user.primary_organization.id}/channels`, {
-            attachItem(payload) {
-                return RequestClient.post(`/organizations/${user.primary_organization.id}/channels/attach`, payload);
-            },
-            updateAttachedItem(pivot_id, payload) {
-                return RequestClient.post(`/organizations/${user.primary_organization.id}/channels/${pivot_id}/update`, payload);
-            },
-            fetchAttachedItem(pivot_id, payload = {}) {
-                return RequestClient.get(`/organizations/${user.primary_organization.id}/channels/${pivot_id}`, { params: payload });
-            },
+        return BaseService.create(`organizations/${user.primary_organization.id}/channel-organizations`, {
+            // ...
         });
     },
     departments() {
@@ -34,7 +26,7 @@ const organizationService = BaseService.create("organizations", {
         });
     },
     organizations() {
-        return BaseService.create(`organizations/${user.primary_organization.id}/organizations`, {
+        return BaseService.create(`organizations/${user.primary_organization.id}/child-organizations`, {
             // ...
         });
     },

@@ -121,6 +121,28 @@ const baseModule = {
                             .finally(handleFinally);
                     });
                 },
+                updateItem(context, { id, payload = {}}) {
+                    return new Promise((resolve, reject) => {
+                        const handleSuccess = (response) => {
+                            console.log("updateItem", response);
+                            let item = response.data;
+                            resolve(item);
+                        };
+    
+                        const handleFailure = (error) => {
+                            reject(error);
+                        };
+    
+                        const handleFinally = () => {
+                            // ...
+                        };
+    
+                        service.updateItem(id, payload)
+                            .then(handleSuccess)
+                            .catch(handleFailure)
+                            .finally(handleFinally);
+                    });
+                },
                 ...actions,
             };
         };

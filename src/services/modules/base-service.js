@@ -16,6 +16,12 @@ const baseService = {
             storeItem(payload = {}) {
                 return RequestClient.post(`/${endpoint}`, payload);
             },
+            updateItem(id, payload = {}) {
+                return RequestClient.put(`/${endpoint}/${id}`, payload);
+            },
+            deleteItem(id, payload = {}) {
+                return RequestClient.delete(`/${endpoint}/${id}`, payload);
+            },
             ...customFunctions,
         };
     },

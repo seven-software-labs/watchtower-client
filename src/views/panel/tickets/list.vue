@@ -94,33 +94,31 @@
                 </template>
             </x-section-header>
 
-            <x-section-header>
-                <template v-slot:toolbar>
-                    <x-button color="blue">
-                        Create Ticket
-                    </x-button>
+            <x-section-toolbar>
+                <x-button color="blue">
+                    Create Ticket
+                </x-button>
 
-                    <x-button color="white">
-                        Status
-                    </x-button>
+                <x-button color="white">
+                    Status
+                </x-button>
 
-                    <x-button color="white">
-                        Priority
-                    </x-button>
+                <x-button color="white">
+                    Priority
+                </x-button>
 
-                    <x-button color="white">
-                        Department
-                    </x-button>
+                <x-button color="white">
+                    Department
+                </x-button>
 
-                    <x-button color="white">
-                        Assign
-                    </x-button>
+                <x-button color="white">
+                    Assign
+                </x-button>
 
-                    <x-button color="white">
-                        Close
-                    </x-button>
-                </template>
-            </x-section-header>
+                <x-button color="white">
+                    Close
+                </x-button>
+            </x-section-toolbar>
 
             <div class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
                 <div class="flex flex-col">

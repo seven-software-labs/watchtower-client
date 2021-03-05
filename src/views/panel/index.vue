@@ -3,7 +3,7 @@
         <!-- Bottom section -->
         <div class="min-h-0 flex-1 flex overflow-hidden">
             <!-- Narrow sidebar-->
-            <nav aria-label="Sidebar" class="hidden lg:block lg:flex-shrink-0 lg:bg-gray-800 border-r border-gray-200 lg:overflow-y-auto">
+            <nav aria-label="Sidebar" class="hidden lg:block lg:flex-shrink-0 lg:bg-gray-800 lg:overflow-y-auto">
                 <div class="relative w-20 flex flex-col p-3 space-y-3">
                     <router-link :to="{ name: 'tickets.list' }" :class="$route.name == 'tickets.list' ? 'bg-gray-900':'text-gray-50'" class="text-gray-300 hover:bg-gray-900 hover:text-gray-50 flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg">
                         <span class="sr-only">Tickets</span>
