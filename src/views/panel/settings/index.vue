@@ -30,40 +30,28 @@ export default {
         return {
             menu: [
                 {
-                    header: "Organization Settings",
+                    header: "Tickets",
                     items: [
-                        {
-                            label: "General",
-                            route: { path: "#" },
-                        },
                         {
                             label: "Channels",
-                            route: { name: "settings.channels.list" },
+                            route: { name: "settings.channels" },
                         },
-                    ],
-                },
-                {
-                    header: "Data Management",
-                    items: [
                         {
                             label: "Departments",
-                            route: { path: "#" },
+                            route: { name: "settings.departments" },
                         },
                         {
                             label: "Priorities",
-                            route: { path: "#" },
+                            route: { name: "settings.priorities" },
                         },
                         {
                             label: "Statuses",
-                            route: { path: "#" },
+                            route: { name: "settings.statuses" },
                         },
                     ],
                 },
             ],
         };
-    },
-    methods: {
-        // ...
     },
 };
 </script>

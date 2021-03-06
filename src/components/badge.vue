@@ -17,7 +17,7 @@ export default {
         size: {
             type: String,
             required: false,
-            default: () => "lg",
+            default: () => "md",
         },
     },
     setup(props) {
@@ -46,7 +46,7 @@ export default {
         const sizes = {
             xs: "",
             sm: "px-2.5 py-0.5 text-xs font-medium ",
-            md: "",
+            md: "px-3 py-0.5 text-sm",
             lg: "px-3 py-0.5 text-sm font-medium",
             xl: "",
         };

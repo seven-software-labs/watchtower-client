@@ -72,7 +72,7 @@
                         Save Channel
                     </x-button>
 
-                    <x-button type="submit" color="white" :to="{ name: 'settings.channels.list' }">
+                    <x-button type="submit" color="white" :to="{ name: 'settings.channels.index' }">
                         Cancel
                     </x-button>
                 </x-card-footer>
@@ -161,20 +161,25 @@ export default {
         },
         submitCreateForm(payload) {
             this.$store.dispatch("organizationModule/channelModule/storeItem", payload)
-                .then((response) => {
-                    console.log(response);
+                .then((channelOrganization) => {
+                    this.$router.push({
+                        name: "settings.channels.edit",
+                        params: { channel: channelOrganization.id },
+                    });
+
+                    // @todo add toast for success message.
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch(() => {
+                    // @todo add toast for error message.
                 });
         },
         submitEditForm(payload) {
             this.$store.dispatch("organizationModule/channelModule/updateItem", { id: this.$route.params.channel_organization_id, payload })
-                .then((response) => {
-                    console.log(response);
+                .then(() => {
+                    // @todo add toast for success message.
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch(() => {
+                    // @todo add toast for error message.
                 });
         },
     },

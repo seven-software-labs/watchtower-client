@@ -68,14 +68,9 @@ const baseModule = {
                             reject(error);
                         };
     
-                        const handleFinally = () => {
-                            // ...
-                        };
-    
                         service.fetchAllItems()
                             .then(handleSuccess)
-                            .catch(handleFailure)
-                            .finally(handleFinally);
+                            .catch(handleFailure);
                     });
                 },
                 fetchOneItem(context, id) {
@@ -89,14 +84,9 @@ const baseModule = {
                             reject(error);
                         };
     
-                        const handleFinally = () => {
-                            // ...
-                        };
-    
                         service.fetchOneItem(id)
                             .then(handleSuccess)
-                            .catch(handleFailure)
-                            .finally(handleFinally);
+                            .catch(handleFailure);
                     });
                 },
                 storeItem(context, payload = {}) {
@@ -111,14 +101,9 @@ const baseModule = {
                             reject(error);
                         };
     
-                        const handleFinally = () => {
-                            // ...
-                        };
-    
                         service.storeItem(payload)
                             .then(handleSuccess)
-                            .catch(handleFailure)
-                            .finally(handleFinally);
+                            .catch(handleFailure);
                     });
                 },
                 updateItem(context, { id, payload = {}}) {
@@ -133,14 +118,9 @@ const baseModule = {
                             reject(error);
                         };
     
-                        const handleFinally = () => {
-                            // ...
-                        };
-    
                         service.updateItem(id, payload)
                             .then(handleSuccess)
-                            .catch(handleFailure)
-                            .finally(handleFinally);
+                            .catch(handleFailure);
                     });
                 },
                 ...actions,

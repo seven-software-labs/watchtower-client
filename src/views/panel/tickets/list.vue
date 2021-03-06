@@ -50,7 +50,7 @@
                     Departments
                 </x-vertical-menu-header>
 
-                <x-vertical-menu-item v-for="(department, departmentIndex) in departments" :key="'department_' + departmentIndex">
+                <x-vertical-menu-item :active="false" v-for="(department, departmentIndex) in departments" :key="'department_' + departmentIndex">
                     <div class="flex items-center justify-between">
                         <div>
                             <x-icon name="folder-small" :color="department.color"/>

@@ -53,7 +53,7 @@ export default {
         const colors = {
             primary: "border-primary-500 text-white bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-secondary-500 focus:ring-primary-500",
             blue: "border-blue-500 text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 focus:ring-blue-600",
-            white: "bg-white border-gray-300 text-gray-900 hover:bg-gray-100 focus:ring-gray-900",
+            white: "bg-white border-gray-300 text-gray-900 hover:bg-gray-200 focus:ring-gray-900",
         };
 
         // List of available sizes for the component.

@@ -14,7 +14,7 @@ export default {
             return {
                 ...this.$attrs,
                 ...{
-                    class: "x-form-select block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:text-sm border-gray-300 rounded-md",
+                    class: "x-form-select block focus:ring-blue-500 focus:border-blue-500 w-full sm:text-sm border-gray-300 rounded-md",
                 },
             };
         },

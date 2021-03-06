@@ -1,7 +1,17 @@
 <template>
-    <router-link :to="to" :class="active ? 'bg-blue-600 text-white':''" class="x-vertical-menu-item block px-4 sm:px-6 py-4 hover:bg-blue-600 hover:text-white text-sm bg-white border-b border-gray-200 whitespace-nowrap truncate">
+    <!--
+        Return an anchor element if there's an href.
+    -->
+    <router-link :to="to" :class="classes" v-bind="attrs" v-if="to">
         <slot></slot>
     </router-link>
+
+    <!--
+        Return a button element if there's no href.
+    -->
+    <button :class="classes" v-bind="attrs" v-else>
+        <slot></slot>
+    </button>
 </template>
 
 <script>
@@ -9,9 +19,9 @@ export default {
     name: "x-vertical-menu-item",
     props: {
         to: {
-            type: [Object, String],
+            type: [Object, String, Boolean],
             required: false,
-            default: () => "#",
+            default: () => false,
         },
         active: {
             type: Boolean,
@@ -19,5 +29,40 @@ export default {
             default: () => false,
         },
     },
+    computed: {
+        attrs() {
+            return this.$attrs;
+        },
+    },
+    setup(props) {
+        // Base classes for the component.
+        const baseClasses = "block px-4 sm:px-6 py-4 hover:bg-blue-600 hover:text-white text-sm bg-white border-b border-gray-200 whitespace-nowrap truncate focus:outline-none focus:ring-0 focus:ring-offset-0";
+
+        // List of available modes for the component.
+        const modes = {
+            button: "x-vertical-menu-item-button w-full",
+            link: "x-vertical-menu-item-link",
+        };
+
+        // List of available modes for the component.
+        const states = {
+            default: "",
+            active: "bg-blue-600 text-white",
+        };
+
+        const compiledClasses = () => {
+            return `${baseClasses} ${modes[props.to ? "link":"button"]} ${states[props.active ? "active":"default"]}`;
+        };
+
+        return {
+            classes: compiledClasses(),
+        };
+    },
 };
 </script>
+
+<style>
+    .x-vertical-menu-item-link.router-link-active {
+        @apply bg-blue-600 text-white;
+    }
+</style>

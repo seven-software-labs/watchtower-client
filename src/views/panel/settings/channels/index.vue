@@ -8,7 +8,7 @@
 
         <x-section-toolbar>
             <x-button :to="{ name: 'settings.channels.create' }" color="blue">
-                Add Channel
+                Create Channel
             </x-button>
         </x-section-toolbar>
 
