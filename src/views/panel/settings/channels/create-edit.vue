@@ -1,9 +1,9 @@
 <template>
-    <div v-if="channels || channels.items">
+    <div class="h-full flex flex-col" v-if="channels || channels.items">
         <x-section-header>
             <template v-slot:title>
                 <template v-if="createEditForm.name">
-                    Editing {{ createEditForm.name }}
+                    {{ createEditForm.name }}
                 </template>
 
                 <template v-else>
@@ -12,72 +12,122 @@
             </template>
         </x-section-header>
 
-        <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
-            <x-card>
-                <x-card-content>
-                    <div class="grid grid-cols-6 gap-6">
-                        <x-form-group class="col-span-3">
-                            <x-form-label>Name</x-form-label>
-                            <x-form-input type="text" name="name" :required="true" v-model="createEditForm.name"/>
-                        </x-form-group>
+        <div class="h-full overflow-y-scroll">
+            <x-form class="min-h-full overflow-hidden" @submit.prevent="submitCreateEditForm(createEditForm, mode)">
+                <x-table>
+                    <thead>
+                        <x-table-row>
+                            <x-table-header colspan="100%">
+                                General Information
+                            </x-table-header>
+                        </x-table-row>
+                    </thead>
+                    
+                    <tbody>
+                        <x-table-row>
+                            <x-table-data>
+                                Nickname
+                            </x-table-data>
 
-                        <x-form-group class="col-span-3">
-                            <x-form-label>Channel</x-form-label>
-                            <x-form-select name="channel_id" v-model="createEditForm.channel_id" :disabled="mode == 'edit'" :required="true">
-                                <option :value="null">Select Channel</option>
-                                <option :value="channelOption.id" v-for="(channelOption, channelOptionIndex) in channels" :key="'channelOption_' + channelOptionIndex">
-                                    {{ channelOption.name}}
-                                </option>
-                            </x-form-select>
-                        </x-form-group>
+                            <x-table-data>
+                                <x-form-input type="text" name="name" :required="true" v-model="createEditForm.name"/>
+                            </x-table-data>
+                        </x-table-row>
+                        
+                        <x-table-row>
+                            <x-table-data>
+                                Channel
+                            </x-table-data>
 
-                        <x-form-group class="col-span-3">
-                            <x-form-label>Department</x-form-label>
-                            <x-form-select name="is_active" v-model="createEditForm.department_id" :required="true">
-                                <option :value="null">Select Department</option>
-                                <option :value="departmentOption.id" v-for="(departmentOption, departmentOptionIndex) in departments" :key="'departmentOption_' + departmentOptionIndex">
-                                    {{ departmentOption.name}}
-                                </option>
-                            </x-form-select>
-                        </x-form-group>
+                            <x-table-data>
+                                <x-form-select name="channel_id" v-model="createEditForm.channel_id" :disabled="mode == 'edit'" :required="true">
+                                    <option :value="null">Select Channel</option>
+                                    <option :value="channelOption.id" v-for="(channelOption, channelOptionIndex) in channels" :key="'channelOption_' + channelOptionIndex">
+                                        {{ channelOption.name}}
+                                    </option>
+                                </x-form-select>
+                            </x-table-data>
+                        </x-table-row>
+                        
+                        <x-table-row>
+                            <x-table-data>
+                                Department
+                            </x-table-data>
 
-                        <x-form-group class="col-span-3">
-                            <x-form-label>Status</x-form-label>
-                            <x-form-select name="is_active" v-model="createEditForm.is_active" :required="true">
-                                <option :value="1">Active</option>
-                                <option :value="0">Disabled</option>
-                            </x-form-select>
-                        </x-form-group>
-                    </div>
+                            <x-table-data>
+                                <x-form-select name="is_active" v-model="createEditForm.department_id" :required="true">
+                                    <option :value="null">Select Department</option>
+                                    <option :value="departmentOption.id" v-for="(departmentOption, departmentOptionIndex) in departments" :key="'departmentOption_' + departmentOptionIndex">
+                                        {{ departmentOption.name}}
+                                    </option>
+                                </x-form-select>
+                            </x-table-data>
+                        </x-table-row>
+                        
+                        <x-table-row>
+                            <x-table-data>
+                                Status
+                            </x-table-data>
 
-                    <div class="grid grid-cols-2 gap-6 mt-6" v-if="channel && channel.channel_settings">
-                        <x-form-group v-for="(setting, settingIndex) in channel.channel_settings" :key="'setting_' + settingIndex">
-                            <x-form-label>
-                                {{ setting.name }} 
-                            </x-form-label>
+                            <x-table-data>
+                                <x-form-select name="is_active" v-model="createEditForm.is_active" :required="true">
+                                    <option :value="1">Active</option>
+                                    <option :value="0">Disabled</option>
+                                </x-form-select>
+                            </x-table-data>
+                        </x-table-row>
+                    </tbody>
 
-                            <x-form-input 
-                                :type="setting.field_type ?? 'text'" 
-                                :name="setting.slug" 
-                                :required="setting.is_required"
-                                :placeholder="setting.name"
-                                v-model="createEditForm.settings[setting.slug]"
-                            />
-                        </x-form-group>
-                    </div>
-                </x-card-content>
+                    <thead>
+                        <x-table-row>
+                            <x-table-header colspan="100%">
+                                Channel Settings
+                            </x-table-header>
+                        </x-table-row>
+                    </thead>
 
-                <x-card-footer>
-                    <x-button type="submit" color="blue" :disabled="!channel">
-                        Save Channel
-                    </x-button>
+                    <tbody v-if="channel && channel.channel_settings">
+                        <x-table-row v-for="(setting, settingIndex) in channel.channel_settings" :key="'setting_' + settingIndex">
+                            <x-table-data>
+                                <span class="capitalize">
+                                    {{ setting.name }}
+                                </span>
+                            </x-table-data>
 
-                    <x-button type="submit" color="white" :to="{ name: 'settings.channels.index' }">
-                        Cancel
-                    </x-button>
-                </x-card-footer>
-            </x-card>
-        </x-form>
+                            <x-table-data>
+                                <x-form-input 
+                                    :type="setting.field_type ?? 'text'" 
+                                    :name="setting.slug" 
+                                    :required="setting.is_required"
+                                    :placeholder="setting.name"
+                                    v-model="createEditForm.settings[setting.slug]"
+                                />
+                            </x-table-data>
+                        </x-table-row>
+                    </tbody>
+
+                    <tbody v-if="!(channel && channel.channel_settings)">
+                        <x-table-row>
+                            <x-table-data colspan="100%" align="center">
+                                Please select a channel.
+                            </x-table-data>
+                        </x-table-row>
+                    </tbody>
+                </x-table>
+
+                <x-card>
+                    <x-card-footer>
+                        <x-button type="submit" color="blue" :disabled="!channel">
+                            Save Channel
+                        </x-button>
+
+                        <x-button type="submit" color="white" :to="{ name: 'settings.channels.index' }">
+                            Cancel
+                        </x-button>
+                    </x-card-footer>
+                </x-card>
+            </x-form>
+        </div>
     </div>
 </template>
 
@@ -119,7 +169,6 @@ export default {
         },
     },
     created() {
-        this.$store.dispatch("organizationModule/organizationModule/fetchAllItems");
         this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
         this.$store.dispatch("channelModule/fetchAllItems")
             .then(() => {

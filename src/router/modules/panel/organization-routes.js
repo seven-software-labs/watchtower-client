@@ -2,24 +2,33 @@
  * Organization Routes
  */
 
-import OrganizationList from "./../../../views/panel/organizations/list.vue";
+import OrganizationIndex from "./../../../views/panel/organizations/index.vue";
 import OrganizationCreateEdit from "./../../../views/panel/organizations/create-edit.vue";
+import LayoutContainer from "./../../../components/layouts/utils/container.vue";
 
 const organizationRoutes = [
     {
         path: "/organizations",
-        name: "organizations.list",
-        component: OrganizationList,
-    },
-    {
-        path: "/organizations/create",
-        name: "organizations.create",
-        component: OrganizationCreateEdit,
-    },
-    {
-        path: "/organizations/:organization/edit",
-        name: "organizations.edit",
-        component: OrganizationCreateEdit,
+        name: "organizations",
+        redirect: { name: "organizations.index" },
+        component: LayoutContainer,
+        children: [
+            {
+                path: "browse",
+                name: "organizations.index",
+                component: OrganizationIndex,
+            },
+            {
+                path: "create",
+                name: "organizations.create",
+                component: OrganizationCreateEdit,
+            },
+            {
+                path: ":organization/edit",
+                name: "organizations.edit",
+                component: OrganizationCreateEdit,
+            },
+        ],
     },
 ];
 

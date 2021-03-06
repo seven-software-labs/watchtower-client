@@ -35,7 +35,7 @@ export default {
     },
     setup(props) {
         // Base classes for the component.
-        const baseClasses = "x-icon w-4 mr-1 h-6 inline-flex items-center justify-center";
+        const baseClasses = "x-icon mr-1 h-6 inline-flex items-center justify-center";
 
         // List of available colors for the component.
         const colors = {

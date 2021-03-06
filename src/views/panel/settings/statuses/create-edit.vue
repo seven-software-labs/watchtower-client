@@ -3,7 +3,7 @@
         <x-section-header>
             <template v-slot:title>
                 <template v-if="createEditForm.name">
-                    Editing {{ createEditForm.name }}
+                    {{ createEditForm.name }}
                 </template>
 
                 <template v-else>
@@ -13,17 +13,34 @@
         </x-section-header>   
 
         <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
-             <x-card>
-                <x-card-content>
-                    <div class="grid grid-cols-6 gap-6">
-                        <x-form-group class="col-span-2">
-                            <x-form-label>Name</x-form-label>
-                            <x-form-input type="text" name="name" :required="true" v-model="createEditForm.name"/>
-                        </x-form-group>
+            <x-table>
+                <thead>
+                    <x-table-row>
+                        <x-table-header colspan="100%">
+                            General Information
+                        </x-table-header>
+                    </x-table-row>
+                </thead>
+                
+                <x-table-row>
+                    <x-table-data>
+                        Name
+                    </x-table-data>
 
-                        <x-form-group class="col-span-2">
-                            <x-form-label>Color</x-form-label>
-                            <x-form-select name="color" :required="true" v-model="createEditForm.color">
+                    <x-table-data>
+                        <x-form-input type="text" name="name" :required="true" v-model="createEditForm.name"/>
+                    </x-table-data>
+                </x-table-row>
+
+                <x-table-row>
+                    <x-table-data>
+                        <x-form-label>
+                            Color
+                        </x-form-label>
+                    </x-table-data>
+
+                    <x-table-data>
+                        <x-form-select name="color" :required="true" v-model="createEditForm.color">
                                 <option value="gray">Gray</option>
                                 <option value="primary">Primary</option>
                                 <option value="secondary">Secondary</option>
@@ -36,18 +53,26 @@
                                 <option value="purple">Purple</option>
                                 <option value="pink">Pink</option>
                             </x-form-select>
-                        </x-form-group>
+                    </x-table-data>
+                </x-table-row>
 
-                        <x-form-group class="col-span-2">
-                            <x-form-label>Default</x-form-label>
-                            <x-form-select name="is_active" v-model="createEditForm.is_active" :required="true">
-                                <option :value="1">Yes</option>
-                                <option :value="0">No</option>
-                            </x-form-select>
-                        </x-form-group>
-                    </div>
-                </x-card-content>
-                
+                <x-table-row>
+                    <x-table-data>
+                        <x-form-label>
+                            Default
+                        </x-form-label>
+                    </x-table-data>
+
+                    <x-table-data>
+                        <x-form-select name="is_active" v-model="createEditForm.is_active" :required="true">
+                            <option :value="1">Yes</option>
+                            <option :value="0">No</option>
+                        </x-form-select>
+                    </x-table-data>
+                </x-table-row>
+            </x-table>
+
+            <x-card>
                 <x-card-footer>
                     <x-button type="submit" color="blue">
                         Save Status

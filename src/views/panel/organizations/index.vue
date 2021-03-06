@@ -6,6 +6,12 @@
                     Organization
                 </template>
             </x-section-header>
+        
+            <x-section-toolbar>
+                <x-button :to="{ name: 'organizations.create' }" color="blue">
+                    Create Organization
+                </x-button>
+            </x-section-toolbar>
 
             <x-table>
                 <thead>

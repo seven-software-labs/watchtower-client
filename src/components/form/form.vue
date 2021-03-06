@@ -11,9 +11,6 @@ export default {
         attrs() {
             return {
                 ...this.$attrs,
-                ...{
-                    class: "x-form",
-                },
             };
         },
     },

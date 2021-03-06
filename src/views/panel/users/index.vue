@@ -6,6 +6,12 @@
                     Users
                 </template>
             </x-section-header>
+        
+            <x-section-toolbar>
+                <x-button :to="{ name: 'users.create' }" color="blue">
+                    Create User
+                </x-button>
+            </x-section-toolbar>
 
             <x-table>
                 <thead>

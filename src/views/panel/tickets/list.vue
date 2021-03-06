@@ -34,7 +34,7 @@
                 <x-vertical-menu-item v-for="(priority, priorityIndex) in priorities" :key="'priority_' + priorityIndex">
                     <div class="flex items-center justify-between">
                         <div>
-                            <x-icon name="circle" :color="priority.color"/>
+                            <x-icon name="square" :color="priority.color"/>
                             {{ priority.name }}
                         </div>
 
