@@ -59,7 +59,7 @@ export default {
             this.$store.dispatch("authModule/login", payload)
                 .then(() => {
                     this.$router.push({
-                        name: "tickets.list"
+                        name: "tickets.index"
                     });
                 });
         },

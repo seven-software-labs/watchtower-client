@@ -73,28 +73,8 @@
             </x-section-header>
 
             <x-section-toolbar>
-                <x-button color="blue">
+                <x-button :to="{ name: 'tickets.create' }" color="blue">
                     Create Ticket
-                </x-button>
-
-                <x-button color="white">
-                    Status
-                </x-button>
-
-                <x-button color="white">
-                    Priority
-                </x-button>
-
-                <x-button color="white">
-                    Department
-                </x-button>
-
-                <x-button color="white">
-                    Assign
-                </x-button>
-
-                <x-button color="white">
-                    Close
                 </x-button>
             </x-section-toolbar>
 
@@ -106,9 +86,6 @@
                                 <x-table>
                                     <thead>
                                         <x-table-row>
-                                            <x-table-header>
-                                                <x-form-checkbox/>
-                                            </x-table-header>
                                             <x-table-header>Subject</x-table-header>
                                             <x-table-header>Department</x-table-header>
                                             <x-table-header>Status</x-table-header>
@@ -119,10 +96,6 @@
 
                                     <tbody>
                                         <x-table-row v-for="(ticket, ticketIndex) in tickets" :key="'ticket_' + ticketIndex">
-                                            <x-table-data>
-                                                <x-form-checkbox/>
-                                            </x-table-data>
-
                                             <x-table-data class="flex flex-col">
                                                 <x-link :to="{ name: 'tickets.show', params: { ticket: ticket.id } }" class="font-medium">
                                                     {{ ticket.subject }}
