@@ -160,7 +160,7 @@ export default {
         "createEditForm.channel_id": {
             handler(channel_id) {
                 if(channel_id) {
-                    const channel = this.channels.items.find((channel) => channel.id == this.createEditForm.channel_id);
+                    const channel = this.channels.data.find((channel) => channel.id == this.createEditForm.channel_id);
                     this.channel = channel;
                 } else {
                     this.channel = null;
