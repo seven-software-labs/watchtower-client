@@ -22,7 +22,7 @@
             </thead>
 
             <tbody>
-                <x-table-row v-for="({ id, name, tickets_count, is_default, color }, statusIndex) in statuses" :key="'status_' + statusIndex">
+                <x-table-row v-for="({ id, name, tickets_count, is_default, color }, statusIndex) in statuses.data" :key="'status_' + statusIndex">
                     <x-table-data>
                         <x-link class="mr-2" :to="{ name: 'settings.statuses.edit', params: { status: id } }">
                             {{ name }}

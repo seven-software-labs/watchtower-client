@@ -22,7 +22,7 @@
             </thead>
 
             <tbody>
-                <x-table-row v-for="({ id, name, tickets_count, is_default, color }, departmentIndex) in departments" :key="'department_' + departmentIndex">
+                <x-table-row v-for="({ id, name, tickets_count, is_default, color }, departmentIndex) in departments.data" :key="'department_' + departmentIndex">
                     <x-table-data>
                         <x-link class="mr-2" :to="{ name: 'settings.departments.edit', params: { department: id } }">
                             {{ name }}

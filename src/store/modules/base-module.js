@@ -43,24 +43,11 @@ const baseModule = {
     
         const generateActions = (actions = {}) => {
             return {
-                fetchAllItems({ commit }, payload = { commit: true }) {
+                fetchAllItems({ commit }, payload) {
                     return new Promise((resolve, reject) => {
                         const handleSuccess = (response) => {
                             let items = response.data;
-
-                            if(payload.paginated) {
-                                items = {
-                                    ...response.data,
-                                    data: Collect(response.data.data),
-                                };
-                            } else {
-                                items = Collect(response.data.data);
-                            }
-
-                            if(payload.commit) {
-                                commit("setItems", items);
-                            }
-                            
+                            commit("setItems", items);
                             resolve(items);
                         };
     
@@ -68,7 +55,7 @@ const baseModule = {
                             reject(error);
                         };
     
-                        service.fetchAllItems()
+                        service.fetchAllItems(payload)
                             .then(handleSuccess)
                             .catch(handleFailure);
                     });

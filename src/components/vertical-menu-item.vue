@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { computed } from "vue";
+
 export default {
     name: "x-vertical-menu-item",
     props: {
@@ -49,13 +51,13 @@ export default {
             default: "",
             active: "bg-blue-600 text-white",
         };
-
-        const compiledClasses = () => {
+        
+        const compiledClasses = computed(() => {
             return `${baseClasses} ${modes[props.to ? "link":"button"]} ${states[props.active ? "active":"default"]}`;
-        };
+        });
 
         return {
-            classes: compiledClasses(),
+            classes: compiledClasses,
         };
     },
 };

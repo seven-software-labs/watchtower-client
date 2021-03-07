@@ -22,7 +22,7 @@
                 </thead>
 
                 <tbody>
-                    <x-table-row v-for="(user, userIndex) in users" :key="'user_' + userIndex">
+                    <x-table-row v-for="(user, userIndex) in users.data" :key="'user_' + userIndex">
                         <x-table-data class="flex flex-col">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-50">

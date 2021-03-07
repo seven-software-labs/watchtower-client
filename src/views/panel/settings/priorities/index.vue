@@ -22,7 +22,7 @@
             </thead>
 
             <tbody>
-                <x-table-row v-for="({ id, name, tickets_count, is_default, color }, priorityIndex) in priorities" :key="'priority_' + priorityIndex">
+                <x-table-row v-for="({ id, name, tickets_count, is_default, color }, priorityIndex) in priorities.data" :key="'priority_' + priorityIndex">
                     <x-table-data>
                         <x-link class="mr-2" :to="{ name: 'settings.priorities.edit', params: { priority: id } }">
                             {{ name }}

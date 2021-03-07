@@ -22,7 +22,7 @@
                 </thead>
 
                 <tbody>
-                    <x-table-row v-for="(organization, organizationIndex) in organizations" :key="'organization_' + organizationIndex">
+                    <x-table-row v-for="(organization, organizationIndex) in organizations.data" :key="'organization_' + organizationIndex">
                         <x-table-data>
                             <x-link :to="{ name: 'organizations.edit', params: { organization: organization.id } }">
                                 {{ organization.name }}

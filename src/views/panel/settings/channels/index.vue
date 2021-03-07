@@ -23,7 +23,7 @@
             </thead>
 
             <tbody>
-                <x-table-row v-for="(channelOrganization, channelOrganizationIndex) in channelOrganizations" :key="'channelOrganization_' + channelOrganizationIndex">
+                <x-table-row v-for="(channelOrganization, channelOrganizationIndex) in channelOrganizations.data" :key="'channelOrganization_' + channelOrganizationIndex">
                     <x-table-data>
                         <x-link :to="{ name: 'settings.channels.edit', params: { channel_organization_id: channelOrganization.id } }">
                             {{ channelOrganization.name }}
