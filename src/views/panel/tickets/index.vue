@@ -123,7 +123,7 @@
                                             </x-table-data>
 
                                             <x-table-data>
-                                                {{ ticket.last_reply }}
+                                                {{ ticket.last_replied_at }}
                                             </x-table-data>
                                         </x-table-row>
                                     </tbody>
