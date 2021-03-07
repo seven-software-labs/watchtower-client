@@ -47,3 +47,49 @@
         </div>
     </div>
 </template>
+
+<script>
+import { onBeforeUnmount } from "vue";
+import Echo from "laravel-echo";
+import Axios from "axios";
+
+export default {
+    setup () {
+        window.EchoInstance = new Echo({
+            authEndpoint : "http://localhost:8000/broadcasting/auth",
+            broadcaster: "pusher",
+            key: "3e5704458210646ba8a4",
+            cluster: "ap1",
+            encrypted: true,
+            authorizer: (channel) => {
+                return {
+                    authorize: (socketId, callback) => {
+                        const requestClient = Axios.create({
+                            baseURL: "http://localhost:8000/",
+                            timeout: 5000,
+                            withCredentials: true,
+                        });
+
+                        requestClient.post("api/broadcasting/auth", {
+                            socket_id: socketId,
+                            channel_name: channel.name
+                        })
+                            .then(response => {
+                                callback(false, response.data);
+                            })
+                            .catch(error => {
+                                callback(true, error);
+                            });
+                    }
+                };
+            },
+        });
+
+        onBeforeUnmount(() => {
+            window.EchoInstance = undefined;
+        });
+    },
+};
+
+
+</script>

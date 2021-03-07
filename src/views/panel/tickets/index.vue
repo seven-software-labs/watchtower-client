@@ -201,6 +201,17 @@ export default {
         this.form.priority_id = this.$route.query.priority_id || null;
         this.form.status_id = this.$route.query.status_id || null;
     },
+    mounted() {
+        window.EchoInstance.private("ticket-channel")
+            .listen(".App\\Events\\Ticket\\TicketCreated", ({ ticket }) => {
+                console.log("Incoming Ticket", ticket);
+                this.$store.commit("organizationModule/ticketModule/addItem", ticket);
+            })
+            .listen(".App\\Events\\Ticket\\TicketUpdated", ({ ticket }) => {
+                console.log("Updated Ticket", ticket);
+                this.$store.commit("organizationModule/ticketModule/updateItem", ticket);
+            });
+    },
     methods: {
         selectFilter(filter = "status_id", value = null) {
             console.log("Selecting Filter", filter, value);

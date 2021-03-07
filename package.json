@@ -14,6 +14,8 @@
     "collect.js": "^4.28.6",
     "es6-promise": "^4.2.8",
     "js-cookie": "^2.2.1",
+    "laravel-echo": "^1.10.0",
+    "pusher-js": "^7.0.3",
     "vue": "^3.0.4",
     "vue-router": "^4.0.4",
     "vuex": "^4.0.0"

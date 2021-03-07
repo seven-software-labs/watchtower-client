@@ -36,6 +36,21 @@ const baseModule = {
                     setItems(currentState, items) {
                         currentState.items = items;
                     },
+                    addItem(currentState, item) {
+                        if(!currentState.items.data) {
+                            currentState.items.data = [];
+                        }
+                        
+                        currentState.items.data.unshift(item);
+                    },
+                    updateItem(currentState, item) {
+                        let currentItem = currentState.items.data.find((currentItem) => currentItem.id == item.id);
+                        if(currentItem) currentItem = item;
+                    },
+                    deleteItem(currentState, item) {
+                        let currentItemIndex = currentState.items.data.findIndex((currentItem) => currentItem.id == item.id);
+                        delete currentState.items.data[currentItemIndex];
+                    },
                 },
                 ...mutations,
             };
