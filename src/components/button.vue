@@ -60,7 +60,7 @@ export default {
         const sizes = {
             xs: "px-2.5 py-1.5 text-xs font-medium",
             sm: "px-3 py-2 text-sm font-medium",
-            md: "px-4 py-2 text-sm font-medium",
+            md: "px-4 py-2 text-sm",
             lg: "px-4 py-2 text-base font-medium",
             xl: "px-6 py-3 text-base font-medium",
         };

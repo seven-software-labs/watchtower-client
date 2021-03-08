@@ -38,12 +38,12 @@ module.exports = {
             colors: {
                 orange: customColors["tree-poppy"],
                 red: customColors.vermilion,
-                primary: customColors["tree-poppy"],
+                primary: colors.blue,
                 secondary: customColors.vermilion,
                 success: colors.green,
                 warning: colors.amber,
                 danger: customColors.vermilion,
-                gray: colors.trueGray,
+                gray: colors.coolGray,
             },
             fontFamily: {
                 sans: ["Inter var", ...defaultTheme.fontFamily.sans],

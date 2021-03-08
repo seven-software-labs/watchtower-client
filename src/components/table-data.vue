@@ -1,5 +1,5 @@
 <template>
-    <td class="x-table-data px-4 sm:px-6 py-4 text-sm bg-white whitespace-wrap">
+    <td class="x-table-data py-3 text-sm whitespace-nowrap truncate">
         <slot></slot>
     </td>
 </template>

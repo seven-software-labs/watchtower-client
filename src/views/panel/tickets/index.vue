@@ -8,8 +8,12 @@
             </x-section-header>
 
             <div>
-                <x-vertical-menu-header>
+                <x-vertical-menu-header class="flex items-center justify-between">
                     Statuses
+
+                    <x-link href="#" @click.stop="selectFilter('status_id', null)" v-if="$route.query.status_id">
+                        Clear
+                    </x-link>
                 </x-vertical-menu-header>
 
                 <x-vertical-menu-item :active="form.status_id == status.id" v-for="(status, statusIndex) in statuses.data" :key="'status_' + statusIndex" @click.stop="selectFilter('status_id', status.id)">
@@ -27,8 +31,12 @@
             </div>
 
             <div>
-                <x-vertical-menu-header>
+                <x-vertical-menu-header class="flex items-center justify-between">
                     Priorities
+
+                    <x-link href="#" @click.stop="selectFilter('priority_id', null)" v-if="$route.query.priority_id">
+                        Clear
+                    </x-link>
                 </x-vertical-menu-header>
 
                 <x-vertical-menu-item :active="form.priority_id == priority.id" v-for="(priority, priorityIndex) in priorities.data" :key="'priority_' + priorityIndex" @click.stop="selectFilter('priority_id', priority.id)">
@@ -46,8 +54,12 @@
             </div>
 
             <div>
-                <x-vertical-menu-header>
+                <x-vertical-menu-header class="flex items-center justify-between">
                     Departments
+
+                    <x-link href="#" @click.stop="selectFilter('department_id', null)" v-if="$route.query.department_id">
+                        Clear
+                    </x-link>
                 </x-vertical-menu-header>
                 
                 <x-vertical-menu-item :active="form.department_id == department.id" v-for="(department, departmentIndex) in departments.data" :key="'department_' + departmentIndex" @click.stop="selectFilter('department_id', department.id)">
