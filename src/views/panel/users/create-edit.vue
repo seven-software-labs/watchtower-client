@@ -1,64 +1,84 @@
 <template>
-    <div class="w-full"> 
-        <x-section-header>
-            <template v-slot:title>
-                <template v-if="$route.params.user && createEditForm.name">
-                    {{ createEditForm.name }}
-                </template>
+    <x-layouts-panel>
+        <template v-slot:asideLeft>
+            <div>
+                <x-vertical-menu-header class="flex items-center justify-between">
+                    Profile
+                </x-vertical-menu-header>
 
-                <template v-else>
-                    Create User
-                </template>
-            </template>
-        </x-section-header>  
+                <x-vertical-menu-item :active="true" class="text-left">
+                    General Settings
+                </x-vertical-menu-item>
 
-        <x-table>
-            <thead>
+                <x-vertical-menu-item class="text-left">
+                    Tickets
+                </x-vertical-menu-item>
+
+                <x-vertical-menu-item class="text-left">
+                    Delete Account
+                </x-vertical-menu-item>
+            </div>         
+        </template>
+
+        <template v-slot:default>
+            <x-section-header>
+                <template v-slot:title>
+                    <template v-if="$route.params.user && createEditForm.name">
+                        {{ createEditForm.name }}
+                    </template>
+
+                    <template v-else>
+                        Create User
+                    </template>
+                </template>
+            </x-section-header>  
+
+            <x-table>
+                <thead>
+                    <x-table-row>
+                        <x-table-header colspan="100%">
+                            General Information
+                        </x-table-header>
+                    </x-table-row>
+                </thead>
+                
                 <x-table-row>
-                    <x-table-header colspan="100%">
-                        General Information
-                    </x-table-header>
+                    <x-table-data>
+                        Name
+                    </x-table-data>
+                    
+                    <x-table-data>
+                        <x-form-input type="text" name="name" :required="true" placeholder="First and last name of the user." v-model="createEditForm.name"/>
+                    </x-table-data>
                 </x-table-row>
-            </thead>
-            
-            <x-table-row>
-                <x-table-data>
-                    Name
-                </x-table-data>
                 
-                <x-table-data>
-                    <x-form-input type="text" name="name" :required="true" placeholder="First and last name of the user." v-model="createEditForm.name"/>
-                </x-table-data>
-            </x-table-row>
-            
-            <x-table-row>
-                <x-table-data>
-                    Password
-                </x-table-data>
+                <x-table-row>
+                    <x-table-data>
+                        Password
+                    </x-table-data>
+                    
+                    <x-table-data>
+                        <x-form-input type="text" name="name" :required="true" placeholder="Leave blank to not change password." v-model="createEditForm.password"/>
+                    </x-table-data>
+                </x-table-row>
                 
-                <x-table-data>
-                    <x-form-input type="text" name="name" :required="true" placeholder="Leave blank to not change password." v-model="createEditForm.password"/>
-                </x-table-data>
-            </x-table-row>
-            
-            <x-table-row>
-                <x-table-data>
-                    Organization
-                </x-table-data>
-                
-                <x-table-data>
-                    <x-form-select name="organization_id" v-model="createEditForm.organization_id" :required="true">
-                        <option :value="null">Select Organization</option>
-                        <option :value="organizationOption.id" v-for="(organizationOption, organizationOptionIndex) in organizations" :key="'organizationOption_' + organizationOptionIndex">
-                            {{ organizationOption.name}}
-                        </option>
-                    </x-form-select>
-                </x-table-data>
-            </x-table-row>
-        </x-table>
+                <x-table-row>
+                    <x-table-data>
+                        Organization
+                    </x-table-data>
+                    
+                    <x-table-data>
+                        <x-form-select name="organization_id" v-model="createEditForm.organization_id" :required="true">
+                            <option :value="null">Select Organization</option>
+                            <option :value="organizationOption.id" v-for="(organizationOption, organizationOptionIndex) in organizations" :key="'organizationOption_' + organizationOptionIndex">
+                                {{ organizationOption.name}}
+                            </option>
+                        </x-form-select>
+                    </x-table-data>
+                </x-table-row>
+            </x-table>
 
-        <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
-             <x-card>
+            <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
                 <x-card-footer>
                     <x-button type="submit" color="blue">
                         Save User
@@ -68,9 +88,9 @@
                         Cancel
                     </x-button>
                 </x-card-footer>
-             </x-card>
-        </x-form>   
-    </div>
+            </x-form>  
+        </template>
+    </x-layouts-panel>
 </template>
 
 <script>

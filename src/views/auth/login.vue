@@ -5,26 +5,26 @@
                 <x-form-label for="email">
                     Email address
                 </x-form-label>
-                <x-form-input type="email" v-model="loginForm.email" required>
+                <x-form-input type="email" v-model="loginForm.email" required/>
             </div>
 
             <div>
                 <x-form-label for="password">
                     Password
                 </x-form-label>
-                <x-form-input type="password" v-model="loginForm.password" required>
+                <x-form-input type="password" v-model="loginForm.password" required/>
             </div>
 
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-blue-500 border-gray-300 rounded">
                     <label for="remember_me" class="ml-2 block text-sm text-gray-900">
                     Remember me
                     </label>
                 </div>
 
                 <div class="text-sm">
-                    <a href="#" class="font-medium text-blue-600 hover:text-blue-500">
+                    <a href="#" class="font-medium text-primary-600 hover:text-primary-500">
                     Forgot your password?
                     </a>
                 </div>

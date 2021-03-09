@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { computed } from "vue";
+
 export default {
     name: "x-badge",
     inheritAttrs: false,
@@ -36,7 +38,7 @@ export default {
             orange: "bg-orange-100 text-orange-800",
             yellow: "bg-yellow-100 text-yellow-800",
             green: "bg-green-100 text-green-800",
-            blue: "bg-blue-100 text-blue-800",
+            blue: "bg-primary-100 text-primary-800",
             indigo: "bg-indigo-100 text-indigo-800",
             purple: "bg-purple-100 text-purple-800",
             pink: "bg-pink-100 text-pink-800",
@@ -51,12 +53,12 @@ export default {
             xl: "",
         };
 
-        const compiledClasses = () => {
+        const compiledClasses = computed(() => {
             return `${baseClasses} ${colors[props.color]} ${sizes[props.size]}`;
-        };
+        });
 
         return {
-            classes: compiledClasses(),
+            classes: compiledClasses,
         };
     },
 };

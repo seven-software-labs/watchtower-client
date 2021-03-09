@@ -43,7 +43,7 @@ export default {
 
         // List of available colors for the component.
         const colors = {
-            primary: "text-blue-500 hover:text-blue-600",
+            primary: "text-primary-500 hover:text-primary-600",
             gray: "hover:text-primary-600",
         };
 

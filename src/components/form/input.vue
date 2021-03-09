@@ -4,14 +4,14 @@
 
 <script>
 export default {
-    props: ["modelValue"],
+    props: ["modelValue", "error"],
     emits: ["update:modelValue"],
     computed: {
         attrs() {
             return {
                 ...this.$attrs,
                 ...{
-                    class: "x-form-input block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-300 rounded-md",
+                    class: "x-form-input block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-200 rounded-md disabled:opacity-50 disabled:cursor-not-allowed",
                 },
             };
         },

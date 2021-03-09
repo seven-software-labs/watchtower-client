@@ -22,7 +22,7 @@
         </h2>
         <p class="mt-2 text-sm text-gray-600 max-w">
           Or
-          <a href="#" class="font-medium text-blue-600 hover:text-secondary-600">
+          <a href="#" class="font-medium text-primary-600 hover:text-secondary-600">
             start your 30-day free trial
           </a>
         </p>
