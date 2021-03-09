@@ -139,24 +139,15 @@ export default {
             this.$store.dispatch("organizationModule/departmentModule/fetchOneItem", params.department)
                 .then((response) => {
                     const department = response;
-                    this.createEditForm.name = department.name;
-                    this.createEditForm.color = department.color;
-                    this.createEditForm.is_default = department.is_default;
-                    this.createEditForm.deleted_at = department.deleted_at;
+                    this.parseDepartment(department);
 
                     window.EchoInstance.private(`organization-${department.organization_id}-department-${department.id}-channel`)
                         .listen(".App\\Events\\Department\\DepartmentUpdated", ({ department }) => {
-                            this.createEditForm.name = department.name;
-                            this.createEditForm.color = department.color;
-                            this.createEditForm.is_default = department.is_default;
-                            this.createEditForm.deleted_at = department.deleted_at;
+                            this.parseDepartment(department);
                         })
                         .listen(".App\\Events\\Department\\DepartmentDeleted", ({ department }) => {
                             this.$toast().info("Department deleted.");
-                            this.createEditForm.name = department.name;
-                            this.createEditForm.color = department.color;
-                            this.createEditForm.is_default = department.is_default;
-                            this.createEditForm.deleted_at = department.deleted_at;
+                            this.parseDepartment(department);
                         });
                 })
                 .catch((error) => {
@@ -223,6 +214,12 @@ export default {
                 .catch((error) => {
                     this.$toast().danger(error.response.data.message);
                 });
+        },
+        parseDepartment(department) {
+            this.createEditForm.name = department.name;
+            this.createEditForm.color = department.color;
+            this.createEditForm.is_default = department.is_default;
+            this.createEditForm.deleted_at = department.deleted_at;
         },
     },
 };
