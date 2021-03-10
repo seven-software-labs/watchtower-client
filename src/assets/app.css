@@ -7,12 +7,16 @@ body, html, #app {
     height: 100%;
 }
 
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .15s;
+.Vue-Toastification__toast {
+    @apply flex items-center justify-between min-h-0 px-4 py-3 !important;
 }
 
-.fade-enter, .fade-leave-to {
-    opacity: 0;
+.Vue-Toastification__toast-body {
+    @apply text-sm font-normal !important;
+}
+
+.Vue-Toastification__close-button {
+    @apply -mt-0.5 !important;
 }
 
 .reset-styles {

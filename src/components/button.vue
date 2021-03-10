@@ -47,12 +47,13 @@ export default {
     },
     setup(props) {
         // Base classes for the component.
-        const baseClasses = "x-button inline-flex items-center border shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2";
+        const baseClasses = "x-button inline-flex items-center border shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:border-4";
 
         // List of available colors for the component.
         const colors = {
             primary: "border-primary-500 text-white bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-secondary-500 focus:ring-primary-500",
             blue: "border-blue-500 text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 focus:ring-blue-600",
+            danger: "border-red-500 text-white bg-red-500 hover:bg-red-600 focus:ring-red-600",
             white: "bg-white border-gray-300 text-gray-900 hover:bg-gray-200 focus:ring-gray-900",
         };
 
@@ -60,7 +61,7 @@ export default {
         const sizes = {
             xs: "px-2.5 py-1.5 text-xs font-medium",
             sm: "px-3 py-2 text-sm font-medium",
-            md: "px-4 py-2 text-sm font-medium",
+            md: "px-4 py-2 text-sm",
             lg: "px-4 py-2 text-base font-medium",
             xl: "px-6 py-3 text-base font-medium",
         };

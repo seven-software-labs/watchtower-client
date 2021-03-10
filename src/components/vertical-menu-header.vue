@@ -1,5 +1,5 @@
 <template>
-    <div class="x-vertical-menu-header px-4 sm:px-6 py-3 text-xs font-medium bg-gray-50 text-gray-500 uppercase tracking-wider text-left border-b border-gray-200">
+    <div class="x-vertical-menu-header py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-left">
         <slot></slot>
     </div>
 </template>

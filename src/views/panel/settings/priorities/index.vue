@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="!isInitializing">
         <x-section-header>
             <template v-slot:title>
                 Priorities
@@ -22,9 +22,9 @@
             </thead>
 
             <tbody>
-                <x-table-row v-for="({ id, name, tickets_count, is_default, color }, priorityIndex) in priorities.data" :key="'priority_' + priorityIndex">
+                <x-table-row v-for="({ id, name, tickets_count, is_default, color, deleted_at }, priorityIndex) in priorities.data" :key="'priority_' + priorityIndex">
                     <x-table-data>
-                        <x-link class="mr-2" :to="{ name: 'settings.priorities.edit', params: { priority: id } }">
+                        <x-link class="mr-2" :to="{ name: 'settings.priorities.edit', params: { priority: id } }" :disabled="deleted_at">
                             {{ name }}
                         </x-link>
 
@@ -35,7 +35,7 @@
 
                     <x-table-data>
                         <x-badge :color="color">
-                            <x-icon name="circle" :color="color"/>
+                            <x-icon name="square" :color="color"/>
                             <span class="capitalize">
                                 {{ color }}
                             </span>
@@ -68,7 +68,32 @@ export default {
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/priorityModule/fetchAllItems")
+            .finally(() => {
+                this.toggleInitialize();
+            });
+    },
+    mounted() {
+        const organization = this.$store.getters["authModule/getUser"].primary_organization;
+        const channel = `organization-${organization.id}-priority-channel`;
+
+        window.EchoInstance.private(channel)
+            .listen(".App\\Events\\Priority\\PriorityCreated", ({ priority }) => {
+                this.$toast().info(`The priority ${priority.name} was created.`);
+                this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
+            })
+            .listen(".App\\Events\\Priority\\PriorityDeleted", ({ priority }) => {
+                this.$toast().info(`The priority ${priority.name} was deleted.`);
+                this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
+            })
+            .listen(".App\\Events\\Priority\\PriorityUpdated", () => {
+                this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
+            });
+    },
+    beforeUnmount() {
+        const organization = this.$store.getters["authModule/getUser"].primary_organization;
+        const channel = `organization-${organization.id}-priority-channel`;
+        window.EchoInstance.leave(channel);
     },
 };
 </script>

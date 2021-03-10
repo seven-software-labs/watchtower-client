@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="!isInitializing">
         <x-section-header>
             <template v-slot:title>
                 Departments
@@ -22,9 +22,9 @@
             </thead>
 
             <tbody>
-                <x-table-row v-for="({ id, name, tickets_count, is_default, color }, departmentIndex) in departments.data" :key="'department_' + departmentIndex">
+                <x-table-row v-for="({ id, name, tickets_count, is_default, color, deleted_at }, departmentIndex) in departments.data" :key="'department_' + departmentIndex">
                     <x-table-data>
-                        <x-link class="mr-2" :to="{ name: 'settings.departments.edit', params: { department: id } }">
+                        <x-link class="mr-2" :to="{ name: 'settings.departments.edit', params: { department: id } }" :disabled="deleted_at">
                             {{ name }}
                         </x-link>
 
@@ -68,7 +68,32 @@ export default {
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/departmentModule/fetchAllItems")
+            .finally(() => {
+                this.toggleInitialize();
+            });
+    },
+    mounted() {
+        const organization = this.$store.getters["authModule/getUser"].primary_organization;
+        const channel = `organization-${organization.id}-department-channel`;
+
+        window.EchoInstance.private(channel)
+            .listen(".App\\Events\\Department\\DepartmentCreated", ({ department }) => {
+                this.$toast().info(`The department ${department.name} was created.`);
+                this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+            })
+            .listen(".App\\Events\\Department\\DepartmentDeleted", ({ department }) => {
+                this.$toast().info(`The department ${department.name} was deleted.`);
+                this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+            })
+            .listen(".App\\Events\\Department\\DepartmentUpdated", () => {
+                this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+            });
+    },
+    beforeUnmount() {
+        const organization = this.$store.getters["authModule/getUser"].primary_organization;
+        const channel = `organization-${organization.id}-department-channel`;
+        window.EchoInstance.leave(channel);
     },
 };
 </script>

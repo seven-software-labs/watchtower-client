@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import Circle from "./icons/circle.vue";
 import FolderSmall from "./icons/folder-sm.vue";
 import Square from "./icons/square.vue";
@@ -50,18 +51,18 @@ export default {
             orange: "text-orange-500",
             yellow: "text-yellow-500",
             green: "text-green-500",
-            blue: "text-blue-500",
+            blue: "text-primary-500",
             indigo: "text-indigo-500",
             purple: "text-purple-500",
             pink: "text-pink-500",
         };
 
-        const compiledClasses = () => {
+        const compiledClasses = computed(() => {
             return `${baseClasses} ${colors[props.color]}`;
-        };
+        });
 
         return {
-            classes: compiledClasses(),
+            classes: compiledClasses,
         };
     },
 };

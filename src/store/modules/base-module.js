@@ -111,8 +111,7 @@ const baseModule = {
                 updateItem(context, { id, payload = {}}) {
                     return new Promise((resolve, reject) => {
                         const handleSuccess = (response) => {
-                            console.log("updateItem", response);
-                            let item = response.data;
+                            let item = response.data.data;
                             resolve(item);
                         };
     
@@ -125,6 +124,7 @@ const baseModule = {
                             .catch(handleFailure);
                     });
                 },
+                deleteItem: (context, id) => service.deleteItem(id),
                 ...actions,
             };
         };

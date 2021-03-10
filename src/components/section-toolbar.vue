@@ -1,7 +1,5 @@
 <template>
-    <div class="flex-shrink-0 bg-white border-b border-gray-200">
-        <x-container class="py-4 flex space-x-2">
-            <slot></slot>
-        </x-container>
+    <div class="flex-shrink-0 pb-3 pt-1 flex space-x-2">
+        <slot></slot>
     </div>
 </template>

@@ -12,6 +12,9 @@ const authRequestClient = Axios.create({
 });
 
 const authService = {
+    ping() {
+        return RequestClient.get("/ping");
+    },
     getCookie() {
         return authRequestClient.get("/sanctum/csrf-cookie");
     },

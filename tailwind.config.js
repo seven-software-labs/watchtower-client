@@ -28,6 +28,18 @@ const customColors = {
         "800": "#681F02",
         "900": "#361001"
     },    
+    denim: {
+        "50":  "#f5fbfd",
+        "100": "#e3f8fc",
+        "200": "#bbebf9",
+        "300": "#8cd8f8",
+        "400": "#3da9fc",
+        "500": "#218af4",
+        "600": "#1765ea",
+        "700": "#1850cc",
+        "800": "#153d98",
+        "900": "#123174",
+    },
 };
 
 module.exports = {
@@ -38,12 +50,12 @@ module.exports = {
             colors: {
                 orange: customColors["tree-poppy"],
                 red: customColors.vermilion,
-                primary: customColors["tree-poppy"],
+                primary: colors.blue,
                 secondary: customColors.vermilion,
                 success: colors.green,
                 warning: colors.amber,
                 danger: customColors.vermilion,
-                gray: colors.trueGray,
+                gray: colors.coolGray,
             },
             fontFamily: {
                 sans: ["Inter var", ...defaultTheme.fontFamily.sans],
@@ -51,7 +63,10 @@ module.exports = {
         },
     },
     variants: {
-        extend: {},
+        extend: {
+            opacity: ["disabled"],
+            cursor: ["disabled"],
+        },
     },
     plugins: [
         require("@tailwindcss/typography"),
