@@ -19,7 +19,7 @@
         </template>
 
         <template v-slot:default>
-            <x-layouts-container/>
+            <router-view/>
         </template>
     </x-layouts-panel>
 </template>
