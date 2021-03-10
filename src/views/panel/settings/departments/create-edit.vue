@@ -212,7 +212,6 @@ export default {
             this.$alert().confirm(operation)
                 .then((response) => {
                     if(response) {
-                        this.createEditForm.deleted_at = new Date();
                         this.$toast().success("Department deleted.");
                     }
                 })
