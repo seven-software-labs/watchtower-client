@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="!isInitializing">
         <x-section-header>
             <template v-slot:title>
                 Statuses
@@ -22,9 +22,9 @@
             </thead>
 
             <tbody>
-                <x-table-row v-for="({ id, name, tickets_count, is_default, color }, statusIndex) in statuses.data" :key="'status_' + statusIndex">
+                <x-table-row v-for="({ id, name, tickets_count, is_default, color, deleted_at }, statusIndex) in statuses.data" :key="'status_' + statusIndex">
                     <x-table-data>
-                        <x-link class="mr-2" :to="{ name: 'settings.statuses.edit', params: { status: id } }">
+                        <x-link class="mr-2" :to="{ name: 'settings.statuses.edit', params: { status: id } }" :disabled="deleted_at">
                             {{ name }}
                         </x-link>
 
@@ -35,7 +35,7 @@
 
                     <x-table-data>
                         <x-badge :color="color">
-                            <x-icon name="square" :color="color"/>
+                            <x-icon name="circle" :color="color"/>
                             <span class="capitalize">
                                 {{ color }}
                             </span>
@@ -68,7 +68,32 @@ export default {
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/statusModule/fetchAllItems")
+            .finally(() => {
+                this.toggleInitialize();
+            });
+    },
+    mounted() {
+        const organization = this.$store.getters["authModule/getUser"].primary_organization;
+        const channel = `organization-${organization.id}-status-channel`;
+
+        window.EchoInstance.private(channel)
+            .listen(".App\\Events\\Status\\StatusCreated", ({ status }) => {
+                this.$toast().info(`The status ${status.name} was created.`);
+                this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
+            })
+            .listen(".App\\Events\\Status\\StatusDeleted", ({ status }) => {
+                this.$toast().info(`The status ${status.name} was deleted.`);
+                this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
+            })
+            .listen(".App\\Events\\Status\\StatusUpdated", () => {
+                this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
+            });
+    },
+    beforeUnmount() {
+        const organization = this.$store.getters["authModule/getUser"].primary_organization;
+        const channel = `organization-${organization.id}-status-channel`;
+        window.EchoInstance.leave(channel);
     },
 };
 </script>
