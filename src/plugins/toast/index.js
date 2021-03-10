@@ -20,15 +20,16 @@ export default {
                         confirmButtonText: "Yes, delete it!",
                         cancelButtonText: "No, cancel!",
                         reverseButtons: true,
+                        allowOutsideClick: false,
+                        preConfirm: () => {
+                            return callback()
+                                .then((response) => ({ response }))
+                                .catch((error) => ({ error }));
+                        },
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            callback()
-                                .then((response) => {
-                                    resolve(response);
-                                })
-                                .catch((error) => {
-                                    reject(error);
-                                });
+                            if(result.value.response) resolve(result.value.response);
+                            if(result.value.error) reject(result.value.error);
                         } else if (result.dismiss === Swal.DismissReason.cancel) {
                             resolve(null);
                         }

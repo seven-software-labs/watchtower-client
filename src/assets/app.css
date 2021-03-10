@@ -8,7 +8,7 @@ body, html, #app {
 }
 
 .fade-enter-active, .fade-leave-active {
-    transition: opacity .15s;
+    transition: opacity .10s;
 }
 
 .fade-enter, .fade-leave-to {

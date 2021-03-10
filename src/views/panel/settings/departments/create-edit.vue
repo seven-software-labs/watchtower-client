@@ -114,6 +114,7 @@
 export default {
     data() {
         return {
+            department: null,
             createEditForm: {
                 name: "",
                 color: "gray",
@@ -137,17 +138,15 @@ export default {
             this.toggleLoading();
 
             this.$store.dispatch("organizationModule/departmentModule/fetchOneItem", params.department)
-                .then((response) => {
-                    const department = response;
-                    this.parseDepartment(department);
+                .then((department) => {
+                    this.department = department;
+                    this.createEditForm.name = department.name;
+                    this.createEditForm.color = department.color;
+                    this.createEditForm.is_default = department.is_default;
 
                     window.EchoInstance.private(`organization-${department.organization_id}-department-${department.id}-channel`)
-                        .listen(".App\\Events\\Department\\DepartmentUpdated", ({ department }) => {
-                            this.parseDepartment(department);
-                        })
                         .listen(".App\\Events\\Department\\DepartmentDeleted", ({ department }) => {
-                            this.$toast().info("Department deleted.");
-                            this.parseDepartment(department);
+                            this.createEditForm.deleted_at = department.deleted_at;
                         });
                 })
                 .catch((error) => {
@@ -159,6 +158,12 @@ export default {
                 });
         } else {
             this.toggleInitialize();
+        }
+    },
+    beforeUnmount() {
+        if(this.department) {
+            const channel = `organization-${this.department.organization_id}-department-${this.department.id}-channel`;
+            window.EchoInstance.leave(channel);
         }
     },
     methods: {
@@ -207,19 +212,13 @@ export default {
             this.$alert().confirm(operation)
                 .then((response) => {
                     if(response) {
-                        this.$router.push({ name: "settings.departments.index" });
+                        this.createEditForm.deleted_at = new Date();
                         this.$toast().success("Department deleted.");
                     }
                 })
                 .catch((error) => {
                     this.$toast().danger(error.response.data.message);
                 });
-        },
-        parseDepartment(department) {
-            this.createEditForm.name = department.name;
-            this.createEditForm.color = department.color;
-            this.createEditForm.is_default = department.is_default;
-            this.createEditForm.deleted_at = department.deleted_at;
         },
     },
 };

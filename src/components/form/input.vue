@@ -11,7 +11,7 @@ export default {
             return {
                 ...this.$attrs,
                 ...{
-                    class: "x-form-input block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-200 rounded-md disabled:opacity-50 disabled:cursor-not-allowed",
+                    class: "x-form-input block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border-gray-200 rounded-md disabled:opacity-50 disabled:cursor-not-allowed max-w-md",
                 },
             };
         },

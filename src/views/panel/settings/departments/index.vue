@@ -75,20 +75,25 @@ export default {
     },
     mounted() {
         const organization = this.$store.getters["authModule/getUser"].primary_organization;
+        const channel = `organization-${organization.id}-department-channel`;
 
-        window.EchoInstance.private(`organization-${organization.id}-department-channel`)
+        window.EchoInstance.private(channel)
             .listen(".App\\Events\\Department\\DepartmentCreated", ({ department }) => {
                 this.$toast().info(`The department ${department.name} was created.`);
-                this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
-            })
-            .listen(".App\\Events\\Department\\DepartmentUpdated", ({ department }) => {
-                this.$toast().info(`The department ${department.name} was updated.`);
                 this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
             })
             .listen(".App\\Events\\Department\\DepartmentDeleted", ({ department }) => {
                 this.$toast().info(`The department ${department.name} was deleted.`);
                 this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+            })
+            .listen(".App\\Events\\Department\\DepartmentUpdated", () => {
+                this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
             });
+    },
+    beforeUnmount() {
+        const organization = this.$store.getters["authModule/getUser"].primary_organization;
+        const channel = `organization-${organization.id}-department-channel`;
+        window.EchoInstance.leave(channel);
     },
 };
 </script>
