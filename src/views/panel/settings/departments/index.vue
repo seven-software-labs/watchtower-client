@@ -74,7 +74,7 @@ export default {
             });
     },
     mounted() {
-        const organization = this.$store.getters["authModule/getUser"].primary_organization;
+        const organization = this.$store.getters["authModule/getUser"].organization;
         const channel = `organization-${organization.id}-department-channel`;
 
         window.EchoInstance.private(channel)
@@ -91,7 +91,7 @@ export default {
             });
     },
     beforeUnmount() {
-        const organization = this.$store.getters["authModule/getUser"].primary_organization;
+        const organization = this.$store.getters["authModule/getUser"].organization;
         const channel = `organization-${organization.id}-department-channel`;
         window.EchoInstance.leave(channel);
     },

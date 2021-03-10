@@ -2,7 +2,7 @@
  * Organization Service
  */
 
-import RequestClient from "../request-client";
+// import RequestClient from "../request-client";
 import BaseService from "./base-service";
 import Cookies from "js-cookie";
 
@@ -11,42 +11,42 @@ const user = JSON.parse(Cookies.get("user"));
 
 const organizationService = BaseService.create("organizations", {
     channels() {
-        return BaseService.create(`organizations/${user.primary_organization.id}/channel-organizations`, {
+        return BaseService.create(`organizations/${user.organization.id}/channel-organizations`, {
             // ...
         });
     },
     departments() {
-        return BaseService.create(`organizations/${user.primary_organization.id}/departments`, {
+        return BaseService.create(`organizations/${user.organization.id}/departments`, {
             // ...
         });
     },
     messages() {
-        return BaseService.create(`organizations/${user.primary_organization.id}/messages`, {
+        return BaseService.create(`organizations/${user.organization.id}/messages`, {
             // ...
         });
     },
     organizations() {
-        return BaseService.create(`organizations/${user.primary_organization.id}/child-organizations`, {
+        return BaseService.create(`organizations/${user.organization.id}/child-organizations`, {
             // ...
         });
     },
     priorities() {
-        return BaseService.create(`organizations/${user.primary_organization.id}/priorities`, {
+        return BaseService.create(`organizations/${user.organization.id}/priorities`, {
             // ...
         });
     },
     statuses() {
-        return BaseService.create(`organizations/${user.primary_organization.id}/statuses`, {
+        return BaseService.create(`organizations/${user.organization.id}/statuses`, {
             // ...
         });
     },
     tickets() {
-        return BaseService.create(`organizations/${user.primary_organization.id}/tickets`, {
+        return BaseService.create(`organizations/${user.organization.id}/tickets`, {
             // ...
         });
     },
     users() {
-        return BaseService.create(`organizations/${user.primary_organization.id}/users`, {
+        return BaseService.create(`organizations/${user.organization.id}/users`, {
             // ...
         });
     },

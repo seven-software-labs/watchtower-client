@@ -75,7 +75,7 @@
                     </x-table-data>
 
                     <x-table-data>
-                        <x-form-select name="color" :disabled="isLoading || createEditForm.deleted_at || !department.is_removeable" v-model="createEditForm.color">
+                        <x-form-select name="color" :disabled="isLoading || createEditForm.deleted_at || !createEditForm.is_removeable" v-model="createEditForm.color">
                             <option value="gray">Gray</option>
                             <option value="primary">Primary</option>
                             <option value="secondary">Secondary</option>
@@ -119,6 +119,7 @@ export default {
                 name: "",
                 color: "gray",
                 is_default: 0,
+                is_removeable: 1,
                 deleted_at: null,
             },
             deleteForm: {
@@ -143,6 +144,7 @@ export default {
                     this.createEditForm.name = priority.name;
                     this.createEditForm.color = priority.color;
                     this.createEditForm.is_default = priority.is_default;
+                    this.createEditForm.is_removeable = status.is_removeable;
 
                     window.EchoInstance.private(`organization-${priority.organization_id}-priority-${priority.id}-channel`)
                         .listen(".App\\Events\\Priority\\PriorityDeleted", ({ priority }) => {

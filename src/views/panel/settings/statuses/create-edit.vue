@@ -18,7 +18,7 @@
                     Save Status
                 </x-button>
 
-                <x-button type="button" color="white" :disabled="isLoading || createEditForm.deleted_at || !department.is_removeable" @click.prevent="submitDeleteForm(deleteForm)" v-if="mode == 'edit'">
+                <x-button type="button" color="white" :disabled="isLoading || createEditForm.deleted_at || !createEditForm.is_removeable" @click.prevent="submitDeleteForm(deleteForm)" v-if="mode == 'edit'">
                     Delete
                 </x-button>
 
@@ -119,6 +119,7 @@ export default {
                 name: "",
                 color: "gray",
                 is_default: 0,
+                is_removeable: 1,
                 deleted_at: null,
             },
             deleteForm: {
@@ -143,6 +144,7 @@ export default {
                     this.createEditForm.name = status.name;
                     this.createEditForm.color = status.color;
                     this.createEditForm.is_default = status.is_default;
+                    this.createEditForm.is_removeable = status.is_removeable;
 
                     window.EchoInstance.private(`organization-${status.organization_id}-status-${status.id}-channel`)
                         .listen(".App\\Events\\Status\\StatusDeleted", ({ status }) => {

@@ -114,7 +114,7 @@
                                                 </x-link>
 
                                                 <x-text color="muted">
-                                                    {{ ticket.user.name }}<span v-if="ticket.user.primary_organization">, {{ ticket.user.primary_organization.name }}</span>
+                                                    {{ ticket.user.name }}<span v-if="ticket.user.organization">, {{ ticket.user.organization.name }}</span>
                                                 </x-text>
                                             </x-table-data>
 

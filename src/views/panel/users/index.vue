@@ -41,8 +41,8 @@
                         </x-table-data>
 
                         <x-table-data>
-                            <x-link :to="{ name: 'organizations.edit', params: { organization: user.primary_organization.id } }" v-if="user.primary_organization">
-                                {{ user.primary_organization.name }}
+                            <x-link :to="{ name: 'organizations.edit', params: { organization: user.organization.id } }" v-if="user.organization">
+                                {{ user.organization.name }}
                             </x-link>
                         </x-table-data>
                     </x-table-row>

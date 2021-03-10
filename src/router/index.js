@@ -25,11 +25,11 @@ const router = createRouter({
     ],
 });
 
-router.beforeEach((to, from, next) => {
-    AuthService.ping()
-        .finally(() => {
-            next();
-        });
-});
+// router.beforeEach((to, from, next) => {
+//     AuthService.ping()
+//         .finally(() => {
+//             next();
+//         });
+// });
 
 export default router;
