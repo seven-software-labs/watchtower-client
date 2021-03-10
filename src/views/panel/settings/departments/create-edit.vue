@@ -18,7 +18,7 @@
                     Save Department
                 </x-button>
 
-                <x-button type="button" color="white" :disabled="isLoading || createEditForm.deleted_at" @click.prevent="submitDeleteForm(deleteForm)" v-if="mode == 'edit'">
+                <x-button type="button" color="white" :disabled="isLoading || createEditForm.deleted_at || !department.is_removeable" @click.prevent="submitDeleteForm(deleteForm)" v-if="mode == 'edit'">
                     Delete
                 </x-button>
 

@@ -75,7 +75,7 @@
                     </x-table-data>
 
                     <x-table-data>
-                        <x-form-select name="color" :disabled="isLoading || createEditForm.deleted_at" v-model="createEditForm.color">
+                        <x-form-select name="color" :disabled="isLoading || createEditForm.deleted_at || !department.is_removeable" v-model="createEditForm.color">
                             <option value="gray">Gray</option>
                             <option value="primary">Primary</option>
                             <option value="secondary">Secondary</option>
