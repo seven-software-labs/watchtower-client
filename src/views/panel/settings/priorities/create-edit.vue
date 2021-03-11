@@ -14,7 +14,7 @@
 
         <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
             <x-section-toolbar>
-                <x-button type="submit" color="blue" :disabled="isLoading || createEditForm.deleted_at">
+                <x-button type="submit" color="primary" :disabled="isLoading || createEditForm.deleted_at">
                     Save Priority
                 </x-button>
 

@@ -7,7 +7,7 @@
         </x-section-header>
         
         <x-section-toolbar>
-            <x-button :to="{ name: 'settings.priorities.create' }" color="blue">
+            <x-button :to="{ name: 'settings.priorities.create' }" color="primary">
                 Create Priority
             </x-button>
         </x-section-toolbar>

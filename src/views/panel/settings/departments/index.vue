@@ -7,7 +7,7 @@
         </x-section-header>
         
         <x-section-toolbar>
-            <x-button :to="{ name: 'settings.departments.create' }" color="blue">
+            <x-button :to="{ name: 'settings.departments.create' }" color="primary">
                 Create Department
             </x-button>
         </x-section-toolbar>
@@ -17,12 +17,13 @@
                 <x-table-row>
                     <x-table-header>Name</x-table-header>
                     <x-table-header>Color</x-table-header>
+                    <x-table-header class="text-right">Channels</x-table-header>
                     <x-table-header class="text-right">Tickets</x-table-header>
                 </x-table-row>
             </thead>
 
             <tbody>
-                <x-table-row v-for="({ id, name, tickets_count, is_default, color, deleted_at }, departmentIndex) in departments.data" :key="'department_' + departmentIndex">
+                <x-table-row v-for="({ id, name, channels_count, tickets_count, is_default, color, deleted_at }, departmentIndex) in departments.data" :key="'department_' + departmentIndex">
                     <x-table-data>
                         <x-link class="mr-2" :to="{ name: 'settings.departments.edit', params: { department: id } }" :disabled="deleted_at">
                             {{ name }}
@@ -45,6 +46,12 @@
                     <x-table-data align="right">
                         <x-badge>
                             {{ tickets_count }}
+                        </x-badge>
+                    </x-table-data>
+
+                    <x-table-data align="right">
+                        <x-badge>
+                            {{ channels_count }}
                         </x-badge>
                     </x-table-data>
                 </x-table-row>

@@ -7,7 +7,7 @@
         </x-section-header>
         
         <x-section-toolbar>
-            <x-button :to="{ name: 'settings.statuses.create' }" color="blue">
+            <x-button :to="{ name: 'settings.statuses.create' }" color="primary">
                 Create Status
             </x-button>
         </x-section-toolbar>

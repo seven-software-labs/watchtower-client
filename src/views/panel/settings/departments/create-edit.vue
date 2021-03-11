@@ -14,7 +14,7 @@
 
         <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
             <x-section-toolbar>
-                <x-button type="submit" color="blue" :disabled="isLoading || createEditForm.deleted_at">
+                <x-button type="submit" color="primary" :disabled="isLoading || createEditForm.deleted_at">
                     Save Department
                 </x-button>
 
@@ -144,7 +144,7 @@ export default {
                     this.createEditForm.name = department.name;
                     this.createEditForm.color = department.color;
                     this.createEditForm.is_default = department.is_default;
-                    this.createEditForm.is_removeable = status.is_removeable;
+                    this.createEditForm.is_removeable = department.is_removeable;
 
                     window.EchoInstance.private(`organization-${department.organization_id}-department-${department.id}-channel`)
                         .listen(".App\\Events\\Department\\DepartmentDeleted", ({ department }) => {
