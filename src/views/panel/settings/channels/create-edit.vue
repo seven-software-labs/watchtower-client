@@ -14,7 +14,7 @@
 
         <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
             <x-section-toolbar>
-                <x-button type="submit" color="primary" :disabled="isLoading || createEditForm.deleted_at">
+                <x-button type="submit" color="primary" :disabled="isLoading || !selectedService || createEditForm.deleted_at">
                     Save Channel
                 </x-button>
 
@@ -76,7 +76,6 @@
                         </x-table-data>
 
                         <x-table-data>
-                            service: {{ selectedService }}
                             <x-form-select name="service_id" v-model="createEditForm.service_id" :disabled="isLoading || createEditForm.deleted_at">
                                 <option :value="null">Select Service</option>
                                 <option :value="service.id" v-for="(service, serviceIndex) in services.data" :key="'service_' + serviceIndex">
@@ -95,7 +94,7 @@
 
                         <x-table-data>
                             <x-form-select name="department_id" v-model="createEditForm.department_id" :disabled="isLoading || createEditForm.deleted_at">
-                                <option :value="null">Select Service</option>
+                                <option :value="null">Select Department</option>
                                 <option :value="department.id" v-for="(department, departmentIndex) in departments.data" :key="'department_' + departmentIndex">
                                     {{ department.name }}
                                 </option>
@@ -103,10 +102,7 @@
                         </x-table-data>
                     </x-table-row>  
                 </tbody>
-
-            </x-table>
-
-            <x-table class="mt-6">
+                
                 <thead>
                     <x-table-row>
                         <x-table-header colspan="100%">
@@ -115,14 +111,37 @@
                     </x-table-row>
                 </thead>
 
-                <tbody>
-                    <x-table-row>
+                <tbody v-if="selectedService && selectedService.settings_schema">
+                    <x-table-row v-for="(setting, settingIndex) in selectedService.settings_schema" :key="'setting_' + settingIndex">
                         <x-table-data>
-                            test
+                            {{ setting.label }}
                         </x-table-data>
-                        
+
                         <x-table-data>
-                            test
+                            <template v-if="['text', 'textarea', 'email', 'password', 'number'].includes(setting.field_type)">
+                                <x-form-input 
+                                    :type="setting.field_type" 
+                                    :name="setting.name" 
+                                    :disabled="isLoading || createEditForm.deleted_at" 
+                                    v-model="createEditForm.settings[setting.name]"/>
+                            </template>
+
+                            <template v-if="setting.field_type == 'select'">
+                                <x-form-select :name="setting.label"  v-model="createEditForm.settings[setting.name]" :disabled="isLoading || createEditForm.deleted_at">
+                                    <option :value="null">Select {{ setting.name }}</option>
+                                    <option :value="option.value" v-for="(option, optionIndex) in setting.options" :key="'option_' + optionIndex">
+                                        {{ option.label }}
+                                    </option>
+                                </x-form-select>
+                            </template>
+                        </x-table-data>
+                    </x-table-row>
+                </tbody>
+
+                <tbody v-else>
+                    <x-table-row>
+                        <x-table-data colspan="100%" align="center">
+                            Please select a service.
                         </x-table-data>
                     </x-table-row>
                 </tbody>
