@@ -101,6 +101,21 @@
                             </x-form-select>
                         </x-table-data>
                     </x-table-row>  
+
+                    <x-table-row>
+                        <x-table-data>
+                            <x-form-label>
+                                Active
+                            </x-form-label>
+                        </x-table-data>
+
+                        <x-table-data>
+                            <x-form-select name="is_active" v-model="createEditForm.is_active" :disabled="isLoading || createEditForm.deleted_at">
+                                <option :value="1">Yes</option>
+                                <option :value="0">No</option>
+                            </x-form-select>
+                        </x-table-data>
+                    </x-table-row>
                 </tbody>
                 
                 <thead>
@@ -201,6 +216,9 @@ export default {
                 .then((channel) => {
                     this.channel = channel;
                     this.createEditForm.name = channel.name;
+                    this.createEditForm.service_id = channel.service_id;
+                    this.createEditForm.department_id = channel.department_id;
+                    this.createEditForm.settings = channel.settings;
                     this.createEditForm.is_active = channel.is_active;
 
                     window.EchoInstance.private(`organization-${channel.organization_id}-channel-${channel.id}-channel`)
