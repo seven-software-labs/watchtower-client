@@ -1,39 +1,39 @@
 <template>
-    <div class="w-full"> 
-        <x-section-header>
-            <template v-slot:title>
-                <template v-if="$route.params.organization && createEditForm.name">
-                    {{ createEditForm.name }}
-                </template>
+    <x-layouts-panel>
+        <template v-slot:default>
+            <x-section-header>
+                <template v-slot:title>
+                    <template v-if="$route.params.organization && createEditForm.name">
+                        {{ createEditForm.name }}
+                    </template>
 
-                <template v-else>
-                    Create Organization
+                    <template v-else>
+                        Create Organization
+                    </template>
                 </template>
-            </template>
-        </x-section-header>  
+            </x-section-header>  
 
-        <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
-            <x-table>
-                <thead>
+            <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
+                <x-table>
+                    <thead>
+                        <x-table-row>
+                            <x-table-header colspan="100%">
+                                General Information
+                            </x-table-header>
+                        </x-table-row>
+                    </thead>
+
                     <x-table-row>
-                        <x-table-header colspan="100%">
-                            General Information
-                        </x-table-header>
+                        <x-table-data>
+                            Name
+                        </x-table-data>
+                        
+                        <x-table-data>
+                            <x-form-input type="text" name="name" :required="true" v-model="createEditForm.name"/>
+                        </x-table-data>
                     </x-table-row>
-                </thead>
+                </x-table>
 
-                <x-table-row>
-                    <x-table-data>
-                        Name
-                    </x-table-data>
-                    
-                    <x-table-data>
-                        <x-form-input type="text" name="name" :required="true" v-model="createEditForm.name"/>
-                    </x-table-data>
-                </x-table-row>
-            </x-table>
-
-             <x-card>
                 <!-- <x-card-content>
                     public function channels()
                     public function tickets()
@@ -56,9 +56,9 @@
                         Cancel
                     </x-button>
                 </x-card-footer>
-             </x-card>
-        </x-form>   
-    </div>
+            </x-form>               
+        </template>
+    </x-layouts-panel>
 </template>
 
 <script>

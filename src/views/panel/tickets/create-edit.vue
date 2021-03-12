@@ -22,31 +22,31 @@
                                     <div class="grid grid-cols-2 gap-2">
                                         <div>
                                             Status
-                                            <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md" v-model="ticket.status_id">
-                                                <option :value="status.id" v-for="(status, statusIndex) in statuses" :key="'status_' + statusIndex">
+                                            <x-form-select name="status_id" v-model="ticket.status_id">
+                                                <option :value="status.id" v-for="(status, statusIndex) in statuses.data" :key="'status_' + statusIndex">
                                                     {{ status.name }}
                                                 </option>
-                                            </select>
+                                            </x-form-select>
                                         </div>
 
                                         <div>
                                             Priority
-                                            <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md" v-model="ticket.priority_id">
-                                                <option :value="priority.id" v-for="(priority, priorityIndex) in priorities" :key="'priority_' + priorityIndex">
+                                            <x-form-select name="priority_id" v-model="ticket.priority_id">
+                                                <option :value="priority.id" v-for="(priority, priorityIndex) in priorities.data" :key="'priority_' + priorityIndex">
                                                     {{ priority.name }}
                                                 </option>
-                                            </select>
+                                            </x-form-select>
                                         </div>
                                     </div>
                                 </li>
 
                                 <li>
                                     Department
-                                    <select class="max-w-lg block focus:ring-blue-500 focus:border-blue-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md" v-model="ticket.department_id">
-                                        <option :value="department.id" v-for="(department, departmentIndex) in departments" :key="'department_' + departmentIndex">
+                                    <x-form-select name="department_id" v-model="ticket.department_id">
+                                        <option :value="department.id" v-for="(department, departmentIndex) in departments.data" :key="'department_' + departmentIndex">
                                             {{ department.name }}
                                         </option>
-                                    </select>
+                                    </x-form-select>
                                 </li>
                             </ul>
                         </x-table-data>
@@ -61,6 +61,50 @@
                     Create Ticket
                 </template>
             </x-section-header>
+
+            <x-form>
+                <x-section-toolbar>
+                    <x-button type="submit" color="primary">
+                        Save Ticket
+                    </x-button>
+
+                    <x-button type="submit" color="white" :to="{ name: 'tickets.index' }">
+                        Cancel
+                    </x-button>
+                </x-section-toolbar>
+
+                <x-table>
+                    <thead>
+                        <x-table-row>
+                            <x-table-header colspan="100%">
+                                General Information
+                            </x-table-header>
+                        </x-table-row>
+                    </thead>
+                    
+                    <tbody>
+                        <x-table-row>
+                            <x-table-data>
+                                Subject
+                            </x-table-data>
+
+                            <x-table-data>
+                                <x-form-input type="text" name="name"/>
+                            </x-table-data>
+                        </x-table-row>
+
+                        <x-table-row>
+                            <x-table-data>
+                                Message
+                            </x-table-data>
+
+                            <x-table-data>
+                                <x-form-input type="text" name="message"/>
+                            </x-table-data>
+                        </x-table-row>
+                    </tbody>
+                </x-table>
+            </x-form>
         </template>
     </x-layouts-panel>
 </template>
@@ -86,20 +130,20 @@ export default {
         };
     },
     computed: {
-        ...mapGetters("statusModule", {
+        ...mapGetters("organizationModule/statusModule", {
             statuses: "getItems",
         }),
-        ...mapGetters("priorityModule", {
+        ...mapGetters("organizationModule/priorityModule", {
             priorities: "getItems",
         }),
-        ...mapGetters("departmentModule", {
+        ...mapGetters("organizationModule/departmentModule", {
             departments: "getItems",
         }),
     },
     created() {
-        this.$store.dispatch("departmentModule/fetchAllItems");
-        this.$store.dispatch("priorityModule/fetchAllItems");
-        this.$store.dispatch("statusModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
     },
 };
 </script>

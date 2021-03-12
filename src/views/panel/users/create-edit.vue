@@ -1,25 +1,5 @@
 <template>
     <x-layouts-panel>
-        <template v-slot:asideLeft>
-            <div>
-                <x-vertical-menu-header class="flex items-center justify-between">
-                    Profile
-                </x-vertical-menu-header>
-
-                <x-vertical-menu-item :active="true" class="text-left">
-                    General Settings
-                </x-vertical-menu-item>
-
-                <x-vertical-menu-item class="text-left">
-                    Tickets
-                </x-vertical-menu-item>
-
-                <x-vertical-menu-item class="text-left">
-                    Delete Account
-                </x-vertical-menu-item>
-            </div>         
-        </template>
-
         <template v-slot:default>
             <x-section-header>
                 <template v-slot:title>
@@ -54,23 +34,13 @@
                 
                 <x-table-row>
                     <x-table-data>
-                        Password
-                    </x-table-data>
-                    
-                    <x-table-data>
-                        <x-form-input type="text" name="name" :required="true" placeholder="Leave blank to not change password." v-model="createEditForm.password"/>
-                    </x-table-data>
-                </x-table-row>
-                
-                <x-table-row>
-                    <x-table-data>
                         Organization
                     </x-table-data>
                     
                     <x-table-data>
                         <x-form-select name="organization_id" v-model="createEditForm.organization_id" :required="true">
                             <option :value="null">Select Organization</option>
-                            <option :value="organizationOption.id" v-for="(organizationOption, organizationOptionIndex) in organizations" :key="'organizationOption_' + organizationOptionIndex">
+                            <option :value="organizationOption.id" v-for="(organizationOption, organizationOptionIndex) in organizations.data" :key="'organizationOption_' + organizationOptionIndex">
                                 {{ organizationOption.name}}
                             </option>
                         </x-form-select>

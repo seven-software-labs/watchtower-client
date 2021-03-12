@@ -45,13 +45,13 @@
 
                     <x-table-data align="right">
                         <x-badge>
-                            {{ tickets_count }}
+                            {{ channels_count }}
                         </x-badge>
                     </x-table-data>
 
                     <x-table-data align="right">
                         <x-badge>
-                            {{ channels_count }}
+                            {{ tickets_count }}
                         </x-badge>
                     </x-table-data>
                 </x-table-row>
