@@ -78,73 +78,69 @@
         </template>
 
         <template v-slot:default>
-            <x-section-header>
-                <template v-slot:title>
-                    Tickets
-                </template>
-            </x-section-header>
+            <x-container>
+                <x-section-header>
+                    <template v-slot:title>
+                        Tickets
+                    </template>
+                </x-section-header>
 
-            <x-section-toolbar>
-                <x-button :to="{ name: 'tickets.create' }" color="blue">
-                    Create Ticket
-                </x-button>
-            </x-section-toolbar>
+                <x-section-toolbar>
+                    <x-button :to="{ name: 'tickets.create' }" color="blue">
+                        Create Ticket
+                    </x-button>
+                </x-section-toolbar>
+            </x-container>
 
-            <div class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
-                <div class="flex flex-col">
-                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                            <div class="overflow-hiddem">
-                                <x-table>
-                                    <thead>
-                                        <x-table-row>
-                                            <x-table-header>Subject</x-table-header>
-                                            <x-table-header>Department</x-table-header>
-                                            <x-table-header>Status</x-table-header>
-                                            <x-table-header>Priority</x-table-header>
-                                            <x-table-header>Last Reply</x-table-header>
-                                        </x-table-row>
-                                    </thead>
+            <x-container class="w-full h-full overflow-y-auto">
+                <x-table>
+                    <thead>
+                        <x-table-row>
+                            <x-table-header>Subject</x-table-header>
+                            <x-table-header>Department</x-table-header>
+                            <x-table-header>Status</x-table-header>
+                            <x-table-header>Priority</x-table-header>
+                            <x-table-header>Last Reply</x-table-header>
+                        </x-table-row>
+                    </thead>
 
-                                    <tbody>
-                                        <x-table-row v-for="(ticket, ticketIndex) in tickets.data" :key="'ticket_' + ticketIndex">
-                                            <x-table-data class="flex flex-col">
-                                                <x-link :to="{ name: 'tickets.show', params: { ticket: ticket.id } }" class="font-medium">
-                                                    {{ ticket.subject }}
-                                                </x-link>
+                    <tbody>
+                        <x-table-row v-for="(ticket, ticketIndex) in tickets.data" :key="'ticket_' + ticketIndex">
+                            <x-table-data>
+                                <div class="w-96 truncate">
+                                    <x-link :to="{ name: 'tickets.edit', params: { ticket: ticket.id } }" class="font-medium">
+                                        {{ ticket.subject }}
+                                    </x-link>
+                                </div>
 
-                                                <x-text color="muted">
-                                                    {{ ticket.user.name }}<span v-if="ticket.user.organization">, {{ ticket.user.organization.name }}</span>
-                                                </x-text>
-                                            </x-table-data>
+                                <x-text color="muted">
+                                    {{ ticket.user.name }}<span v-if="ticket.user.organization">, {{ ticket.user.organization.name }}</span>
+                                </x-text>
+                            </x-table-data>
 
-                                            <x-table-data>
-                                                {{ ticket.department.name }}
-                                            </x-table-data>
+                            <x-table-data>
+                                {{ ticket.department.name }}
+                            </x-table-data>
 
-                                            <x-table-data>
-                                                <x-badge :color="ticket.status.color">
-                                                    {{ ticket.status.name }}
-                                                </x-badge>
-                                            </x-table-data>
+                            <x-table-data>
+                                <x-badge :color="ticket.status.color">
+                                    {{ ticket.status.name }}
+                                </x-badge>
+                            </x-table-data>
 
-                                            <x-table-data>
-                                                <x-badge :color="ticket.priority.color">
-                                                    {{ ticket.priority.name }}
-                                                </x-badge>
-                                            </x-table-data>
+                            <x-table-data>
+                                <x-badge :color="ticket.priority.color">
+                                    {{ ticket.priority.name }}
+                                </x-badge>
+                            </x-table-data>
 
-                                            <x-table-data>
-                                                {{ ticket.last_replied_at }}
-                                            </x-table-data>
-                                        </x-table-row>
-                                    </tbody>
-                                </x-table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <x-table-data>
+                                {{ ticket.last_replied_at }}
+                            </x-table-data>
+                        </x-table-row>
+                    </tbody>
+                </x-table>
+            </x-container>
         </template>
     </x-layouts-panel>
 </template>

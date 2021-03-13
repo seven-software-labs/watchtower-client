@@ -20,6 +20,7 @@ import CardFooter from "./components/card-footer.vue";
 import Card from "./components/card.vue";
 import Container from "./components/container.vue";
 import FormCheckbox from "./components/form/checkbox.vue";
+import FormEditor from "./components/form/editor.vue";
 import FormGroup from "./components/form/group.vue";
 import FormInput from "./components/form/input.vue";
 import FormLabel from "./components/form/label.vue";
@@ -46,6 +47,7 @@ const components = {
     "x-card": Card,
     "x-container": Container,
     "x-form-checkbox": FormCheckbox,
+    "x-form-editor": FormEditor,
     "x-form-group": FormGroup,
     "x-form-input": FormInput,
     "x-form-label": FormLabel,

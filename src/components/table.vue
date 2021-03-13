@@ -1,5 +1,5 @@
 <template>
-    <table class="min-w-full overflow-x-hidden">
+    <table class="w-full max-w-full table-auto">
         <slot></slot>
     </table>
 </template>

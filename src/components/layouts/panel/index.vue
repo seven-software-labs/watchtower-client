@@ -1,9 +1,7 @@
 <template>
     <main class="min-w-0 flex-1 border-gray-200 xl:flex">
         <section aria-labelledby="message-heading" class="bg-white px-2 min-w-0 flex-1 h-full flex flex-col overflow-hidden xl:order-last">
-            <x-container>
-                <slot></slot>
-            </x-container>
+            <slot></slot>
         </section>
 
         <!-- Left Column -->
