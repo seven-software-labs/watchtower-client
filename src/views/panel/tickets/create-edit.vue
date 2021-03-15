@@ -3,7 +3,7 @@
         <template v-slot:asideLeft>
             <x-section-header>
                 <template v-slot:title>
-                    Details
+                    Details {{ data }}
                 </template>
             </x-section-header>
 
@@ -85,7 +85,7 @@
         </template>
 
         <template v-slot:default>
-            <x-container>
+            <x-section>
                 <x-section-header>
                     <template v-slot:title>
                         <template v-if="mode == 'create' || !ticket">
@@ -98,26 +98,22 @@
                     </template>
                 </x-section-header>
 
-                <x-form>
-                    <x-section-toolbar>
-                        <x-button type="submit" color="primary">
-                            Save Ticket
-                        </x-button>
+                <x-section-toolbar>
+                    <x-button type="submit" color="primary">
+                        Save Ticket
+                    </x-button>
 
-                        <x-button type="submit" color="white" :to="{ name: 'tickets.index' }">
-                            Cancel
-                        </x-button>
-                    </x-section-toolbar>
-                </x-form>
-            </x-container>
+                    <x-button type="submit" color="white" :to="{ name: 'tickets.index' }">
+                        Cancel
+                    </x-button>
+                </x-section-toolbar>
 
-            <x-container class="w-full h-full overflow-x-hidden overflow-y-auto" v-if="ticket && ticket.messages">
-                <ticket-message-viewer :ticket="ticket" v-if="ticket"/>
-            </x-container>
+                <x-vertical-scroll>
+                    <ticket-message-viewer :ticket="ticket" v-if="ticket"/>
+                </x-vertical-scroll>
 
-            <x-container class="w-full py-4">
                 <ticket-message-editor :ticket="ticket" v-if="ticket"/>
-            </x-container>
+            </x-section>
         </template>
     </x-layouts-panel>
 </template>

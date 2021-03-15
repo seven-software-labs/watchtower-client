@@ -1,53 +1,57 @@
 <template>
     <x-layouts-panel>
         <template v-slot:default>
-            <x-section-header>
-                <template v-slot:title>
-                    Users
-                </template>
-            </x-section-header>
-        
-            <x-section-toolbar>
-                <x-button :to="{ name: 'users.create' }" color="blue">
-                    Create User
-                </x-button>
-            </x-section-toolbar>
+            <x-section>
+                <x-section-header>
+                    <template v-slot:title>
+                        Users
+                    </template>
+                </x-section-header>
+            
+                <x-section-toolbar>
+                    <x-button :to="{ name: 'users.create' }" color="blue">
+                        Create User
+                    </x-button>
+                </x-section-toolbar>
 
-            <x-table>
-                <thead>
-                    <x-table-row>
-                        <x-table-header>User</x-table-header>
-                        <x-table-header>Organization</x-table-header>
-                    </x-table-row>
-                </thead>
+                <x-vertical-scroll>
+                    <x-table>
+                        <thead>
+                            <x-table-row>
+                                <x-table-header>User</x-table-header>
+                                <x-table-header>Organization</x-table-header>
+                            </x-table-row>
+                        </thead>
 
-                <tbody>
-                    <x-table-row v-for="(user, userIndex) in users.data" :key="'user_' + userIndex">
-                        <x-table-data class="flex flex-col">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-50">
-                                    <img class="h-10 w-10 rounded-full object-cover" :src="user.profile_photo_url" alt="">
-                                </div>
-                                <div class="ml-4 flex flex-col font-medium">
-                                    <x-link :to="{ name: 'users.edit', params: { user: user.id } }">
-                                        {{ user.name }}
+                        <tbody>
+                            <x-table-row v-for="(user, userIndex) in users.data" :key="'user_' + userIndex">
+                                <x-table-data class="flex flex-col">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-50">
+                                            <img class="h-10 w-10 rounded-full object-cover" :src="user.profile_photo_url" alt="">
+                                        </div>
+                                        <div class="ml-4 flex flex-col font-medium">
+                                            <x-link :to="{ name: 'users.edit', params: { user: user.id } }">
+                                                {{ user.name }}
+                                            </x-link>
+
+                                            <x-text color="muted">
+                                                {{ user.email }}
+                                            </x-text>
+                                        </div>
+                                    </div>
+                                </x-table-data>
+
+                                <x-table-data>
+                                    <x-link :to="{ name: 'organizations.edit', params: { organization: user.organization.id } }" v-if="user.organization">
+                                        {{ user.organization.name }}
                                     </x-link>
-
-                                    <x-text color="muted">
-                                        {{ user.email }}
-                                    </x-text>
-                                </div>
-                            </div>
-                        </x-table-data>
-
-                        <x-table-data>
-                            <x-link :to="{ name: 'organizations.edit', params: { organization: user.organization.id } }" v-if="user.organization">
-                                {{ user.organization.name }}
-                            </x-link>
-                        </x-table-data>
-                    </x-table-row>
-                </tbody>
-            </x-table>
+                                </x-table-data>
+                            </x-table-row>
+                        </tbody>
+                    </x-table>
+                </x-vertical-scroll>
+            </x-section>
         </template>
     </x-layouts-panel>
 </template>

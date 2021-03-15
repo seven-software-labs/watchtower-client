@@ -41,21 +41,8 @@ const mutations = {
  * The actions available for this module.
  */
 const actions = {
-    login(context, payload) {
-        return new Promise((resolve, reject) => {
-            const handleSuccess = (response) => {
-                resolve(response);
-            };
-
-            const handleFailure = (error) => {
-                reject(error);
-            };
-
-            AuthService.login(payload)
-                .then(handleSuccess)
-                .catch(handleFailure);
-        });
-    },
+    login: (context, payload) => AuthService.login(payload),
+    logout: (context, payload) => AuthService.logout(payload),
     fetchUser({ commit }) {
         return new Promise((resolve, reject) => {
             const handleSuccess = (response) => {

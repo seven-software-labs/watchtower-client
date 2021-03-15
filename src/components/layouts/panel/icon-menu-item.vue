@@ -18,7 +18,7 @@
 import { computed } from "vue";
 
 export default {
-    name: "x-vertical-menu-item",
+    name: "x-icon-menu-item",
     props: {
         to: {
             type: [Object, String, Boolean],
@@ -38,18 +38,18 @@ export default {
     },
     setup(props) {
         // Base classes for the component.
-        const baseClasses = "text-gray-900 rounded-md block mb-1 last-child:mb-0 px-4 py-2 hover:bg-gray-200 hover:text-primary-600 text-sm whitespace-nowrap truncate focus:outline-none focus:ring-0 focus:ring-offset-0";
+        const baseClasses = "w-14 h-14 block hover:bg-gray-200 text-gray-900 hover:text-primary-600 flex items-center justify-center rounded-md text-sm whitespace-nowrap truncate focus:outline-none focus:ring-0 focus:ring-offset-0";
 
         // List of available modes for the component.
         const modes = {
-            button: "x-vertical-menu-item-button w-full",
-            link: "x-vertical-menu-item-link",
+            button: "x-icon-menu-item-button w-full",
+            link: "x-icon-menu-item-link",
         };
 
         // List of available modes for the component.
         const states = {
             default: "",
-            active: "bg-gray-200 text-primary-600",
+            active: "bg-red-200 text-primary-600",
         };
         
         const compiledClasses = computed(() => {
@@ -64,7 +64,7 @@ export default {
 </script>
 
 <style>
-    .x-vertical-menu-item-link.router-link-active {
+    .x-icon-menu-item-link.router-link-active {
         @apply bg-gray-200 text-primary-600;
     }
 </style>

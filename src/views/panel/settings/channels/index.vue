@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!isInitializing">
+    <x-section>
         <x-section-header>
             <template v-slot:title>
                 Channel Settings
@@ -12,50 +12,52 @@
             </x-button>
         </x-section-toolbar>
 
-        <x-table>
-            <thead>
-                <x-table-row>
-                    <x-table-header>Name</x-table-header>
-                    <x-table-header>Service</x-table-header>
-                    <x-table-header>Department</x-table-header>
-                    <x-table-header>Active</x-table-header>
-                </x-table-row>
-            </thead>
+        <x-vertical-scroll v-if="!isInitializing">
+            <x-table>
+                <thead>
+                    <x-table-row>
+                        <x-table-header>Name</x-table-header>
+                        <x-table-header>Service</x-table-header>
+                        <x-table-header>Department</x-table-header>
+                        <x-table-header>Active</x-table-header>
+                    </x-table-row>
+                </thead>
 
-            <tbody>
-                <x-table-row v-for="(channel, channelIndex) in channels.data" :key="'channel_' + channelIndex">
-                    <x-table-data>
-                        <x-link :to="{ name: 'settings.channels.edit', params: { channel: channel.id } }">
-                            {{ channel.name }}
-                        </x-link>
-                    </x-table-data>
+                <tbody>
+                    <x-table-row v-for="(channel, channelIndex) in channels.data" :key="'channel_' + channelIndex">
+                        <x-table-data>
+                            <x-link :to="{ name: 'settings.channels.edit', params: { channel: channel.id } }">
+                                {{ channel.name }}
+                            </x-link>
+                        </x-table-data>
 
-                    <x-table-data>
-                        {{ channel.service.name }}
-                    </x-table-data>
+                        <x-table-data>
+                            {{ channel.service.name }}
+                        </x-table-data>
 
-                    <x-table-data>
-                        <x-link :to="{ name: 'settings.departments.edit', params: { department: channel.department.id } }">
-                            {{ channel.department.name }}
-                        </x-link>
-                    </x-table-data>
-                    
-                    <x-table-data>
-                        <x-badge :color="channel.is_active ? 'green':'gray'">
-                            <span v-if="channel.is_active">Active</span>
-                            <span v-else>Disabled</span>
-                        </x-badge>
-                    </x-table-data>
-                </x-table-row>
+                        <x-table-data>
+                            <x-link :to="{ name: 'settings.departments.edit', params: { department: channel.department.id } }">
+                                {{ channel.department.name }}
+                            </x-link>
+                        </x-table-data>
+                        
+                        <x-table-data>
+                            <x-badge :color="channel.is_active ? 'green':'gray'">
+                                <span v-if="channel.is_active">Active</span>
+                                <span v-else>Disabled</span>
+                            </x-badge>
+                        </x-table-data>
+                    </x-table-row>
 
-                <x-table-row v-if="!channels">
-                    <x-table-data align="center">
-                        No results found.
-                    </x-table-data>
-                </x-table-row>
-            </tbody>
-        </x-table>     
-    </div>
+                    <x-table-row v-if="!channels || (channels.length < 1)">
+                        <x-table-data align="center">
+                            No results found.
+                        </x-table-data>
+                    </x-table-row>
+                </tbody>
+            </x-table> 
+        </x-vertical-scroll>    
+    </x-section>
 </template>
 
 <script>

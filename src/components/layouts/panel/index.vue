@@ -1,8 +1,12 @@
 <template>
     <main class="min-w-0 flex-1 border-gray-200 xl:flex">
-        <section aria-labelledby="message-heading" class="bg-white px-2 min-w-0 flex-1 h-full flex flex-col overflow-hidden xl:order-last">
-            <slot></slot>
-        </section>
+        <slot name="area">
+            <section aria-labelledby="message-heading" class="bg-white px-2 min-w-0 flex-1 h-full">
+                <x-container class="h-full flex flex-col overflow-hidden xl:order-last">
+                    <slot></slot>
+                </x-container>
+            </section>
+        </slot>
 
         <!-- Left Column -->
         <aside class="hidden xl:block xl:flex-shrink-0 xl:order-first" v-if="showAsideLeft">

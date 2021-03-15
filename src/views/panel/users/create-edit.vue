@@ -1,64 +1,68 @@
 <template>
-    <x-layouts-panel>
+    <x-layouts-panel v-if="!isInitializing">
         <template v-slot:default>
-            <x-section-header>
-                <template v-slot:title>
-                    <template v-if="$route.params.user && createEditForm.name">
-                        {{ createEditForm.name }}
+            <x-section>
+                <x-section-header>
+                    <template v-slot:title>
+                        <template v-if="$route.params.user && createEditForm.name">
+                            {{ createEditForm.name }}
+                        </template>
+
+                        <template v-else>
+                            Create User
+                        </template>
                     </template>
+                </x-section-header>
 
-                    <template v-else>
-                        Create User
-                    </template>
-                </template>
-            </x-section-header>  
-
-            <x-table>
-                <thead>
-                    <x-table-row>
-                        <x-table-header colspan="100%">
-                            General Information
-                        </x-table-header>
-                    </x-table-row>
-                </thead>
-                
-                <x-table-row>
-                    <x-table-data>
-                        Name
-                    </x-table-data>
-                    
-                    <x-table-data>
-                        <x-form-input type="text" name="name" :required="true" placeholder="First and last name of the user." v-model="createEditForm.name"/>
-                    </x-table-data>
-                </x-table-row>
-                
-                <x-table-row>
-                    <x-table-data>
-                        Organization
-                    </x-table-data>
-                    
-                    <x-table-data>
-                        <x-form-select name="organization_id" v-model="createEditForm.organization_id" :required="true">
-                            <option :value="null">Select Organization</option>
-                            <option :value="organizationOption.id" v-for="(organizationOption, organizationOptionIndex) in organizations.data" :key="'organizationOption_' + organizationOptionIndex">
-                                {{ organizationOption.name}}
-                            </option>
-                        </x-form-select>
-                    </x-table-data>
-                </x-table-row>
-            </x-table>
-
-            <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
-                <x-card-footer>
-                    <x-button type="submit" color="blue">
+                <x-section-toolbar>
+                    <x-button form="createEditForm" type="submit" color="primary">
                         Save User
                     </x-button>
 
                     <x-button type="submit" color="white" :to="{ name: 'users.index' }">
                         Cancel
                     </x-button>
-                </x-card-footer>
-            </x-form>  
+                </x-section-toolbar>
+
+                <x-vertical-scroll>
+                    <x-form @submit.prevent="submitCreateEditForm(createEditForm, mode)">
+                        <x-table>
+                            <thead>
+                                <x-table-row>
+                                    <x-table-header colspan="100%">
+                                        General Information
+                                    </x-table-header>
+                                </x-table-row>
+                            </thead>
+                            
+                            <x-table-row>
+                                <x-table-data>
+                                    Name
+                                </x-table-data>
+                                
+                                <x-table-data>
+                                    <x-form-input type="text" name="name" :required="true" placeholder="First and last name of the user." v-model="createEditForm.name"/>
+                                </x-table-data>
+                            </x-table-row>
+                            
+                            <x-table-row>
+                                <x-table-data>
+                                    Organization
+                                </x-table-data>
+                                
+                                <x-table-data>
+                                    <x-form-select name="organization_id" v-model="createEditForm.organization_id" :required="true">
+                                        <option :value="null">Select Organization</option>
+                                        <option :value="organizationOption.id" v-for="(organizationOption, organizationOptionIndex) in organizations.data" :key="'organizationOption_' + organizationOptionIndex">
+                                            {{ organizationOption.name}}
+                                        </option>
+                                    </x-form-select>
+                                </x-table-data>
+                            </x-table-row>
+                        </x-table> 
+                    </x-form>  
+                </x-vertical-scroll>
+            </x-section>
         </template>
     </x-layouts-panel>
 </template>
@@ -71,6 +75,7 @@ export default {
         return {
             mode: "create",
             createEditForm: {
+                id: null,
                 name: "",
                 password: "",
                 color: "gray",
@@ -92,9 +97,15 @@ export default {
         if(params.user) {
             this.$store.dispatch("organizationModule/userModule/fetchOneItem", params.user)
                 .then((user) => {
+                    this.createEditForm.id = user.id;
                     this.createEditForm.name = user.name;
                     this.mode = "edit";
+                })
+                .finally(() => {
+                    this.toggleInitialize();
                 });
+        } else {
+            this.toggleInitialize();
         }
     },
     methods: {

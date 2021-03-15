@@ -31,6 +31,7 @@ import Iframe from "./components/iframe.vue";
 import Link from "./components/link.vue";
 import SectionHeader from "./components/section-header.vue";
 import SectionToolbar from "./components/section-toolbar.vue";
+import Section from "./components/section.vue";
 import TableTata from "./components/table-data.vue";
 import TableHeader from "./components/table-header.vue";
 import TableRow from "./components/table-row.vue";
@@ -38,6 +39,10 @@ import Table from "./components/table.vue";
 import Text from "./components/text.vue";
 import VerticalMenuHeader from "./components/vertical-menu-header.vue";
 import VerticalMenuItem from "./components/vertical-menu-item.vue";
+import VerticalScroll from "./components/vertical-scroll.vue";
+
+// Plugin Components
+import { FontAwesomeIcon } from "./plugins/icons/index.js";
 
 const components = {
     "x-badge": Badge,
@@ -58,6 +63,7 @@ const components = {
     "x-link": Link,
     "x-section-header": SectionHeader,
     "x-section-toolbar": SectionToolbar,
+    "x-section": Section,
     "x-table-data": TableTata,
     "x-table-header": TableHeader,
     "x-table-row": TableRow,
@@ -65,6 +71,7 @@ const components = {
     "x-text": Text,
     "x-vertical-menu-header": VerticalMenuHeader,
     "x-vertical-menu-item": VerticalMenuItem,
+    "x-vertical-scroll": VerticalScroll,
 };
 
 const registerComponents = (app = null) => {
@@ -79,6 +86,9 @@ const registerComponents = (app = null) => {
     Object.keys(components).forEach((key) => {
         app.component(key, components[key]);
     });
+
+    // Plugin Components
+    app.component("fa", FontAwesomeIcon);
 };
 
 export default registerComponents;
