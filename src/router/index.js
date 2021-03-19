@@ -9,6 +9,8 @@ import AuthRoutes from "./modules/auth/index.js";
 import PanelRoutes from "./modules/panel/index.js";
 import PublicRoutes from "./modules/public/index.js";
 import IndexView from "./../views/index.vue";
+import Pricing from "./../views/public/pricing.vue";
+import Home from "./../views/public/home.vue";
 // import AuthService from "./../services/modules/auth-service";
 
 const router = createRouter({
@@ -17,6 +19,15 @@ const router = createRouter({
         {
             path: "/",
             component: IndexView,
+        },
+        {
+            path: "/home",
+            component: Home,
+        },
+        {
+            path: "/pricing",
+            name: "public.pricing",
+            component: Pricing,
         },
 
         ...AuthRoutes,

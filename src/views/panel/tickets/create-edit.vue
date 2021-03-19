@@ -3,7 +3,7 @@
         <template v-slot:asideLeft>
             <x-section-header>
                 <template v-slot:title>
-                    Details {{ data }}
+                    Details
                 </template>
             </x-section-header>
 
@@ -108,24 +108,18 @@
                     </x-button>
                 </x-section-toolbar>
 
-                <x-vertical-scroll>
-                    <ticket-message-viewer :ticket="ticket" v-if="ticket"/>
-                </x-vertical-scroll>
-
-                <ticket-message-editor :ticket="ticket" v-if="ticket"/>
+                <ticket-message-viewer :ticket="ticket" v-if="ticket"/>
             </x-section>
         </template>
     </x-layouts-panel>
 </template>
 
 <script>
-import TicketMessageEditor from "./../../../components/application/ticket/ticket-message-editor.vue";
 import TicketMessageViewer from "./../../../components/application/ticket/ticket-message-viewer.vue";
 import { mapGetters } from "vuex";
 
 export default {
     components: {
-        TicketMessageEditor,
         TicketMessageViewer,
     },
     data() {
@@ -217,11 +211,26 @@ export default {
                     this.ticketForm.user_id = ticket.user_id;
                     this.ticketForm.channel_id = ticket.channel_id;
                     this.ticketForm.subject = ticket.subject;
+
+                    // Subscribe to channel.
+                    window.EchoInstance.private(`organization-${ticket.organization_id}-ticket-${ticket.id}-channel`)
+                        .listen(".App\\Events\\Ticket\\TicketUpdated", ({ ticket }) => {
+                            this.ticket = ticket;
+                            this.ticketForm.status_id = ticket.status_id;
+                            this.ticketForm.priority_id = ticket.priority_id;
+                            this.ticketForm.department_id = ticket.department_id;
+                            this.ticketForm.user_id = ticket.user_id;
+                            this.ticketForm.channel_id = ticket.channel_id;
+                            this.ticketForm.subject = ticket.subject;
+                        });
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         }
+    },
+    mounted() {
+        // ...
     },
 };
 </script>

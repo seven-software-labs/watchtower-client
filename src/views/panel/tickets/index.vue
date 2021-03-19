@@ -89,66 +89,42 @@
                     <x-button :to="{ name: 'tickets.create' }" color="blue">
                         Create Ticket
                     </x-button>
+
+                    <x-button color="white">
+                        Status
+                    </x-button>
+
+                    <x-button color="white">
+                        Priority
+                    </x-button>
+
+                    <x-button color="white">
+                        Department
+                    </x-button>
+
+                    <x-button color="white">
+                        Close
+                    </x-button>
+                    
+                    <x-button color="white">
+                        Delete
+                    </x-button>
                 </x-section-toolbar>
 
-                <x-vertical-scroll>
-                    <x-table>
-                        <thead>
-                            <x-table-row>
-                                <x-table-header>Subject</x-table-header>
-                                <x-table-header>Department</x-table-header>
-                                <x-table-header>Status</x-table-header>
-                                <x-table-header>Priority</x-table-header>
-                                <x-table-header>Last Reply</x-table-header>
-                            </x-table-row>
-                        </thead>
-
-                        <tbody>
-                            <x-table-row v-for="(ticket, ticketIndex) in tickets.data" :key="'ticket_' + ticketIndex">
-                                <x-table-data>
-                                    <div class="w-96 truncate">
-                                        <x-link :to="{ name: 'tickets.edit', params: { ticket: ticket.id } }" class="font-medium">
-                                            {{ ticket.subject }}
-                                        </x-link>
-                                    </div>
-
-                                    <x-text color="muted">
-                                        {{ ticket.user.name }}<span v-if="ticket.user.organization">, {{ ticket.user.organization.name }}</span>
-                                    </x-text>
-                                </x-table-data>
-
-                                <x-table-data>
-                                    {{ ticket.department.name }}
-                                </x-table-data>
-
-                                <x-table-data>
-                                    <x-badge :color="ticket.status.color">
-                                        {{ ticket.status.name }}
-                                    </x-badge>
-                                </x-table-data>
-
-                                <x-table-data>
-                                    <x-badge :color="ticket.priority.color">
-                                        {{ ticket.priority.name }}
-                                    </x-badge>
-                                </x-table-data>
-
-                                <x-table-data>
-                                    {{ ticket.last_replied_at }}
-                                </x-table-data>
-                            </x-table-row>
-                        </tbody>
-                    </x-table>
-                </x-vertical-scroll>
+                <ticket-table/>
             </x-section>
         </template>
     </x-layouts-panel>
 </template>
 
 <script>
+import TicketTable from "./../../../components/application/ticket/ticket-table.vue";
 import { mapGetters } from "vuex";
 
 export default {
+    components: {
+        TicketTable,
+    },
     data() {
         return {
             form: {
@@ -167,9 +143,6 @@ export default {
         }),
         ...mapGetters("organizationModule/departmentModule", {
             departments: "getItems",
-        }),
-        ...mapGetters("organizationModule/ticketModule", {
-            tickets: "getItems",
         }),
     },
     watch: {
@@ -192,18 +165,12 @@ export default {
             },
             deep: true,
         },
-        "$route.query": {
-            handler(query) {
-                this.$store.dispatch("organizationModule/ticketModule/fetchAllItems", query);
-            },
-        },
     },
     created() {
         // Load all of the required data.
         this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
         this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
         this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
-        this.$store.dispatch("organizationModule/ticketModule/fetchAllItems");
         // Set the query settings.
         this.form.department_id = this.$route.query.department_id || null;
         this.form.priority_id = this.$route.query.priority_id || null;
@@ -211,18 +178,14 @@ export default {
     },
     mounted() {
         window.EchoInstance.private("ticket-channel")
-            .listen(".App\\Events\\Ticket\\TicketCreated", ({ ticket }) => {
-                console.log("Incoming Ticket", ticket);
-                this.$store.commit("organizationModule/ticketModule/addItem", ticket);
-            })
-            .listen(".App\\Events\\Ticket\\TicketUpdated", ({ ticket }) => {
-                console.log("Updated Ticket", ticket);
-                this.$store.commit("organizationModule/ticketModule/updateItem", ticket);
+            .listen(".App\\Events\\Ticket\\TicketCreated", () => {
+                this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+                this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
+                this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
             });
     },
     methods: {
         selectFilter(filter = "status_id", value = null) {
-            console.log("Selecting Filter", filter, value);
             if(this.form[filter] == value) {
                 this.form[filter] = null;
                 return;

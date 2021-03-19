@@ -18,6 +18,7 @@
 
 <script>
 export default {
+    emits: ["message-created"],
     props: {
         ticket: {
             type: Object,
@@ -41,7 +42,8 @@ export default {
             payload.message_type_id = message_type_id;
 
             this.$store.dispatch("organizationModule/messageModule/storeItem", payload)
-                .then(() => {
+                .then((message) => {
+                    this.$emit("message-created", message);
                     this.$toast().success("Message sent!");
                 })
                 .catch((error) => {
