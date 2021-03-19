@@ -1,13 +1,20 @@
 <template>
     <!--
-        Return an anchor element if there's an href.
+        Return an href element if there's an href.
     -->
-    <router-link :to="to" :class="classes" v-bind="attrs" v-if="to">
+    <a :href="href" :class="classes" v-bind="attrs" v-if="href">
+        <slot></slot>
+    </a>
+
+    <!--
+        Return an anchor element if there's a to.
+    -->
+    <router-link :to="to" :class="classes" v-bind="attrs" v-else-if="to">
         <slot></slot>
     </router-link>
 
     <!--
-        Return a button element if there's no href.
+        Return a button element if there's no href or to.
     -->
     <button :class="classes" v-bind="attrs" v-else>
         <slot></slot>
@@ -19,6 +26,11 @@ export default {
     name: "x-button",
     inheritAttrs: false,
     props: {
+        href: {
+            type: String,
+            required: false,
+            default: () => null,
+        },
         to: {
             type: [Object, String],
             required: false,

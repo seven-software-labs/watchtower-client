@@ -1,10 +1,12 @@
 <template>
     <x-vertical-scroll id="ticket-message-viewer" class="pb-6">
+        <div class="w-full h-full border-2 border-dashed border-gray-200 p-4 space-y-4 rounded-md">
         <ticket-message-card 
             :message="message" 
             v-for="(message, messageIndex) in messages" 
             :key="'message_' + messageIndex"
         />
+        </div>
     </x-vertical-scroll>
 
     <ticket-message-editor :ticket="ticket" @message-created="onMessageCreated"/>

@@ -24,6 +24,12 @@
             <x-button type="submit" color="white" :to="{ name: 'settings.channels.index' }">
                 Cancel
             </x-button>
+
+            <template v-if="channel && channel.serviceActions">
+                <x-button :href="serviceAction.path" target="_blank" color="white" :disabled="isLoading || mode == 'create' || createEditForm.deleted_at" v-for="(serviceAction, serviceActionIndex) in channel.serviceActions" :key="'serviceAction_' + serviceActionIndex">
+                    {{ serviceAction.label }}
+                </x-button>
+            </template>
         </x-section-toolbar>
 
         <x-vertical-scroll>
@@ -138,12 +144,14 @@
                                     <x-form-input 
                                         :type="setting.field_type" 
                                         :name="setting.name" 
-                                        :disabled="isLoading || createEditForm.deleted_at" 
+                                        :disabled="isLoading || createEditForm.deleted_at"
+                                        :readonly="setting.readonly || false"
+                                        :placeholder="setting.placeholder"
                                         v-model="createEditForm.settings[setting.name]"/>
                                 </template>
 
                                 <template v-if="setting.field_type == 'select'">
-                                    <x-form-select :name="setting.label"  v-model="createEditForm.settings[setting.name]" :disabled="isLoading || createEditForm.deleted_at">
+                                    <x-form-select :name="setting.label"  v-model="createEditForm.settings[setting.name]" :disabled="isLoading || createEditForm.deleted_at" :readonly="setting.readonly || false">
                                         <option :value="null">Select {{ setting.name }}</option>
                                         <option :value="option.value" v-for="(option, optionIndex) in setting.options" :key="'option_' + optionIndex">
                                             {{ option.label }}
