@@ -64,9 +64,10 @@ export default {
         // List of available colors for the component.
         const colors = {
             primary: "border-primary-500 text-white bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 focus:ring-primary-500",
-            blue: "border-blue-500 text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 focus:ring-blue-600",
+            success: "border-success-500 text-white bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 focus:ring-success-500",
             danger: "border-red-500 text-white bg-red-500 hover:bg-red-600 focus:ring-red-600",
             white: "bg-white border-gray-300 text-gray-900 hover:bg-gray-200 focus:ring-gray-900",
+            blue: "border-blue-500 text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 focus:ring-blue-600",
         };
 
         // List of available sizes for the component.
