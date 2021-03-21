@@ -35,6 +35,7 @@
             "error",
             "always"
         ],
-        "no-undefined": 0
+        "no-undefined": 0,
+        "vue/no-multiple-template-root": 0,
     }
 }

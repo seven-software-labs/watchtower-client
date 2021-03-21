@@ -1,5 +1,5 @@
 <template>
-    <form v-bind="attrs">
+    <form v-bind="attrs" class="w-full">
         <slot></slot>
     </form>
 </template>

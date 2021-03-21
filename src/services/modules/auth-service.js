@@ -39,6 +39,12 @@ const authService = {
     me(payload) {
         return RequestClient.get("/me", payload);
     },
+    updateProfile(payload) {
+        return RequestClient.post("/me/profile/update", payload);
+    },
+    updateSettings(payload) {
+        return RequestClient.get("/me/settings/update", payload);
+    },
 };
 
 export default authService;

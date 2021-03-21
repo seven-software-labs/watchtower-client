@@ -52,10 +52,15 @@ export default {
     methods: {
         submitLoginForm(payload) {
             this.$store.dispatch("authModule/login", payload)
-                .then(() => {
+                .then((response) => {
+                    console.log("Helo", response);
                     this.$router.push({
                         name: "tickets.index"
                     });
+                })
+                .catch((error) => {
+                    console.log(error);
+                    console.log(error.response);
                 });
         },
     },

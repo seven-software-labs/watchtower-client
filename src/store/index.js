@@ -12,6 +12,7 @@ import MessageModule from "./modules/message-module.js";
 import OrganizationModule from "./modules/organizations-module.js";
 import StatusModule from "./modules/status-module.js";
 import PriorityModule from "./modules/priority-module.js";
+import ServiceModule from "./modules/service-module.js";
 import TicketModule from "./modules/ticket-module.js";
 import UserModule from "./modules/user-module.js";
 
@@ -25,6 +26,7 @@ const store = createStore({
         messageModule: MessageModule,
         organizationModule: OrganizationModule,
         priorityModule: PriorityModule,
+        serviceModule: ServiceModule,
         ticketModule: TicketModule,
         userModule: UserModule
     },

@@ -51,7 +51,7 @@ module.exports = {
                 orange: customColors["tree-poppy"],
                 red: customColors.vermilion,
                 primary: colors.blue,
-                secondary: customColors.vermilion,
+                secondary: colors.purple,
                 success: colors.green,
                 warning: colors.amber,
                 danger: customColors.vermilion,

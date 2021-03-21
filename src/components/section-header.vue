@@ -1,6 +1,6 @@
 <template>
     <div class="flex-shrink-0">
-        <div class="py-3 flex items-center justify-between">
+        <div class="pb-3 flex items-center justify-between">
             <div class="" :class="showDescription ? '':''">
                 <h2 class="text-ls font-medium text-gray-900">
                     <slot name="title"></slot>

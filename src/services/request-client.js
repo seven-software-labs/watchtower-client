@@ -32,7 +32,7 @@ requestClient.interceptors.response.use(function (response) {
 
     // error.response.status == 401;
     if(error.response.status == 401) {
-        Router.push({ name: "auth.login" });
+        // Router.push({ name: "auth.login" });
     }
     
     return Promise.reject(error);

@@ -1,11 +1,7 @@
 <template>
     <div class="w-full h-full">
-        <iframe 
-            scrolling="no"
-            :id="identifier" 
-            :style="`width: 100%; height: ${height + 25}px; overflow: hidden;`" 
-            :srcdoc="content" 
-            @load="resizeIframe"/>
+        <div class="rounded-sm overflow-hidden" v-html="content">
+        </div>
     </div>
 </template>
 
