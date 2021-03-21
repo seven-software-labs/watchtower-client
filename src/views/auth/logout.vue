@@ -8,29 +8,13 @@
 
 <script>
 export default {
-    data() {
-        return {
-            loginForm: {
-                email: "",
-                password: "",
-            },
-        };
-    },
     created() {
         this.submitLogoutForm();
     },
     methods: {
         submitLogoutForm() {
-            this.$store.dispatch("authModule/logout")
-                .then(() => {
-                    this.$toast().success("Successfully logged out.");
-                })
-                .catch((error) => {
-                    this.$toast().danger(error.response.data.message);
-                })
-                .finally(() => {
-                    this.$router.push({ name: "auth.login" });
-                });
+            this.$auth.removeCookies();
+            this.$router.push({ name: "auth.login" });
         },
     },
 };

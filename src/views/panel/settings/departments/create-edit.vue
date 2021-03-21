@@ -140,7 +140,7 @@ export default {
         if(params.department) {
             this.toggleLoading();
 
-            this.$store.dispatch("organizationModule/departmentModule/fetchOneItem", params.department)
+            this.$store.dispatch("departmentModule/fetchOneItem", params.department)
                 .then((department) => {
                     this.department = department;
                     this.createEditForm.name = department.name;
@@ -180,7 +180,7 @@ export default {
                 this.submitEditForm(payload);
         },
         submitCreateForm(payload) {
-            this.$store.dispatch("organizationModule/departmentModule/storeItem", payload)
+            this.$store.dispatch("departmentModule/storeItem", payload)
                 .then((department) => {
                     this.$toast().success("Department created.");
 
@@ -199,7 +199,7 @@ export default {
                 });
         },
         submitEditForm(payload) {
-            this.$store.dispatch("organizationModule/departmentModule/updateItem", { id: this.$route.params.department, payload })
+            this.$store.dispatch("departmentModule/updateItem", { id: this.$route.params.department, payload })
                 .then(() => {
                     this.$toast().success("Department updated.");
                 })
@@ -211,7 +211,7 @@ export default {
                 });
         },
         submitDeleteForm() {
-            const operation = () => this.$store.dispatch("organizationModule/departmentModule/deleteItem", this.$route.params.department);
+            const operation = () => this.$store.dispatch("departmentModule/deleteItem", this.$route.params.department);
             
             this.$alert().confirm(operation)
                 .then((response) => {

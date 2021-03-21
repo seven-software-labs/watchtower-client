@@ -67,35 +67,35 @@ import { mapGetters } from "vuex";
 
 export default {
     computed: {
-        ...mapGetters("organizationModule/statusModule", {
+        ...mapGetters("statusModule", {
             statuses: "getItems",
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/statusModule/fetchAllItems")
+        this.$store.dispatch("statusModule/fetchAllItems")
             .finally(() => {
                 this.toggleInitialize();
             });
     },
     mounted() {
-        const organization = this.$store.getters["authModule/getUser"].organization;
+        const organization = this.$me.user().master_organization;
         const channel = `organization-${organization.id}-status-channel`;
 
         window.EchoInstance.private(channel)
             .listen(".App\\Events\\Status\\StatusCreated", ({ status }) => {
                 this.$toast().info(`The status ${status.name} was created.`);
-                this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
+                this.$store.dispatch("statusModule/fetchAllItems");
             })
             .listen(".App\\Events\\Status\\StatusDeleted", ({ status }) => {
                 this.$toast().info(`The status ${status.name} was deleted.`);
-                this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
+                this.$store.dispatch("statusModule/fetchAllItems");
             })
             .listen(".App\\Events\\Status\\StatusUpdated", () => {
-                this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
+                this.$store.dispatch("statusModule/fetchAllItems");
             });
     },
     beforeUnmount() {
-        const organization = this.$store.getters["authModule/getUser"].organization;
+        const organization = this.$me.user().master_organization;
         const channel = `organization-${organization.id}-status-channel`;
         window.EchoInstance.leave(channel);
     },

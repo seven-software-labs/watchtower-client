@@ -4,14 +4,15 @@
  * A custom plugin built to include common utilities into components.
  */
 
-import Store from "./../../store/index.js";
+import AuthService from "./../../services/modules/auth-service";
+import Store from "./../../store/index";
 
 export default {
     install: (app) => {
-        app.config.globalProperties.$auth = () => {
-            return {
-                user: () => Store.getters["authModule/getUser"],
-            };
+        app.config.globalProperties.$auth = new AuthService();
+        app.config.globalProperties.$me = {
+            user: () => Store.getters["getUser"],
+            fetchUser: () => Store.dispatch("fetchUser"),
         };
     },
 };

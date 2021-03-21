@@ -43,19 +43,19 @@ export default {
     data() {
         return {
             userForm: {
-                name: this.$auth().user().name,
+                name: this.$me.user().name,
             },
         };
     },
     created() {
-        window.EchoInstance.private(`user-${this.$auth().user().id}-channel`)
+        window.EchoInstance.private(`user-${this.$me.user().id}-channel`)
             .listen(".App\\Events\\User\\UserUpdated", ({ user }) => {
                 this.userForm.name = user.name;
             });
     },
     beforeUnmount() {
         if(this.priority) {
-            const channel = `user-${this.$auth().user().id}-channel`;
+            const channel = `user-${this.$me.user().id}-channel`;
             window.EchoInstance.leave(channel);
         }
     },

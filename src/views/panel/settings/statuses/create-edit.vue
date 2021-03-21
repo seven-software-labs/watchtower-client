@@ -140,7 +140,7 @@ export default {
         if(params.status) {
             this.toggleLoading();
 
-            this.$store.dispatch("organizationModule/statusModule/fetchOneItem", params.status)
+            this.$store.dispatch("statusModule/fetchOneItem", params.status)
                 .then((status) => {
                     this.status = status;
                     this.createEditForm.name = status.name;
@@ -180,7 +180,7 @@ export default {
                 this.submitEditForm(payload);
         },
         submitCreateForm(payload) {
-            this.$store.dispatch("organizationModule/statusModule/storeItem", payload)
+            this.$store.dispatch("statusModule/storeItem", payload)
                 .then((status) => {
                     this.$toast().success("Status created.");
 
@@ -199,7 +199,7 @@ export default {
                 });
         },
         submitEditForm(payload) {
-            this.$store.dispatch("organizationModule/statusModule/updateItem", { id: this.$route.params.status, payload })
+            this.$store.dispatch("statusModule/updateItem", { id: this.$route.params.status, payload })
                 .then(() => {
                     this.$toast().success("Status updated.");
                 })
@@ -211,7 +211,7 @@ export default {
                 });
         },
         submitDeleteForm() {
-            const operation = () => this.$store.dispatch("organizationModule/statusModule/deleteItem", this.$route.params.status);
+            const operation = () => this.$store.dispatch("statusModule/deleteItem", this.$route.params.status);
             
             this.$alert().confirm(operation)
                 .then((response) => {

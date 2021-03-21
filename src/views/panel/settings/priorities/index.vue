@@ -67,35 +67,35 @@ import { mapGetters } from "vuex";
 
 export default {
     computed: {
-        ...mapGetters("organizationModule/priorityModule", {
+        ...mapGetters("priorityModule", {
             priorities: "getItems",
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/priorityModule/fetchAllItems")
+        this.$store.dispatch("priorityModule/fetchAllItems")
             .finally(() => {
                 this.toggleInitialize();
             });
     },
     mounted() {
-        const organization = this.$store.getters["authModule/getUser"].organization;
+        const organization = this.$me.user().master_organization;
         const channel = `organization-${organization.id}-priority-channel`;
 
         window.EchoInstance.private(channel)
             .listen(".App\\Events\\Priority\\PriorityCreated", ({ priority }) => {
                 this.$toast().info(`The priority ${priority.name} was created.`);
-                this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
+                this.$store.dispatch("priorityModule/fetchAllItems");
             })
             .listen(".App\\Events\\Priority\\PriorityDeleted", ({ priority }) => {
                 this.$toast().info(`The priority ${priority.name} was deleted.`);
-                this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
+                this.$store.dispatch("priorityModule/fetchAllItems");
             })
             .listen(".App\\Events\\Priority\\PriorityUpdated", () => {
-                this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
+                this.$store.dispatch("priorityModule/fetchAllItems");
             });
     },
     beforeUnmount() {
-        const organization = this.$store.getters["authModule/getUser"].organization;
+        const organization = this.$me.user().master_organization;
         const channel = `organization-${organization.id}-priority-channel`;
         window.EchoInstance.leave(channel);
     },

@@ -65,35 +65,35 @@ import { mapGetters } from "vuex";
 
 export default {
     computed: {
-        ...mapGetters("organizationModule/channelModule", {
+        ...mapGetters("channelModule", {
             channels: "getItems",
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/channelModule/fetchAllItems")
+        this.$store.dispatch("channelModule/fetchAllItems")
             .finally(() => {
                 this.toggleInitialize();
             });
     },
     mounted() {
-        const organization = this.$store.getters["authModule/getUser"].organization;
+        const organization = this.$me.user().master_organization;
         const channel = `organization-${organization.id}-channel-channel`;
 
         window.EchoInstance.private(channel)
             .listen(".App\\Events\\Channel\\ChannelCreated", ({ channel }) => {
                 this.$toast().info(`The channel ${channel.name} was created.`);
-                this.$store.dispatch("organizationModule/channelModule/fetchAllItems");
+                this.$store.dispatch("channelModule/fetchAllItems");
             })
             .listen(".App\\Events\\Channel\\ChannelDeleted", ({ channel }) => {
                 this.$toast().info(`The channel ${channel.name} was deleted.`);
-                this.$store.dispatch("organizationModule/channelModule/fetchAllItems");
+                this.$store.dispatch("channelModule/fetchAllItems");
             })
             .listen(".App\\Events\\Channel\\ChannelUpdated", () => {
-                this.$store.dispatch("organizationModule/channelModule/fetchAllItems");
+                this.$store.dispatch("channelModule/fetchAllItems");
             });
     },
     beforeUnmount() {
-        const organization = this.$store.getters["authModule/getUser"].organization;
+        const organization = this.$me.user().master_organization;
         const channel = `organization-${organization.id}-channel-channel`;
         window.EchoInstance.leave(channel);
     },

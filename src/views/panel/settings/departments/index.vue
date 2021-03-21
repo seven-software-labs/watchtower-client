@@ -74,35 +74,35 @@ import { mapGetters } from "vuex";
 
 export default {
     computed: {
-        ...mapGetters("organizationModule/departmentModule", {
+        ...mapGetters("departmentModule", {
             departments: "getItems",
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/departmentModule/fetchAllItems")
+        this.$store.dispatch("departmentModule/fetchAllItems")
             .finally(() => {
                 this.toggleInitialize();
             });
     },
     mounted() {
-        const organization = this.$store.getters["authModule/getUser"].organization;
+        const organization = this.$me.user().master_organization;
         const channel = `organization-${organization.id}-department-channel`;
 
         window.EchoInstance.private(channel)
             .listen(".App\\Events\\Department\\DepartmentCreated", ({ department }) => {
                 this.$toast().info(`The department ${department.name} was created.`);
-                this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+                this.$store.dispatch("departmentModule/fetchAllItems");
             })
             .listen(".App\\Events\\Department\\DepartmentDeleted", ({ department }) => {
                 this.$toast().info(`The department ${department.name} was deleted.`);
-                this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+                this.$store.dispatch("departmentModule/fetchAllItems");
             })
             .listen(".App\\Events\\Department\\DepartmentUpdated", () => {
-                this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+                this.$store.dispatch("departmentModule/fetchAllItems");
             });
     },
     beforeUnmount() {
-        const organization = this.$store.getters["authModule/getUser"].organization;
+        const organization = this.$me.user().master_organization;
         const channel = `organization-${organization.id}-department-channel`;
         window.EchoInstance.leave(channel);
     },

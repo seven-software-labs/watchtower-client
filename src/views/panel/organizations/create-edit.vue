@@ -81,7 +81,7 @@ export default {
         const { params } = this.$route;
 
         if(params.organization) {
-            this.$store.dispatch("organizationModule/organizationModule/fetchOneItem", params.organization)
+            this.$store.dispatch("organizationModule/fetchOneItem", params.organization)
                 .then((organization) => {
                     this.createEditForm.name = organization.name;
                     this.mode = "edit";
@@ -96,7 +96,7 @@ export default {
                 this.submitEditForm(payload);
         },
         submitCreateForm(payload) {
-            this.$store.dispatch("organizationModule/organizationModule/storeItem", payload)
+            this.$store.dispatch("organizationModule/storeItem", payload)
                 .then((organization) => {
                     this.$router.push({
                         name: "organizations.edit",
@@ -110,7 +110,7 @@ export default {
                 });
         },
         submitEditForm(payload) {
-            this.$store.dispatch("organizationModule/organizationModule/updateItem", { id: this.$route.params.organization, payload })
+            this.$store.dispatch("organizationModule/updateItem", { id: this.$route.params.organization, payload })
                 .then(() => {
                     // @todo add toast for success message.
                 })

@@ -135,13 +135,13 @@ export default {
         };
     },
     computed: {
-        ...mapGetters("organizationModule/statusModule", {
+        ...mapGetters("statusModule", {
             statuses: "getItems",
         }),
-        ...mapGetters("organizationModule/priorityModule", {
+        ...mapGetters("priorityModule", {
             priorities: "getItems",
         }),
-        ...mapGetters("organizationModule/departmentModule", {
+        ...mapGetters("departmentModule", {
             departments: "getItems",
         }),
     },
@@ -168,9 +168,9 @@ export default {
     },
     created() {
         // Load all of the required data.
-        this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
-        this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
-        this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
+        this.$store.dispatch("departmentModule/fetchAllItems");
+        this.$store.dispatch("priorityModule/fetchAllItems");
+        this.$store.dispatch("statusModule/fetchAllItems");
         // Set the query settings.
         this.form.department_id = this.$route.query.department_id || null;
         this.form.priority_id = this.$route.query.priority_id || null;
@@ -179,9 +179,9 @@ export default {
     mounted() {
         window.EchoInstance.private("ticket-channel")
             .listen(".App\\Events\\Ticket\\TicketCreated", () => {
-                this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
-                this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
-                this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
+                this.$store.dispatch("departmentModule/fetchAllItems");
+                this.$store.dispatch("priorityModule/fetchAllItems");
+                this.$store.dispatch("statusModule/fetchAllItems");
             });
     },
     methods: {

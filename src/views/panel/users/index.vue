@@ -61,12 +61,12 @@ import { mapGetters } from "vuex";
 
 export default {
     computed: {
-        ...mapGetters("organizationModule/userModule", {
+        ...mapGetters("userModule", {
             users: "getItems",
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/userModule/fetchAllItems");
+        this.$store.dispatch("userModule/fetchAllItems");
     },
 };
 </script>

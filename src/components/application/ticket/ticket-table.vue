@@ -132,13 +132,13 @@ import { mapGetters } from "vuex";
 export default {
     data() {
         return {
-            channel: `organization-${this.$auth().user().organization_id}-ticket-channel`,
+            channel: `organization-${this.$me.user().master_organization_id}-ticket-channel`,
             selectedTickets: [],
             selectedAllTickets: false,
         };
     },
     computed: {
-        ...mapGetters("organizationModule/ticketModule", {
+        ...mapGetters("ticketModule", {
             tickets: "getItems",
         }),
     },
@@ -147,7 +147,7 @@ export default {
             handler(query) {
                 this.toggleLoading();
 
-                this.$store.dispatch("organizationModule/ticketModule/fetchAllItems", query)
+                this.$store.dispatch("ticketModule/fetchAllItems", query)
                     .finally(() => {
                         this.toggleLoading();
                     });
@@ -169,10 +169,10 @@ export default {
     mounted() {
         window.EchoInstance.private(this.channel)
             .listen(".App\\Events\\Ticket\\TicketCreated", ({ ticket }) => {
-                this.$store.commit("organizationModule/ticketModule/addItem", ticket);
+                this.$store.commit("ticketModule/addItem", ticket);
             })
             .listen(".App\\Events\\Ticket\\TicketUpdated", ({ ticket }) => {
-                this.$store.commit("organizationModule/ticketModule/updateItem", ticket);
+                this.$store.commit("ticketModule/updateItem", ticket);
             });
     },
     beforeUnmount() {

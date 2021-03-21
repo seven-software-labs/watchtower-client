@@ -147,16 +147,16 @@ export default {
         };
     },
     computed: {
-        ...mapGetters("organizationModule/statusModule", {
+        ...mapGetters("statusModule", {
             statuses: "getItems",
         }),
-        ...mapGetters("organizationModule/priorityModule", {
+        ...mapGetters("priorityModule", {
             priorities: "getItems",
         }),
-        ...mapGetters("organizationModule/departmentModule", {
+        ...mapGetters("departmentModule", {
             departments: "getItems",
         }),
-        ...mapGetters("organizationModule/userModule", {
+        ...mapGetters("userModule", {
             users: "getItems",
         }),
         channels() {
@@ -170,26 +170,26 @@ export default {
         },
     },
     created() {
-        this.$store.dispatch("organizationModule/userModule/fetchAllItems")
+        this.$store.dispatch("userModule/fetchAllItems")
             .then(() => {
                 // ...
             });
 
-        this.$store.dispatch("organizationModule/departmentModule/fetchAllItems")
+        this.$store.dispatch("departmentModule/fetchAllItems")
             .then((items) => {
                 if(!this.$route.params.ticket) {
                     const defaultItem = items.data.find((item) => item.is_default);
                     this.ticketForm.department_id = defaultItem.id;
                 }
             });
-        this.$store.dispatch("organizationModule/priorityModule/fetchAllItems")
+        this.$store.dispatch("priorityModule/fetchAllItems")
             .then((items) => {
                 if(!this.$route.params.ticket) {
                     const defaultItem = items.data.find((item) => item.is_default);
                     this.ticketForm.priority_id = defaultItem.id;
                 }
             });
-        this.$store.dispatch("organizationModule/statusModule/fetchAllItems")
+        this.$store.dispatch("statusModule/fetchAllItems")
             .then((items) => {
                 if(!this.$route.params.ticket) {
                     const defaultItem = items.data.find((item) => item.is_default);
@@ -198,7 +198,7 @@ export default {
             });
 
         if(this.$route.params.ticket) {
-            this.$store.dispatch("organizationModule/ticketModule/fetchOneItem", this.$route.params.ticket)
+            this.$store.dispatch("ticketModule/fetchOneItem", this.$route.params.ticket)
                 .then((ticket) => {
                     // Populate ticket information.
                     this.ticket = ticket;

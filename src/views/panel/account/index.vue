@@ -3,7 +3,7 @@
         <template v-slot:asideLeft>
             <x-section-header>
                 <template v-slot:title>
-                    {{ $auth().user().name }}
+                    {{ $me.user().name }}
                 </template>
             </x-section-header>
             

@@ -50,12 +50,12 @@ import { mapGetters } from "vuex";
 
 export default {
     computed: {
-        ...mapGetters("organizationModule/organizationModule", {
+        ...mapGetters("organizationModule", {
             organizations: "getItems",
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/organizationModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/fetchAllItems");
     },
 };
 </script>

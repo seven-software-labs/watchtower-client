@@ -23,3 +23,11 @@
         </template>
     </x-layouts-panel>
 </template>
+
+<script>
+export default {
+    mounted() {
+        console.log(this.$me.user());
+    }
+}
+</script>

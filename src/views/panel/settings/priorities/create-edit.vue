@@ -140,7 +140,7 @@ export default {
         if(params.priority) {
             this.toggleLoading();
 
-            this.$store.dispatch("organizationModule/priorityModule/fetchOneItem", params.priority)
+            this.$store.dispatch("priorityModule/fetchOneItem", params.priority)
                 .then((priority) => {
                     this.priority = priority;
                     this.createEditForm.name = priority.name;
@@ -180,7 +180,7 @@ export default {
                 this.submitEditForm(payload);
         },
         submitCreateForm(payload) {
-            this.$store.dispatch("organizationModule/priorityModule/storeItem", payload)
+            this.$store.dispatch("priorityModule/storeItem", payload)
                 .then((priority) => {
                     this.$toast().success("Priority created.");
 
@@ -199,7 +199,7 @@ export default {
                 });
         },
         submitEditForm(payload) {
-            this.$store.dispatch("organizationModule/priorityModule/updateItem", { id: this.$route.params.priority, payload })
+            this.$store.dispatch("priorityModule/updateItem", { id: this.$route.params.priority, payload })
                 .then(() => {
                     this.$toast().success("Priority updated.");
                 })
@@ -211,7 +211,7 @@ export default {
                 });
         },
         submitDeleteForm() {
-            const operation = () => this.$store.dispatch("organizationModule/priorityModule/deleteItem", this.$route.params.priority);
+            const operation = () => this.$store.dispatch("priorityModule/deleteItem", this.$route.params.priority);
             
             this.$alert().confirm(operation)
                 .then((response) => {

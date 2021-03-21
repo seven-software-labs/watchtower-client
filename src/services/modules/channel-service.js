@@ -1,5 +1,5 @@
 /**
- * Department Service
+ * Channel Service
  */
 
 // import RequestClient from "../request-client";

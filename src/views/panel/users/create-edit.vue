@@ -85,17 +85,17 @@ export default {
         };
     },
     computed: {
-        ...mapGetters("organizationModule/organizationModule", {
+        ...mapGetters("organizationModule", {
             organizations: "getItems",
         }),
     },
     created() {
-        this.$store.dispatch("organizationModule/organizationModule/fetchAllItems");
+        this.$store.dispatch("organizationModule/fetchAllItems");
 
         const { params } = this.$route;
 
         if(params.user) {
-            this.$store.dispatch("organizationModule/userModule/fetchOneItem", params.user)
+            this.$store.dispatch("userModule/fetchOneItem", params.user)
                 .then((user) => {
                     this.createEditForm.id = user.id;
                     this.createEditForm.name = user.name;
@@ -116,7 +116,7 @@ export default {
                 this.submitEditForm(payload);
         },
         submitCreateForm(payload) {
-            this.$store.dispatch("organizationModule/userModule/storeItem", payload)
+            this.$store.dispatch("userModule/storeItem", payload)
                 .then((user) => {
                     this.$router.push({
                         name: "users.edit",
@@ -130,7 +130,7 @@ export default {
                 });
         },
         submitEditForm(payload) {
-            this.$store.dispatch("organizationModule/userModule/updateItem", { id: this.$route.params.user, payload })
+            this.$store.dispatch("userModule/updateItem", { id: this.$route.params.user, payload })
                 .then(() => {
                     // @todo add toast for success message.
                 })

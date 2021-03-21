@@ -199,7 +199,7 @@ export default {
         ...mapGetters("serviceModule", {
             services: "getItems",
         }),
-        ...mapGetters("organizationModule/departmentModule", {
+        ...mapGetters("departmentModule", {
             departments: "getItems",
         }),
         selectedService() {
@@ -215,14 +215,14 @@ export default {
     },
     created() {
         this.$store.dispatch("serviceModule/fetchAllItems");
-        this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
+        this.$store.dispatch("departmentModule/fetchAllItems");
 
         const { params } = this.$route;
 
         if(params.channel) {
             this.toggleLoading();
 
-            this.$store.dispatch("organizationModule/channelModule/fetchOneItem", params.channel)
+            this.$store.dispatch("channelModule/fetchOneItem", params.channel)
                 .then((channel) => {
                     this.channel = channel;
                     this.createEditForm.name = channel.name;
@@ -263,7 +263,7 @@ export default {
                 this.submitEditForm(payload);
         },
         submitCreateForm(payload) {
-            this.$store.dispatch("organizationModule/channelModule/storeItem", payload)
+            this.$store.dispatch("channelModule/storeItem", payload)
                 .then((channel) => {
                     this.$toast().success("Channel created.");
 
@@ -282,7 +282,7 @@ export default {
                 });
         },
         submitEditForm(payload) {
-            this.$store.dispatch("organizationModule/channelModule/updateItem", { id: this.$route.params.channel, payload })
+            this.$store.dispatch("channelModule/updateItem", { id: this.$route.params.channel, payload })
                 .then(() => {
                     this.$toast().success("Channel updated.");
                 })
@@ -294,7 +294,7 @@ export default {
                 });
         },
         submitDeleteForm() {
-            const operation = () => this.$store.dispatch("organizationModule/channelModule/deleteItem", this.$route.params.channel);
+            const operation = () => this.$store.dispatch("channelModule/deleteItem", this.$route.params.channel);
             
             this.$alert().confirm(operation)
                 .then((response) => {

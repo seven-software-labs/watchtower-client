@@ -63,21 +63,21 @@ export default {
     data() {
         return {
             userForm: {
-                email: this.$auth().user().email,
+                email: this.$me.user().email,
                 password: "",
                 password_confirmation: "",
             },
         };
     },
     created() {
-        window.EchoInstance.private(`user-${this.$auth().user().id}-channel`)
+        window.EchoInstance.private(`user-${this.$me.user().id}-channel`)
             .listen(".App\\Events\\User\\UserUpdated", ({ user }) => {
                 this.userForm.email = user.email;
             });
     },
     beforeUnmount() {
         if(this.priority) {
-            const channel = `user-${this.$auth().user().id}-channel`;
+            const channel = `user-${this.$me.user().id}-channel`;
             window.EchoInstance.leave(channel);
         }
     },

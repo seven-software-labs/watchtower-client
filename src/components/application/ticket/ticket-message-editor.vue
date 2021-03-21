@@ -41,7 +41,7 @@ export default {
             payload.ticket_id = this.ticket.id;
             payload.message_type_id = message_type_id;
 
-            this.$store.dispatch("organizationModule/messageModule/storeItem", payload)
+            this.$store.dispatch("messageModule/storeItem", payload)
                 .then((message) => {
                     this.$emit("message-created", message);
                     this.$toast().success("Message sent!");
