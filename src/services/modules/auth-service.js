@@ -86,7 +86,7 @@ class AuthService {
      * @return { Promise }
      */
     updateProfile(payload = {}) {
-        return this.requestClient.patch("/me/profile/update", payload);
+        return this.authedRequestClient.patch("/me/profile/update", payload);
     }
 
     /**
@@ -95,7 +95,7 @@ class AuthService {
      * @return { Promise }
      */
     updatePassword(payload = {}) {
-        return this.requestClient.patch("/me/password/update", payload);
+        return this.authedRequestClient.patch("/me/password/update", payload);
     }    
 
     /**

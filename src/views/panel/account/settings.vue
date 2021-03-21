@@ -7,39 +7,39 @@
         </x-section-header>
 
         <x-section-toolbar>
-            <x-button type="submit" color="primary" :disabled="isLoading">
+            <x-button form="updatePasswordForm" type="submit" color="primary" :disabled="isLoading">
                 Save Changes
             </x-button>
         </x-section-toolbar>
 
         <x-vertical-scroll>
-            <x-form>
+            <x-form id="updatePasswordForm" @submit.prevent="submitUpdatePasswordForm">
                 <x-table>
                     <thead>
                         <x-table-row>
                             <x-table-header colspan="100%">
-                                General Information
+                                Security Information
                             </x-table-header>
                         </x-table-row>
                     </thead>
                     
                     <x-table-row>
                         <x-table-data>
-                            Email
+                            Current Password
                         </x-table-data>
 
                         <x-table-data>
-                            <x-form-input type="email" name="email" :disabled="isLoading" v-model="userForm.email"/>
+                            <x-form-input type="password" name="current_password" :disabled="isLoading" v-model="updatePasswordForm.current_password" required="required"/>
                         </x-table-data>
                     </x-table-row>
                     
                     <x-table-row>
                         <x-table-data>
-                            Password
+                            New Password
                         </x-table-data>
 
                         <x-table-data>
-                            <x-form-input type="password" name="password" :disabled="isLoading" v-model="userForm.password"/>
+                            <x-form-input type="password" name="new_password" :disabled="isLoading" v-model="updatePasswordForm.new_password" required="required"/>
                         </x-table-data>
                     </x-table-row>
                     
@@ -49,7 +49,7 @@
                         </x-table-data>
 
                         <x-table-data>
-                            <x-form-input type="password" name="password_confirmation" :disabled="isLoading" v-model="userForm.password_confirmation"/>
+                            <x-form-input type="password" name="new_password_confirmation" :disabled="isLoading" v-model="updatePasswordForm.new_password_confirmation" required="required"/>
                         </x-table-data>
                     </x-table-row>
                 </x-table>
@@ -62,29 +62,40 @@
 export default {
     data() {
         return {
-            userForm: {
-                email: this.$me.user().email,
-                password: "",
-                password_confirmation: "",
+            updatePasswordForm: {
+                current_password: "",
+                new_password: "",
+                new_password_confirmation: "",
             },
         };
     },
     created() {
         window.EchoInstance.private(`user-${this.$me.user().id}-channel`)
             .listen(".App\\Events\\User\\UserUpdated", ({ user }) => {
-                this.userForm.email = user.email;
+                // ...
             });
     },
     beforeUnmount() {
-        if(this.priority) {
-            const channel = `user-${this.$me.user().id}-channel`;
-            window.EchoInstance.leave(channel);
-        }
+        const channel = `user-${this.$me.user().id}-channel`;
+        window.EchoInstance.leave(channel);
     },
     methods: {
-        submitUserForm() {
-            this.userForm.password = "";
-            this.userForm.password_confirmation = "";
+        submitUpdatePasswordForm() {
+            this.toggleLoading();
+
+            this.$auth.updatePassword(this.updatePasswordForm)
+                .then(() => {
+                    this.$toast().success("Successfully updated password!");
+                    this.updatePasswordForm.current_password = "";
+                    this.updatePasswordForm.new_password = "";
+                    this.updatePasswordForm.new_password_confirmation = "";
+                })
+                .catch((error) => {
+                    this.$toast().danger(error.response.data.message);
+                })
+                .finally(() => {
+                    this.toggleLoading();
+                });
         },
     },
 };
