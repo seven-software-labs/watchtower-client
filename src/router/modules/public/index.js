@@ -4,13 +4,24 @@
  * Routes that are available to the public.
  */
 
-import KitchenIndex from "./../../../views/kitchen/index.vue";
+import Home from "./../../../views/public/home.vue";
 
 const routes = [
     {
-        path: "/kitchen",
-        name: "kitchen",
-        component: KitchenIndex,
+        path: "/",
+        name: "public",
+        redirect: { name: "public.home" },
+        meta: {
+            auth: false,
+        },
+    },
+    {
+        path: "/home",
+        name: "public.home",
+        component: Home,
+        meta: {
+            auth: false,
+        },
     },
 ];
 
