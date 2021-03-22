@@ -61,6 +61,7 @@
                             <x-table-data>
                                 User
                                 <x-form-select name="user_id" v-model="ticketForm.user_id">
+                                    <option :value="null">Select User</option>
                                     <option :value="user.id" v-for="(user, userIndex) in users.data" :key="'user_' + userIndex">
                                         {{ user.name }}
                                     </option>
