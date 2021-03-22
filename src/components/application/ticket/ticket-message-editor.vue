@@ -43,6 +43,7 @@ export default {
 
             this.$store.dispatch("messageModule/storeItem", payload)
                 .then((message) => {
+                    this.messageForm.content = "";
                     this.$emit("message-created", message);
                     this.$toast().success("Message sent!");
                 })

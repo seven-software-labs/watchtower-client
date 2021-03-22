@@ -2,37 +2,32 @@
  * Ticket Routes
  */
 
-import TicketsIndex from "./../../../views/panel/tickets/index.vue";
-import TicketsCreateEdit from "./../../../views/panel/tickets/create-edit.vue";
-import TicketsShow from "./../../../views/panel/tickets/show.vue";
-import LayoutContainer from "./../../../components/layouts/utils/container.vue";
-
 const ticketRoutes = [
     {
         path: "/tickets",
         name: "tickets",
         redirect: { name: "tickets.index" },
-        component: LayoutContainer,
+        component: () => import("./../../../components/layouts/utils/container.vue"),
         children: [
             {
                 path: "browse",
                 name: "tickets.index",
-                component: TicketsIndex,
+                component: () => import("./../../../views/panel/tickets/index.vue"),
             },
             {
                 path: "create",
                 name: "tickets.create",
-                component: TicketsCreateEdit,
+                component: () => import("./../../../views/panel/tickets/create-edit.vue"),
             },
             {
                 path: ":ticket/edit",
                 name: "tickets.edit",
-                component: TicketsCreateEdit,
+                component: () => import("./../../../views/panel/tickets/create-edit.vue"),
             },
             {
                 path: ":ticket/show",
                 name: "tickets.show",
-                component: TicketsShow,
+                component: () => import("./../../../views/panel/tickets/show.vue"),
             },
         ],
     },

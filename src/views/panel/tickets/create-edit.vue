@@ -86,7 +86,7 @@
         </template>
 
         <template v-slot:default>
-            <x-section>
+            <x-section>           
                 <x-section-header>
                     <template v-slot:title>
                         <template v-if="mode == 'create' || !ticket">
@@ -96,18 +96,15 @@
                         <template v-else>
                             {{ ticketForm.subject }}
                         </template>
+
+                        <div class="text-sm" v-if="ticket && ticket.user">
+                            <x-link :to="{ name: 'users.edit', params: { user: ticket.user.id } }">
+                                {{ ticket.user.name }} ({{ ticket.user.organization ? ticket.user.organization.name : "No Organization" }})
+                            </x-link>
+                        </div>
                     </template>
                 </x-section-header>
-
-                <x-section-toolbar>
-                    <x-button type="submit" color="primary">
-                        Save Ticket
-                    </x-button>
-
-                    <x-button type="submit" color="white" :to="{ name: 'tickets.index' }">
-                        Cancel
-                    </x-button>
-                </x-section-toolbar>
+                
 
                 <ticket-message-viewer :ticket="ticket" v-if="ticket"/>
             </x-section>
@@ -133,6 +130,7 @@ export default {
                 status_id: null,
                 priority_id: null,
                 user_id: null,
+                channel_id: null,
             },
             userForm: {
                 id: "",

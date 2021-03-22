@@ -2,44 +2,33 @@
  * Settings Routes
  */
 
-import LayoutContainer from "./../../../components/layouts/utils/container.vue";
-import ChannelsCreateEdit from "./../../../views/panel/settings/channels/create-edit.vue";
-import ChannelsIndex from "./../../../views/panel/settings/channels/index.vue";
-import DepartmentsCreateEdit from "./../../../views/panel/settings/departments/create-edit.vue";
-import DepartmentsIndex from "./../../../views/panel/settings/departments/index.vue";
-import PrioritiesCreateEdit from "./../../../views/panel/settings/priorities/create-edit.vue";
-import PrioritiesIndex from "./../../../views/panel/settings/priorities/index.vue";
-import StatusesCreateEdit from "./../../../views/panel/settings/statuses/create-edit.vue";
-import StatusesIndex from "./../../../views/panel/settings/statuses/index.vue";
-import SettingsIndex from "./../../../views/panel/settings/index.vue";
-
 const organizationRoutes = [
     {
         path: "/settings",
         name: "settings",
         redirect: { name: "settings.channels.index" },
-        component: SettingsIndex,
+        component: () => import("./../../../views/panel/settings/index.vue"),
         children: [
             {
                 path: "channels",
                 name: "settings.channels",
                 redirect: { name: "settings.channels.index" },
-                component: LayoutContainer,
+                component: () => import("./../../../components/layouts/utils/container.vue"),
                 children: [
                     {
                         path: "browse",
                         name: "settings.channels.index",
-                        component: ChannelsIndex,
+                        component: () => import("./../../../views/panel/settings/channels/index.vue"),
                     },
                     {
                         path: "create",
                         name: "settings.channels.create",
-                        component: ChannelsCreateEdit,
+                        component: () => import("./../../../views/panel/settings/channels/create-edit.vue"),
                     },
                     {
                         path: ":channel/edit",
                         name: "settings.channels.edit",
-                        component: ChannelsCreateEdit,
+                        component: () => import("./../../../views/panel/settings/channels/create-edit.vue"),
                     },
                 ],
             },
@@ -47,22 +36,22 @@ const organizationRoutes = [
                 path: "departments",
                 name: "settings.departments",
                 redirect: { name: "settings.departments.index" },
-                component: LayoutContainer,
+                component: () => import("./../../../components/layouts/utils/container.vue"),
                 children: [
                     {
                         path: "browse",
                         name: "settings.departments.index",
-                        component: DepartmentsIndex,
+                        component: () => import("./../../../views/panel/settings/departments/index.vue"),
                     },
                     {
                         path: "create",
                         name: "settings.departments.create",
-                        component: DepartmentsCreateEdit,
+                        component: () => import("./../../../views/panel/settings/departments/create-edit.vue"),
                     },
                     {
                         path: ":department/edit",
                         name: "settings.departments.edit",
-                        component: DepartmentsCreateEdit,
+                        component: () => import("./../../../views/panel/settings/departments/create-edit.vue"),
                     },
                 ],
             },
@@ -70,22 +59,22 @@ const organizationRoutes = [
                 path: "priorities",
                 name: "settings.priorities",
                 redirect: { name: "settings.priorities.index" },
-                component: LayoutContainer,
+                component: () => import("./../../../components/layouts/utils/container.vue"),
                 children: [
                     {
                         path: "browse",
                         name: "settings.priorities.index",
-                        component: PrioritiesIndex,
+                        component: () => import("./../../../views/panel/settings/priorities/index.vue"),
                     },
                     {
                         path: "create",
                         name: "settings.priorities.create",
-                        component: PrioritiesCreateEdit,
+                        component: () => import("./../../../views/panel/settings/priorities/create-edit.vue"),
                     },
                     {
                         path: ":priority/edit",
                         name: "settings.priorities.edit",
-                        component: PrioritiesCreateEdit,
+                        component: () => import("./../../../views/panel/settings/priorities/create-edit.vue"),
                     },
                 ],
             },
@@ -93,22 +82,22 @@ const organizationRoutes = [
                 path: "statuses",
                 name: "settings.statuses",
                 redirect: { name: "settings.statuses.index" },
-                component: LayoutContainer,
+                component: () => import("./../../../components/layouts/utils/container.vue"),
                 children: [
                     {
                         path: "browse",
                         name: "settings.statuses.index",
-                        component: StatusesIndex,
+                        component: () => import("./../../../views/panel/settings/statuses/index.vue"),
                     },
                     {
                         path: "create",
                         name: "settings.statuses.create",
-                        component: StatusesCreateEdit,
+                        component: () => import("./../../../views/panel/settings/statuses/create-edit.vue"),
                     },
                     {
                         path: ":status/edit",
                         name: "settings.statuses.edit",
-                        component: StatusesCreateEdit,
+                        component: () => import("./../../../views/panel/settings/statuses/create-edit.vue"),
                     },
                 ],
             },

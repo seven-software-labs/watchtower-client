@@ -1,6 +1,6 @@
 <template>
     <x-model-table :model="'ticket'" :columns="columns">
-        <template v-slot:column_name="{ row: ticket }">
+        <template v-slot:column_subject="{ row: ticket }">
             <div class="w-96 truncate">
                 <x-link :to="{ name: 'tickets.edit', params: { ticket: ticket.id } }" class="font-medium">
                     {{ ticket.subject }}
@@ -16,7 +16,7 @@
             <x-badge :color="ticket.department.color">
                 <x-icon name="folder-small" :color="ticket.department.color"/>
                 <span class="capitalize">
-                    {{ ticket.department.color }}
+                    {{ ticket.department.name }}
                 </span>
             </x-badge>
         </template>
@@ -25,7 +25,7 @@
             <x-badge :color="ticket.status.color">
                 <x-icon name="circle" :color="ticket.status.color"/>
                 <span class="capitalize">
-                    {{ ticket.status.color }}
+                    {{ ticket.status.name }}
                 </span>
             </x-badge>
         </template>
@@ -48,18 +48,23 @@ export default {
             columns: {
                 "subject": {
                     "label": "Subject",
+                    parse: (subject) => subject,
                 },
                 "department": {
                     "label": "Department",
+                    parse: (department) => department,
                 },
                 "status": {
                     "label": "Status",
+                    parse: (status) => status,
                 },
-                "Priority": {
+                "priority": {
                     "label": "Priority",
+                    parse: (Priority) => priority,
                 },
                 "last_replied_at": {
                     "label": "Last Reply",
+                    parse: (last_replied_at) => last_replied_at,
                     "align": "right",
                 },
             },

@@ -4,7 +4,9 @@
             <x-card-content>
                 <div class="sm:flex sm:justify-between sm:items-baseline">
                     <h3 class="text-base font-medium">
-                        <span class="text-gray-900">{{ message.user.name }}</span>
+                        <span class="text-gray-900">
+                            {{ message?.sender?.name || "Error: No Sender" }}
+                        </span>
                     </h3>
 
                     <p class="text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3">
@@ -38,7 +40,7 @@ export default {
         /**
          * The message source.
          */
-        const source = message.user.is_customer
+        const source = message.sender?.is_customer
             ? 'customer'
             : 'operator';
 
