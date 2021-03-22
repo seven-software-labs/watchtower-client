@@ -6,6 +6,7 @@
 
 // Application Components
 import ApplicationLogo from "./components/application/logo.vue";
+import ModelTable from "./components/application/model-table.vue";
 
 // Layout Components
 import LayoutsAuth from "./components/layouts/auth/index.vue";
@@ -77,6 +78,7 @@ const components = {
 const registerComponents = (app = null) => {
     // Application Components
     app.component("x-application-logo", ApplicationLogo);
+    app.component("x-model-table", ModelTable);
 
     // Layout Components
     app.component("x-layouts-auth", LayoutsAuth);

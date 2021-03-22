@@ -16,9 +16,9 @@
                     </x-link>
                 </x-vertical-menu-header>
 
-                <x-vertical-menu-item :active="form.status_id == status.id" v-for="(status, statusIndex) in statuses.data" :key="'status_' + statusIndex" @click.stop="selectFilter('status_id', status.id)">
+                <x-vertical-menu-item :active="filters.status_id == status.id" v-for="(status, statusIndex) in statuses.data" :key="'status_' + statusIndex" @click.stop="selectFilter('status_id', status.id)">
                     <div class="flex items-center justify-between">
-                        <div>
+                        <div class="truncate">
                             <x-icon name="circle" :color="status.color"/>
                             {{ status.name }}
                         </div>
@@ -39,9 +39,9 @@
                     </x-link>
                 </x-vertical-menu-header>
 
-                <x-vertical-menu-item :active="form.priority_id == priority.id" v-for="(priority, priorityIndex) in priorities.data" :key="'priority_' + priorityIndex" @click.stop="selectFilter('priority_id', priority.id)">
+                <x-vertical-menu-item :active="filters.priority_id == priority.id" v-for="(priority, priorityIndex) in priorities.data" :key="'priority_' + priorityIndex" @click.stop="selectFilter('priority_id', priority.id)">
                     <div class="flex items-center justify-between">
-                        <div>
+                        <div class="truncate">
                             <x-icon name="square" :color="priority.color"/>
                             {{ priority.name }}
                         </div>
@@ -62,15 +62,38 @@
                     </x-link>
                 </x-vertical-menu-header>
                 
-                <x-vertical-menu-item :active="form.department_id == department.id" v-for="(department, departmentIndex) in departments.data" :key="'department_' + departmentIndex" @click.stop="selectFilter('department_id', department.id)">
+                <x-vertical-menu-item :active="filters.department_id == department.id" v-for="(department, departmentIndex) in departments.data" :key="'department_' + departmentIndex" @click.stop="selectFilter('department_id', department.id)">
                     <div class="flex items-center justify-between">
-                        <div>
+                        <div class="truncate">
                             <x-icon name="folder-small" :color="department.color"/>
                             {{ department.name }}
                         </div>
 
                         <x-badge>
                             {{ department.tickets_count }}
+                        </x-badge>
+                    </div>
+                </x-vertical-menu-item>
+            </div>
+
+            <div v-if="channels.data && channels.data.length">
+                <x-vertical-menu-header class="flex items-center justify-between">
+                    Channels
+
+                    <x-link href="#" @click.stop="selectFilter('channel_id', null)" v-if="$route.query.channel_id">
+                        Clear
+                    </x-link>
+                </x-vertical-menu-header>
+                
+                <x-vertical-menu-item :active="filters.channel_id == channel.id" v-for="(channel, channelIndex) in channels.data" :key="'channel_' + channelIndex" @click.stop="selectFilter('channel_id', channel.id)">
+                    <div class="flex items-center justify-between">
+                        <div class="truncate">
+                            <!-- <x-icon name="folder-small" :color="channel.color"/> -->
+                            {{ channel.name }}
+                        </div>
+
+                        <x-badge>
+                            {{ channel.tickets_count }}
                         </x-badge>
                     </div>
                 </x-vertical-menu-item>
@@ -89,48 +112,31 @@
                     <x-button :to="{ name: 'tickets.create' }" color="blue">
                         Create Ticket
                     </x-button>
-
-                    <x-button color="white">
-                        Status
-                    </x-button>
-
-                    <x-button color="white">
-                        Priority
-                    </x-button>
-
-                    <x-button color="white">
-                        Department
-                    </x-button>
-
-                    <x-button color="white">
-                        Close
-                    </x-button>
-                    
-                    <x-button color="white">
-                        Delete
-                    </x-button>
                 </x-section-toolbar>
 
-                <ticket-table/>
+                <x-vertical-scroll>
+                    <x-ticket-table :filters="filters"/>
+                </x-vertical-scroll>
             </x-section>
         </template>
     </x-layouts-panel>
 </template>
 
 <script>
-import TicketTable from "./../../../components/application/ticket/ticket-table.vue";
+import TicketTable from "../../../components/application/ticket/ticket-table.vue";
 import { mapGetters } from "vuex";
 
 export default {
     components: {
-        TicketTable,
+        "x-ticket-table": TicketTable,
     },
     data() {
         return {
-            form: {
+            filters: {
                 status_id: null,
                 priority_id: null,
                 department_id: null,
+                channel_id: null,
             },
         };
     },
@@ -144,14 +150,17 @@ export default {
         ...mapGetters("departmentModule", {
             departments: "getItems",
         }),
+        ...mapGetters("channelModule", {
+            channels: "getItems",
+        }),
     },
     watch: {
-        form: {
-            handler(form) {
+        filters: {
+            handler(filters) {
                 let query = {};
 
-                Object.keys(form).forEach((key) => {
-                    let filter = form[key];
+                Object.keys(filters).forEach((key) => {
+                    let filter = filters[key];
 
                     if(!filter) {
                         delete query[key];
@@ -171,10 +180,12 @@ export default {
         this.$store.dispatch("departmentModule/fetchAllItems");
         this.$store.dispatch("priorityModule/fetchAllItems");
         this.$store.dispatch("statusModule/fetchAllItems");
+        this.$store.dispatch("channelModule/fetchAllItems");
         // Set the query settings.
-        this.form.department_id = this.$route.query.department_id || null;
-        this.form.priority_id = this.$route.query.priority_id || null;
-        this.form.status_id = this.$route.query.status_id || null;
+        this.filters.department_id = this.$route.query.department_id || null;
+        this.filters.priority_id = this.$route.query.priority_id || null;
+        this.filters.status_id = this.$route.query.status_id || null;
+        this.filters.channel_id = this.$route.query.channel_id || null;
     },
     mounted() {
         window.EchoInstance.private("ticket-channel")
@@ -182,16 +193,17 @@ export default {
                 this.$store.dispatch("departmentModule/fetchAllItems");
                 this.$store.dispatch("priorityModule/fetchAllItems");
                 this.$store.dispatch("statusModule/fetchAllItems");
+                this.$store.dispatch("channelModule/fetchAllItems");
             });
     },
     methods: {
         selectFilter(filter = "status_id", value = null) {
-            if(this.form[filter] == value) {
-                this.form[filter] = null;
+            if(this.filters[filter] == value) {
+                this.filters[filter] = null;
                 return;
             }
 
-            this.form[filter] = value;
+            this.filters[filter] = value;
         },
     },
 };

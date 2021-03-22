@@ -1,5 +1,17 @@
 <template>
     <x-layouts-panel>
+        <template v-slot:asideLeft v-if="mode == 'edit'">
+            <div v-for="(menu, menuIndex) in menu" :key="'menu_' + menuIndex">
+                <x-vertical-menu-header>
+                    {{ menu.header }}
+                </x-vertical-menu-header>
+
+                <x-vertical-menu-item :to="menuItem.route" :active="$route.name == menuItem.route.name" v-for="(menuItem, menuItemIndex) in menu.items" :key="'menuItem_' + menuItemIndex">
+                    {{ menuItem.label }}
+                </x-vertical-menu-item>
+            </div>
+        </template>
+
         <template v-slot:default>
             <x-section>
                 <x-section-header>
@@ -45,19 +57,6 @@
                                 </x-table-data>
                             </x-table-row>
                         </x-table>
-
-                        <!-- <x-card-content>
-                            public function channels()
-                            public function tickets()
-                            public function users()
-                            // Invite Codes
-                            <div class="grid grid-cols-6 gap-6">
-                                <x-form-group class="col-span-2">
-                                    <x-form-label>Name</x-form-label>
-                                    <x-form-input type="text" name="name" :required="true" v-model="createEditForm.name"/>
-                                </x-form-group>
-                            </div>
-                        </x-card-content> -->
                     </x-form>         
                 </x-vertical-scroll>
             </x-section>      
@@ -75,6 +74,25 @@ export default {
                 color: "gray",
                 is_active: 0,
             },
+            menu: [
+                {
+                    header: "Organization",
+                    items: [
+                        {
+                            label: "General Settings",
+                            route: { name: "account.profile" },
+                        },
+                        {
+                            label: "Tickets",
+                            route: { name: "account.settings" },
+                        },
+                        {
+                            label: "Users",
+                            route: { name: "account.settings" },
+                        },
+                    ],
+                },
+            ],            
         };
     },
     created() {
