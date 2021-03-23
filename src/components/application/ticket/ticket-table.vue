@@ -34,7 +34,7 @@
             <x-badge :color="ticket.priority.color">
                 <x-icon name="square" :color="ticket.priority.color"/>
                 <span class="capitalize">
-                    {{ ticket.priority.color }}
+                    {{ ticket.priority.name }}
                 </span>
             </x-badge>
         </template>

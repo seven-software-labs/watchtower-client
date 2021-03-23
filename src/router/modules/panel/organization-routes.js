@@ -7,7 +7,7 @@ const organizationRoutes = [
         path: "/organizations",
         name: "organizations",
         redirect: { name: "organizations.index" },
-        component: () => import("./../../../components/layouts/utils/container.vue"),
+        component: () => import("./../../../views/panel/organizations/container.vue"),
         children: [
             {
                 path: "browse",
@@ -17,12 +17,30 @@ const organizationRoutes = [
             {
                 path: "create",
                 name: "organizations.create",
-                component: () => import("./../../../views/panel/organizations/create-edit.vue"),
+                component: () => import("./../../../views/panel/organizations/create.vue"),
             },
             {
                 path: ":organization/edit",
                 name: "organizations.edit",
-                component: () => import("./../../../views/panel/organizations/create-edit.vue"),
+                redirect: { name: "organizations.edit.general" },
+                component: () => import("./../../../views/panel/organizations/edit/index.vue"),
+                children: [
+                    {
+                        path: "general",
+                        name: "organizations.edit.general",
+                        component: () => import("./../../../views/panel/organizations/edit/general.vue"),
+                    },
+                    {
+                        path: "tickets",
+                        name: "organizations.edit.tickets",
+                        component: () => import("./../../../views/panel/organizations/edit/tickets.vue"),
+                    },
+                    {
+                        path: "users",
+                        name: "organizations.edit.users",
+                        component: () => import("./../../../views/panel/organizations/edit/users.vue"),
+                    },
+                ],
             },
         ],
     },

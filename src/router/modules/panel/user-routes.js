@@ -7,7 +7,7 @@ const userRoutes = [
         path: "/users",
         name: "users",
         redirect: { name: "users.index" },
-        component: () => import("./../../../components/layouts/utils/container.vue"),
+        component: () => import("./../../../views/panel/users/container.vue"),
         children: [
             {
                 path: "browse",
@@ -17,12 +17,30 @@ const userRoutes = [
             {
                 path: "create",
                 name: "users.create",
-                component: () => import("./../../../views/panel/users/create-edit.vue"),
+                component: () => import("./../../../views/panel/users/create.vue"),
             },
             {
                 path: ":user/edit",
                 name: "users.edit",
-                component: () => import("./../../../views/panel/users/create-edit.vue"),
+                redirect: { name: "users.edit.general" },
+                component: () => import("./../../../views/panel/users/edit/index.vue"),
+                children: [
+                    {
+                        path: "general",
+                        name: "users.edit.general",
+                        component: () => import("./../../../views/panel/users/edit/general.vue"),
+                    },
+                    {
+                        path: "channels",
+                        name: "users.edit.channels",
+                        component: () => import("./../../../views/panel/users/edit/channels.vue"),
+                    },
+                    {
+                        path: "tickets",
+                        name: "users.edit.tickets",
+                        component: () => import("./../../../views/panel/users/edit/tickets.vue"),
+                    },
+                ],
             },
         ],
     },

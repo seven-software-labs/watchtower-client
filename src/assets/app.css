@@ -7,16 +7,45 @@ body, html, #app {
     height: 100%;
 }
 
-.Vue-Toastification__toast {
-    @apply flex items-center justify-between min-h-0 px-4 py-3 !important;
+@font-face {
+    font-family: 'Norwester';
+    src: url("./fonts/norwester/norwester.otf") format('opentype');
 }
 
-.Vue-Toastification__toast-body {
-    @apply text-sm font-normal !important;
+@font-face {
+    font-family: 'Kollektif';
+    src: url("./fonts/kollektif/Kollektif.ttf") format('truetype');
 }
 
-.Vue-Toastification__close-button {
-    @apply -mt-0.5 !important;
+@font-face {
+    font-family: 'Montserrat';
+    src: url("./fonts/montserrat/Montserrat-Regular.ttf") format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url("./fonts/montserrat/Montserrat-Medium.ttf") format('truetype');
+    font-weight: 500;
+}
+
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url("./fonts/montserrat/Montserrat-SemiBold.ttf") format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url("./fonts/montserrat/Montserrat-Bold.ttf") format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url("./fonts/montserrat/Montserrat-ExtraBold.ttf") format('truetype');
+    font-weight: 800;
 }
 
 .reset-styles {

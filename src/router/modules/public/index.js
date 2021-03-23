@@ -4,8 +4,6 @@
  * Routes that are available to the public.
  */
 
-import Home from "./../../../views/public/home.vue";
-
 const routes = [
     {
         path: "/",
@@ -18,7 +16,7 @@ const routes = [
     {
         path: "/home",
         name: "public.home",
-        component: Home,
+        component: () => import("./../../../views/public/home/index.vue"),
         meta: {
             auth: false,
         },
