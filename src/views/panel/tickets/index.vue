@@ -16,9 +16,9 @@
                     </x-link>
                 </x-vertical-menu-header>
 
-                <x-vertical-menu-item :active="form.status_id == status.id" v-for="(status, statusIndex) in statuses.data" :key="'status_' + statusIndex" @click.stop="selectFilter('status_id', status.id)">
+                <x-vertical-menu-item :active="filters.status_id == status.id" v-for="(status, statusIndex) in statuses.data" :key="'status_' + statusIndex" @click.stop="selectFilter('status_id', status.id)">
                     <div class="flex items-center justify-between">
-                        <div>
+                        <div class="truncate">
                             <x-icon name="circle" :color="status.color"/>
                             {{ status.name }}
                         </div>
@@ -39,9 +39,9 @@
                     </x-link>
                 </x-vertical-menu-header>
 
-                <x-vertical-menu-item :active="form.priority_id == priority.id" v-for="(priority, priorityIndex) in priorities.data" :key="'priority_' + priorityIndex" @click.stop="selectFilter('priority_id', priority.id)">
+                <x-vertical-menu-item :active="filters.priority_id == priority.id" v-for="(priority, priorityIndex) in priorities.data" :key="'priority_' + priorityIndex" @click.stop="selectFilter('priority_id', priority.id)">
                     <div class="flex items-center justify-between">
-                        <div>
+                        <div class="truncate">
                             <x-icon name="square" :color="priority.color"/>
                             {{ priority.name }}
                         </div>
@@ -62,9 +62,9 @@
                     </x-link>
                 </x-vertical-menu-header>
                 
-                <x-vertical-menu-item :active="form.department_id == department.id" v-for="(department, departmentIndex) in departments.data" :key="'department_' + departmentIndex" @click.stop="selectFilter('department_id', department.id)">
+                <x-vertical-menu-item :active="filters.department_id == department.id" v-for="(department, departmentIndex) in departments.data" :key="'department_' + departmentIndex" @click.stop="selectFilter('department_id', department.id)">
                     <div class="flex items-center justify-between">
-                        <div>
+                        <div class="truncate">
                             <x-icon name="folder-small" :color="department.color"/>
                             {{ department.name }}
                         </div>
@@ -75,114 +75,92 @@
                     </div>
                 </x-vertical-menu-item>
             </div>
+
+            <div v-if="channels.data && channels.data.length">
+                <x-vertical-menu-header class="flex items-center justify-between">
+                    Channels
+
+                    <x-link href="#" @click.stop="selectFilter('channel_id', null)" v-if="$route.query.channel_id">
+                        Clear
+                    </x-link>
+                </x-vertical-menu-header>
+                
+                <x-vertical-menu-item :active="filters.channel_id == channel.id" v-for="(channel, channelIndex) in channels.data" :key="'channel_' + channelIndex" @click.stop="selectFilter('channel_id', channel.id)">
+                    <div class="flex items-center justify-between">
+                        <div class="truncate">
+                            <!-- <x-icon name="folder-small" :color="channel.color"/> -->
+                            {{ channel.name }}
+                        </div>
+
+                        <x-badge>
+                            {{ channel.tickets_count }}
+                        </x-badge>
+                    </div>
+                </x-vertical-menu-item>
+            </div>
         </template>
 
         <template v-slot:default>
-            <x-section-header>
-                <template v-slot:title>
-                    Tickets
-                </template>
-            </x-section-header>
+            <x-section>
+                <x-section-header>
+                    <template v-slot:title>
+                        Tickets
+                    </template>
+                </x-section-header>
 
-            <x-section-toolbar>
-                <x-button :to="{ name: 'tickets.create' }" color="blue">
-                    Create Ticket
-                </x-button>
-            </x-section-toolbar>
+                <x-section-toolbar>
+                    <x-button :to="{ name: 'tickets.create' }" color="blue">
+                        Create Ticket
+                    </x-button>
+                </x-section-toolbar>
 
-            <div class="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
-                <div class="flex flex-col">
-                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                            <div class="overflow-hiddem">
-                                <x-table>
-                                    <thead>
-                                        <x-table-row>
-                                            <x-table-header>Subject</x-table-header>
-                                            <x-table-header>Department</x-table-header>
-                                            <x-table-header>Status</x-table-header>
-                                            <x-table-header>Priority</x-table-header>
-                                            <x-table-header>Last Reply</x-table-header>
-                                        </x-table-row>
-                                    </thead>
-
-                                    <tbody>
-                                        <x-table-row v-for="(ticket, ticketIndex) in tickets.data" :key="'ticket_' + ticketIndex">
-                                            <x-table-data class="flex flex-col">
-                                                <x-link :to="{ name: 'tickets.show', params: { ticket: ticket.id } }" class="font-medium">
-                                                    {{ ticket.subject }}
-                                                </x-link>
-
-                                                <x-text color="muted">
-                                                    {{ ticket.user.name }}<span v-if="ticket.user.primary_organization">, {{ ticket.user.primary_organization.name }}</span>
-                                                </x-text>
-                                            </x-table-data>
-
-                                            <x-table-data>
-                                                {{ ticket.department.name }}
-                                            </x-table-data>
-
-                                            <x-table-data>
-                                                <x-badge :color="ticket.status.color">
-                                                    {{ ticket.status.name }}
-                                                </x-badge>
-                                            </x-table-data>
-
-                                            <x-table-data>
-                                                <x-badge :color="ticket.priority.color">
-                                                    {{ ticket.priority.name }}
-                                                </x-badge>
-                                            </x-table-data>
-
-                                            <x-table-data>
-                                                {{ ticket.last_replied_at }}
-                                            </x-table-data>
-                                        </x-table-row>
-                                    </tbody>
-                                </x-table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <x-vertical-scroll>
+                    <x-ticket-table :filters="filters"/>
+                </x-vertical-scroll>
+            </x-section>
         </template>
     </x-layouts-panel>
 </template>
 
 <script>
+import TicketTable from "../../../components/application/ticket/ticket-table.vue";
 import { mapGetters } from "vuex";
 
 export default {
+    components: {
+        "x-ticket-table": TicketTable,
+    },
     data() {
         return {
-            form: {
+            filters: {
                 status_id: null,
                 priority_id: null,
                 department_id: null,
+                channel_id: null,
             },
         };
     },
     computed: {
-        ...mapGetters("organizationModule/statusModule", {
+        ...mapGetters("statusModule", {
             statuses: "getItems",
         }),
-        ...mapGetters("organizationModule/priorityModule", {
+        ...mapGetters("priorityModule", {
             priorities: "getItems",
         }),
-        ...mapGetters("organizationModule/departmentModule", {
+        ...mapGetters("departmentModule", {
             departments: "getItems",
         }),
-        ...mapGetters("organizationModule/ticketModule", {
-            tickets: "getItems",
+        ...mapGetters("channelModule", {
+            channels: "getItems",
         }),
     },
     watch: {
-        form: {
-            handler(form) {
+        filters: {
+            handler(filters) {
                 let query = {};
 
-                Object.keys(form).forEach((key) => {
-                    let filter = form[key];
+                Object.keys(filters).forEach((key) => {
+                    let filter = filters[key];
 
                     if(!filter) {
                         delete query[key];
@@ -196,43 +174,36 @@ export default {
             },
             deep: true,
         },
-        "$route.query": {
-            handler(query) {
-                this.$store.dispatch("organizationModule/ticketModule/fetchAllItems", query);
-            },
-        },
     },
     created() {
         // Load all of the required data.
-        this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
-        this.$store.dispatch("organizationModule/priorityModule/fetchAllItems");
-        this.$store.dispatch("organizationModule/statusModule/fetchAllItems");
-        this.$store.dispatch("organizationModule/ticketModule/fetchAllItems");
+        this.$store.dispatch("departmentModule/fetchAllItems");
+        this.$store.dispatch("priorityModule/fetchAllItems");
+        this.$store.dispatch("statusModule/fetchAllItems");
+        this.$store.dispatch("channelModule/fetchAllItems");
         // Set the query settings.
-        this.form.department_id = this.$route.query.department_id || null;
-        this.form.priority_id = this.$route.query.priority_id || null;
-        this.form.status_id = this.$route.query.status_id || null;
+        this.filters.department_id = this.$route.query.department_id || null;
+        this.filters.priority_id = this.$route.query.priority_id || null;
+        this.filters.status_id = this.$route.query.status_id || null;
+        this.filters.channel_id = this.$route.query.channel_id || null;
     },
     mounted() {
         window.EchoInstance.private("ticket-channel")
-            .listen(".App\\Events\\Ticket\\TicketCreated", ({ ticket }) => {
-                console.log("Incoming Ticket", ticket);
-                this.$store.commit("organizationModule/ticketModule/addItem", ticket);
-            })
-            .listen(".App\\Events\\Ticket\\TicketUpdated", ({ ticket }) => {
-                console.log("Updated Ticket", ticket);
-                this.$store.commit("organizationModule/ticketModule/updateItem", ticket);
+            .listen(".App\\Events\\Ticket\\TicketCreated", () => {
+                this.$store.dispatch("departmentModule/fetchAllItems");
+                this.$store.dispatch("priorityModule/fetchAllItems");
+                this.$store.dispatch("statusModule/fetchAllItems");
+                this.$store.dispatch("channelModule/fetchAllItems");
             });
     },
     methods: {
         selectFilter(filter = "status_id", value = null) {
-            console.log("Selecting Filter", filter, value);
-            if(this.form[filter] == value) {
-                this.form[filter] = null;
+            if(this.filters[filter] == value) {
+                this.filters[filter] = null;
                 return;
             }
 
-            this.form[filter] = value;
+            this.filters[filter] = value;
         },
     },
 };

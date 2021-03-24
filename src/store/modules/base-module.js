@@ -94,7 +94,6 @@ const baseModule = {
                 storeItem(context, payload = {}) {
                     return new Promise((resolve, reject) => {
                         const handleSuccess = (response) => {
-                            console.log("storeItem", response);
                             let item = response.data;
                             resolve(item);
                         };

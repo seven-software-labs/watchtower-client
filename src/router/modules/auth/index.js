@@ -4,44 +4,42 @@
  * Routes that are related to the authentication process.
  */
 
-import ForgotPassword from "./../../../views/auth/forgot-password.vue";
-import LayoutContainer from "./../../../components/layouts/utils/container.vue";
-import Login from "./../../../views/auth/login.vue";
-import Logout from "./../../../views/auth/logout.vue";
-import Register from "./../../../views/auth/register.vue";
-import ResetPassword from "./../../../views/auth/reset-password.vue";
-
 const routes = [
     {
         path: "/auth",
         name: "auth",
         redirect: { name: "auth.login" },
-        component: LayoutContainer,
+        component: () => import("./../../../components/layouts/utils/container.vue"),
         children: [
             {
                 path: "/login",
                 name: "auth.login",
-                component: Login,
+                component: () => import("./../../../views/auth/login.vue"),
+                meta: { auth: "block" },
             },
             {
                 path: "/logout",
                 name: "auth.logout",
-                component: Logout,
+                component: () => import("./../../../views/auth/logout.vue"),
+                meta: { auth: "block" },
             },
             {
                 path: "/forgot-password",
                 name: "auth.forgot-password",
-                component: ForgotPassword,
+                component: () => import("./../../../views/auth/forgot-password.vue"),
+                meta: { auth: "block" },
             },
             {
                 path: "/register",
                 name: "auth.register",
-                component: Register,
+                component: () => import("./../../../views/auth/register.vue"),
+                meta: { auth: "block" },
             },
             {
                 path: "/reset-password/:token",
                 name: "auth.reset-password",
-                component: ResetPassword,
+                component: () => import("./../../../views/auth/reset-password.vue"),
+                meta: { auth: "block" },
             },
         ],
     },

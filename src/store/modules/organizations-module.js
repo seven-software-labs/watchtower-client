@@ -43,32 +43,6 @@ const organizationModule = BaseModule.create({
     getters,
     mutations,
     actions,
-    modules: {
-        channelModule: BaseModule.create({
-            service: OrganizationService.channels(),
-        }),
-        departmentModule: BaseModule.create({
-            service: OrganizationService.departments(),
-        }),
-        messageModule: BaseModule.create({
-            service: OrganizationService.messages(),
-        }),
-        organizationModule: BaseModule.create({
-            service: OrganizationService.organizations(),
-        }),
-        priorityModule: BaseModule.create({
-            service: OrganizationService.priorities(),
-        }),
-        statusModule: BaseModule.create({
-            service: OrganizationService.statuses(),
-        }),
-        ticketModule: BaseModule.create({
-            service: OrganizationService.tickets(),
-        }),
-        userModule: BaseModule.create({
-            service: OrganizationService.users(),
-        }),
-    },
     service: OrganizationService,
 });
 

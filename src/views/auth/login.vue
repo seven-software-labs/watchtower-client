@@ -2,17 +2,17 @@
     <x-layouts-auth>
         <form class="space-y-6" action="#" method="POST" @submit.prevent="submitLoginForm(loginForm)">
             <div>
-                <x-form-label for="email">
+                <x-form-label for="username">
                     Email address
                 </x-form-label>
-                <x-form-input type="email" v-model="loginForm.email" required/>
+                <x-form-input type="email" v-model="loginForm.username" required :disabled="isLoading"/>
             </div>
 
             <div>
                 <x-form-label for="password">
                     Password
                 </x-form-label>
-                <x-form-input type="password" v-model="loginForm.password" required/>
+                <x-form-input type="password" v-model="loginForm.password" required :disabled="isLoading"/>
             </div>
 
             <div class="flex items-center justify-between">
@@ -31,7 +31,7 @@
             </div>
 
             <div>
-                <x-button type="submit" color="blue" class="w-full flex items-center justify-center">
+                <x-button type="submit" color="blue" class="w-full flex items-center justify-center" :disabled="isLoading">
                     Sign in
                 </x-button>
             </div>
@@ -44,18 +44,29 @@ export default {
     data() {
         return {
             loginForm: {
-                email: "",
-                password: "",
+                username: import.meta.env.VITE_TEST_USERNAME || "",
+                password: import.meta.env.VITE_TEST_PASSWORD || "",
             },
         };
     },
     methods: {
         submitLoginForm(payload) {
-            this.$store.dispatch("authModule/login", payload)
+            this.toggleLoading();
+
+            this.$auth.login(payload)
                 .then(() => {
                     this.$router.push({
-                        name: "tickets.index"
+                        name: "panel.dashboard"
                     });
+                })
+                .catch((error) => {
+                    console.log("error");
+                    console.log(error);
+                    console.log(error.response);
+                    this.$toast().danger(error.response.data.message);
+                })
+                .finally(() => {
+                    this.toggleLoading();
                 });
         },
     },

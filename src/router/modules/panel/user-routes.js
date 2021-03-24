@@ -2,32 +2,64 @@
  * User Routes
  */
 
-import UserIndex from "./../../../views/panel/users/index.vue";
-import UserCreateEdit from "./../../../views/panel/users/create-edit.vue";
-import LayoutContainer from "./../../../components/layouts/utils/container.vue";
-
 const userRoutes = [
     {
         path: "/users",
         name: "users",
         redirect: { name: "users.index" },
-        component: LayoutContainer,
+        component: () => import("./../../../views/panel/users/container.vue"),
         children: [
             {
                 path: "browse",
                 name: "users.index",
-                component: UserIndex,
+                component: () => import("./../../../views/panel/users/index.vue"),
             },
             {
                 path: "create",
                 name: "users.create",
-                component: UserCreateEdit,
+                component: () => import("./../../../views/panel/users/create.vue"),
             },
             {
                 path: ":user/edit",
                 name: "users.edit",
-                component: UserCreateEdit,
+                redirect: { name: "users.edit.general" },
+                component: () => import("./../../../views/panel/users/edit/index.vue"),
+                children: [
+                    {
+                        path: "general",
+                        name: "users.edit.general",
+                        component: () => import("./../../../views/panel/users/edit/general.vue"),
+                    },
+                    {
+                        path: "channels",
+                        name: "users.edit.channels",
+                        component: () => import("./../../../views/panel/users/edit/channels.vue"),
+                    },
+                    {
+                        path: "tickets",
+                        name: "users.edit.tickets",
+                        component: () => import("./../../../views/panel/users/edit/tickets.vue"),
+                    },
+                ],
             },
+        ],
+    },
+    {
+        path: "/account",
+        name: "account",
+        redirect: { name: "account.profile" },
+        component: () => import("./../../../views/panel/account/index.vue"),
+        children: [
+            {
+                path: "profile",
+                name: "account.profile",
+                component: () => import("./../../../views/panel/account/profile.vue"),
+            },
+            {
+                path: "settings",
+                name: "account.settings",
+                component: () => import("./../../../views/panel/account/settings.vue"),
+            }
         ],
     },
 ];

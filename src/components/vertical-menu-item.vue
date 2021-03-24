@@ -38,7 +38,7 @@ export default {
     },
     setup(props) {
         // Base classes for the component.
-        const baseClasses = "text-gray-900 rounded-md block mb-1 last-child:mb-0 px-4 py-2 hover:bg-gray-200 text-sm whitespace-nowrap truncate focus:outline-none focus:ring-0 focus:ring-offset-0";
+        const baseClasses = "text-gray-900 rounded-md block mb-1 last-child:mb-0 px-4 py-2 hover:bg-gray-200 hover:text-primary-600 text-sm whitespace-nowrap truncate focus:outline-none focus:ring-0 focus:ring-offset-0";
 
         // List of available modes for the component.
         const modes = {
@@ -49,7 +49,7 @@ export default {
         // List of available modes for the component.
         const states = {
             default: "",
-            active: "bg-gray-200",
+            active: "bg-gray-200 text-primary-600",
         };
         
         const compiledClasses = computed(() => {
@@ -65,6 +65,6 @@ export default {
 
 <style>
     .x-vertical-menu-item-link.router-link-active {
-        @apply bg-gray-200 text-gray-900;
+        @apply bg-gray-200 text-primary-600;
     }
 </style>

@@ -3,12 +3,15 @@
  */
 
 import Axios from "axios";
+import Cookie from "js-cookie";
 import Router from "./../router/index";
 
 const requestClient = Axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: import.meta.env.VITE_API_URL + "/api",
     timeout: 5000,
-    withCredentials: true,
+    headers: {
+        "Authorization": `Bearer ${Cookie.get("access_token")}`,
+    },
 });
 
 // Add a request interceptor
@@ -27,12 +30,11 @@ requestClient.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     if(error.response.data.message == "Unauthenticated.") {
-        Router.push({ name: "auth.login" });
+        // Router.push({ name: "auth.login" });
     }
 
-    // error.response.status == 401;
     if(error.response.status == 401) {
-        Router.push({ name: "auth.login" });
+        // Router.push({ name: "auth.login" });
     }
     
     return Promise.reject(error);

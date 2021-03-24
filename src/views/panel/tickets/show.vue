@@ -154,7 +154,7 @@ export default {
         this.$store.dispatch("departmentModule/fetchAllItems");
         this.$store.dispatch("priorityModule/fetchAllItems");
         this.$store.dispatch("statusModule/fetchAllItems");
-        this.$store.dispatch("organizationModule/ticketModule/fetchOneItem", this.$route.params.ticket)
+        this.$store.dispatch("ticketModule/fetchOneItem", this.$route.params.ticket)
             .then((ticket) => {
                 // Populate ticket information.
                 this.ticket = ticket;

@@ -1,8 +1,8 @@
 <template>
-    <div class="h-full flex flex-col" v-if="channels || channels.items">
+    <x-section v-if="!isInitializing">
         <x-section-header>
             <template v-slot:title>
-                <template v-if="createEditForm.name">
+                <template v-if="mode == 'edit' && createEditForm.name">
                     {{ createEditForm.name }}
                 </template>
 
@@ -12,8 +12,49 @@
             </template>
         </x-section-header>
 
-        <div class="h-full overflow-y-scroll">
-            <x-form class="min-h-full overflow-hidden" @submit.prevent="submitCreateEditForm(createEditForm, mode)">
+        <x-section-toolbar>
+            <x-button form="createEditForm" type="submit" color="primary" :disabled="isLoading || !selectedService || createEditForm.deleted_at">
+                Save Channel
+            </x-button>
+
+            <x-button type="button" color="white" :disabled="isLoading || createEditForm.deleted_at" @click.prevent="submitDeleteForm(deleteForm)" v-if="mode == 'edit'">
+                Delete
+            </x-button>
+
+            <x-button type="submit" color="white" :to="{ name: 'settings.channels.index' }">
+                Cancel
+            </x-button>
+
+            <template v-if="channel && channel.serviceActions">
+                <x-button :href="serviceAction.path" target="_blank" color="white" :disabled="isLoading || mode == 'create' || createEditForm.deleted_at" v-for="(serviceAction, serviceActionIndex) in channel.serviceActions" :key="'serviceAction_' + serviceActionIndex">
+                    {{ serviceAction.label }}
+                </x-button>
+            </template>
+        </x-section-toolbar>
+
+        <x-vertical-scroll>
+            <x-form id="createEditForm" @submit.prevent="submitCreateEditForm(createEditForm, mode)">
+                <div class="rounded-md bg-red-50 p-4 mb-1" v-if="createEditForm.deleted_at">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <!-- Heroicon name: solid/x-circle -->
+                            <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800">
+                                Resource not found.
+                            </h3>
+
+                            <div class="mt-2 text-sm text-red-700">
+                                <p>This resource has been deleted.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <x-table>
                     <thead>
                         <x-table-row>
@@ -26,109 +67,112 @@
                     <tbody>
                         <x-table-row>
                             <x-table-data>
-                                Nickname
+                                Name
                             </x-table-data>
 
                             <x-table-data>
-                                <x-form-input type="text" name="name" :required="true" v-model="createEditForm.name"/>
+                                <x-form-input type="text" name="name" :disabled="isLoading || createEditForm.deleted_at" v-model="createEditForm.name"/>
                             </x-table-data>
                         </x-table-row>
-                        
+
                         <x-table-row>
                             <x-table-data>
-                                Channel
+                                <x-form-label>
+                                    Service
+                                </x-form-label>
                             </x-table-data>
 
                             <x-table-data>
-                                <x-form-select name="channel_id" v-model="createEditForm.channel_id" :disabled="mode == 'edit'" :required="true">
-                                    <option :value="null">Select Channel</option>
-                                    <option :value="channelOption.id" v-for="(channelOption, channelOptionIndex) in channels" :key="'channelOption_' + channelOptionIndex">
-                                        {{ channelOption.name}}
+                                <x-form-select name="service_id" v-model="createEditForm.service_id" :disabled="isLoading || createEditForm.deleted_at">
+                                    <option :value="null">Select Service</option>
+                                    <option :value="service.id" v-for="(service, serviceIndex) in services.data" :key="'service_' + serviceIndex">
+                                        {{ service.name }}
                                     </option>
                                 </x-form-select>
                             </x-table-data>
                         </x-table-row>
-                        
+
                         <x-table-row>
                             <x-table-data>
-                                Department
+                                <x-form-label>
+                                    Department
+                                </x-form-label>
                             </x-table-data>
 
                             <x-table-data>
-                                <x-form-select name="is_active" v-model="createEditForm.department_id" :required="true">
+                                <x-form-select name="department_id" v-model="createEditForm.department_id" :disabled="isLoading || createEditForm.deleted_at">
                                     <option :value="null">Select Department</option>
-                                    <option :value="departmentOption.id" v-for="(departmentOption, departmentOptionIndex) in departments" :key="'departmentOption_' + departmentOptionIndex">
-                                        {{ departmentOption.name}}
+                                    <option :value="department.id" v-for="(department, departmentIndex) in departments.data" :key="'department_' + departmentIndex">
+                                        {{ department.name }}
                                     </option>
                                 </x-form-select>
                             </x-table-data>
-                        </x-table-row>
-                        
+                        </x-table-row>  
+
                         <x-table-row>
                             <x-table-data>
-                                Status
+                                <x-form-label>
+                                    Active
+                                </x-form-label>
                             </x-table-data>
 
                             <x-table-data>
-                                <x-form-select name="is_active" v-model="createEditForm.is_active" :required="true">
-                                    <option :value="1">Active</option>
-                                    <option :value="0">Disabled</option>
+                                <x-form-select name="is_active" v-model="createEditForm.is_active" :disabled="isLoading || createEditForm.deleted_at">
+                                    <option :value="1">Yes</option>
+                                    <option :value="0">No</option>
                                 </x-form-select>
                             </x-table-data>
                         </x-table-row>
                     </tbody>
-
+                    
                     <thead>
                         <x-table-row>
                             <x-table-header colspan="100%">
-                                Channel Settings
+                                Service Settings
                             </x-table-header>
                         </x-table-row>
                     </thead>
 
-                    <tbody v-if="channel && channel.channel_settings">
-                        <x-table-row v-for="(setting, settingIndex) in channel.channel_settings" :key="'setting_' + settingIndex">
+                    <tbody v-if="selectedService && selectedService.settings_schema">
+                        <x-table-row v-for="(setting, settingIndex) in selectedService.settings_schema" :key="'setting_' + settingIndex">
                             <x-table-data>
-                                <span class="capitalize">
-                                    {{ setting.name }}
-                                </span>
+                                {{ setting.label }}
                             </x-table-data>
 
                             <x-table-data>
-                                <x-form-input 
-                                    :type="setting.field_type ?? 'text'" 
-                                    :name="setting.slug" 
-                                    :required="setting.is_required"
-                                    :placeholder="setting.name"
-                                    v-model="createEditForm.settings[setting.slug]"
-                                />
+                                <template v-if="['text', 'textarea', 'email', 'password', 'number'].includes(setting.field_type)">
+                                    <x-form-input 
+                                        :type="setting.field_type" 
+                                        :name="setting.name" 
+                                        :disabled="isLoading || createEditForm.deleted_at"
+                                        :readonly="setting.readonly || false"
+                                        :placeholder="setting.placeholder"
+                                        v-model="createEditForm.settings[setting.name]"/>
+                                </template>
+
+                                <template v-if="setting.field_type == 'select'">
+                                    <x-form-select :name="setting.label"  v-model="createEditForm.settings[setting.name]" :disabled="isLoading || createEditForm.deleted_at" :readonly="setting.readonly || false">
+                                        <option :value="null">Select {{ setting.name }}</option>
+                                        <option :value="option.value" v-for="(option, optionIndex) in setting.options" :key="'option_' + optionIndex">
+                                            {{ option.label }}
+                                        </option>
+                                    </x-form-select>
+                                </template>
                             </x-table-data>
                         </x-table-row>
                     </tbody>
 
-                    <tbody v-if="!(channel && channel.channel_settings)">
+                    <tbody v-else>
                         <x-table-row>
                             <x-table-data colspan="100%" align="center">
-                                Please select a channel.
+                                Please select a service.
                             </x-table-data>
                         </x-table-row>
                     </tbody>
                 </x-table>
-
-                <x-card>
-                    <x-card-footer>
-                        <x-button type="submit" color="blue" :disabled="!channel">
-                            Save Channel
-                        </x-button>
-
-                        <x-button type="submit" color="white" :to="{ name: 'settings.channels.index' }">
-                            Cancel
-                        </x-button>
-                    </x-card-footer>
-                </x-card>
             </x-form>
-        </div>
-    </div>
+        </x-vertical-scroll>
+    </x-section>
 </template>
 
 <script>
@@ -138,97 +182,128 @@ export default {
     data() {
         return {
             channel: null,
-            mode: "create",
             createEditForm: {
-                channel_id: null,
+                name: "",
+                service_id: null,
                 department_id: null,
                 is_active: 0,
-                name: "",
+                deleted_at: null,
                 settings: {},
+            },
+            deleteForm: {
+                channel_id: this.$route.params.channel,
             },
         };
     },
     computed: {
-        ...mapGetters("organizationModule/departmentModule", {
+        ...mapGetters("serviceModule", {
+            services: "getItems",
+        }),
+        ...mapGetters("departmentModule", {
             departments: "getItems",
         }),
-        ...mapGetters("channelModule", {
-            channels: "getItems",
-        }),
-    },
-    watch: {
-        "createEditForm.channel_id": {
-            handler(channel_id) {
-                if(channel_id) {
-                    const channel = this.channels.data.find((channel) => channel.id == this.createEditForm.channel_id);
-                    this.channel = channel;
-                } else {
-                    this.channel = null;
-                }
-            },
+        selectedService() {
+            if(this.createEditForm.service_id) {
+                return this.services.data.find((service) => service.id == this.createEditForm.service_id);
+            }
+
+            return null;
+        },
+        mode() {
+            return this.$route.params.channel ? "edit" : "create";
         },
     },
     created() {
-        this.$store.dispatch("organizationModule/departmentModule/fetchAllItems");
-        this.$store.dispatch("channelModule/fetchAllItems")
-            .then(() => {
-                const { params } = this.$route;
+        this.$store.dispatch("serviceModule/fetchAllItems");
+        this.$store.dispatch("departmentModule/fetchAllItems");
 
-                if(params.channel_organization_id) {
-                    return this.$store.dispatch("organizationModule/channelModule/fetchOneItem", params.channel_organization_id);
-                }
-            }).then((response) => {
-                if(!response) return;
-                // Lets set the mode to edit.
-                this.mode = "edit";
-                // Lets get the related channel object.
-                const channel = response;
-                // Lets get the settings from the pivot object.
-                const { settings } = channel;
-                // Lets set the channel id that is currently selected.
-                this.createEditForm.channel_id = channel.channel_id;
-                // Lets set the channel information.
-                this.createEditForm.name = channel.name;
-                this.createEditForm.department_id = channel.department_id;
-                this.createEditForm.is_active = channel.is_active;
-                // We add the settings values to the form.
-                Object.keys(settings).forEach((key) => {
-                    let setting = settings[key];
-                    this.createEditForm.settings[key] = setting;
+        const { params } = this.$route;
+
+        if(params.channel) {
+            this.toggleLoading();
+
+            this.$store.dispatch("channelModule/fetchOneItem", params.channel)
+                .then((channel) => {
+                    this.channel = channel;
+                    this.createEditForm.name = channel.name;
+                    this.createEditForm.service_id = channel.service_id;
+                    this.createEditForm.department_id = channel.department_id;
+                    this.createEditForm.settings = channel.settings;
+                    this.createEditForm.is_active = channel.is_active;
+
+                    window.EchoInstance.private(`organization-${channel.organization_id}-channel-${channel.id}-channel`)
+                        .listen(".App\\Events\\Channel\\ChannelDeleted", ({ channel }) => {
+                            this.createEditForm.deleted_at = channel.deleted_at;
+                        });
+                })
+                .catch((error) => {
+                    this.$toast().danger(error.response.data.message);
+                })
+                .finally(() => {
+                    this.toggleLoading();
+                    this.toggleInitialize();
                 });
-            });
+        } else {
+            this.toggleInitialize();
+        }
+    },
+    beforeUnmount() {
+        if(this.channel) {
+            const channel = `organization-${this.channel.organization_id}-channel-${this.channel.id}-channel`;
+            window.EchoInstance.leave(channel);
+        }
     },
     methods: {
         submitCreateEditForm(payload, mode) {
-            if(mode == "create") {
-                this.submitCreateForm(payload);
-            }
+            this.toggleLoading();
 
-            if(mode == "edit") {
+            if(mode == "create")
+                this.submitCreateForm(payload);
+            if(mode == "edit")
                 this.submitEditForm(payload);
-            }
         },
         submitCreateForm(payload) {
-            this.$store.dispatch("organizationModule/channelModule/storeItem", payload)
-                .then((channelOrganization) => {
+            this.$store.dispatch("channelModule/storeItem", payload)
+                .then((channel) => {
+                    this.$toast().success("Channel created.");
+
                     this.$router.push({
                         name: "settings.channels.edit",
-                        params: { channel: channelOrganization.id },
+                        params: { channel: channel.id },
                     });
 
-                    // @todo add toast for success message.
+                    this.$forceUpdate();
                 })
-                .catch(() => {
-                    // @todo add toast for error message.
+                .catch((error) => {
+                    this.$toast().danger(error.response.data.message);
+                })
+                .finally(() => {
+                    this.toggleLoading();
                 });
         },
         submitEditForm(payload) {
-            this.$store.dispatch("organizationModule/channelModule/updateItem", { id: this.$route.params.channel_organization_id, payload })
+            this.$store.dispatch("channelModule/updateItem", { id: this.$route.params.channel, payload })
                 .then(() => {
-                    // @todo add toast for success message.
+                    this.$toast().success("Channel updated.");
                 })
-                .catch(() => {
-                    // @todo add toast for error message.
+                .catch((error) => {
+                    this.$toast().danger(error.response.data.message);
+                })
+                .finally(() => {
+                    this.toggleLoading();
+                });
+        },
+        submitDeleteForm() {
+            const operation = () => this.$store.dispatch("channelModule/deleteItem", this.$route.params.channel);
+            
+            this.$alert().confirm(operation)
+                .then((response) => {
+                    if(response) {
+                        this.$toast().success("Channel deleted.");
+                    }
+                })
+                .catch((error) => {
+                    this.$toast().danger(error.response.data.message);
                 });
         },
     },
