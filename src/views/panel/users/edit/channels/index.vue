@@ -1,16 +1,10 @@
 <template>
     <x-section>
-        <x-section-header>
-            <template v-slot:title>
-                Required information by channel services
-            </template>
-        </x-section-header>
-        
-        <x-section-header>
-            <template v-slot:title>
-                Available Channels
-            </template>
-        </x-section-header>
+        <x-section-toolbar v-if="$route.params.user">
+            <x-button color="primary" :to="{ name: 'users.edit.channels.add', params: { user: $route.params.user || 1 } }">
+                Add Channel
+            </x-button>
+        </x-section-toolbar>
 
         <div class="rounded-md bg-red-50 p-4 mb-1" v-if="userForm.deleted_at">
             <div class="flex">
@@ -90,17 +84,22 @@
 </template>
 
 <script>
-import Loader from "./../../../../components/application/loader.vue";
+import Loader from "./../../../../../components/application/loader.vue";
 import { mapGetters } from "vuex";
 
 export default {
     components: {
         "x-loader": Loader,
     },
+    props: {
+        user: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
             isLoading: true,
-            user: null,
             userForm: {
                 // ...
             },
@@ -119,20 +118,7 @@ export default {
             this.toggleLoading();
         }
 
-        this.$store.dispatch("userModule/fetchOneItem", this.$route.params.user)
-            .then((user) => {
-                this.user = user;
-
-                window.EchoInstance.private(`user-${user.master_organization_id}-user-${user.id}-channel`)
-                    .listen(".App\\Events\\User\\UserUpdated", ({ user }) => {
-                        this.user = user;
-                    })
-                    .listen(".App\\Events\\User\\UserDeleted", ({ user }) => {
-                        this.userForm.deleted_at = user.deleted_at;
-                    });
-
-                return this.$store.dispatch("channelModule/fetchAllItems");
-            })
+        this.$store.dispatch("channelModule/fetchAllItems")
             .then(() => {
                 return this.$store.dispatch("serviceModule/fetchAllItems");
             })

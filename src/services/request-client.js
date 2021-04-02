@@ -4,19 +4,15 @@
 
 import Axios from "axios";
 import Cookie from "js-cookie";
-import Router from "./../router/index";
 
 const requestClient = Axios.create({
     baseURL: import.meta.env.VITE_API_URL + "/api",
-    timeout: 5000,
-    headers: {
-        "Authorization": `Bearer ${Cookie.get("access_token")}`,
-    },
+    timeout: 3000,
 });
 
 // Add a request interceptor
 requestClient.interceptors.request.use(function (config) {
-    // Do something before request is sent
+    config.headers["Authorization"] = "Bearer " + Cookie.get("access_token");
     return config;
 }, function (error) {
     // Do something with request error
@@ -29,12 +25,9 @@ requestClient.interceptors.response.use(function (response) {
     // Do something with response data
     return response;
 }, function (error) {
-    if(error.response.data.message == "Unauthenticated.") {
-        // Router.push({ name: "auth.login" });
-    }
-
     if(error.response.status == 401) {
-        // Router.push({ name: "auth.login" });
+        localStorage.clear();
+        window.location.href = "/login";
     }
     
     return Promise.reject(error);

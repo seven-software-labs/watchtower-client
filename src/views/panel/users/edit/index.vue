@@ -27,7 +27,7 @@
         </template>
 
         <template v-slot:default>
-            <router-view/>
+            <router-view :user="user" v-if="user"/>
         </template>
     </x-layouts-panel>
 </template>
@@ -75,7 +75,10 @@ export default {
                 window.EchoInstance.private(`user-${user.master_organization_id}-user-${user.id}-channel`)
                     .listen(".App\\Events\\User\\UserUpdated", ({ user }) => {
                         this.user = user;
-                    });
+                    })
+                    .listen(".App\\Events\\User\\UserDeleted", ({ user }) => {
+                        this.user.deleted_at = user.deleted_at;
+                    });                    
             })
             .catch((error) => {
                 this.$toast().danger(error.response.data.message);

@@ -33,7 +33,20 @@ const userRoutes = [
                     {
                         path: "channels",
                         name: "users.edit.channels",
-                        component: () => import("./../../../views/panel/users/edit/channels.vue"),
+                        redirect: { name: "users.edit.channels.index" },
+                        component: () => import("./../../../views/panel/users/edit/channels/container.vue"),
+                        children: [
+                            {
+                                path: "browse",
+                                name: "users.edit.channels.index",
+                                component: () => import("./../../../views/panel/users/edit/channels/index.vue"),
+                            },
+                            {
+                                path: "add",
+                                name: "users.edit.channels.add",
+                                component: () => import("./../../../views/panel/users/edit/channels/add.vue"),
+                            },
+                        ],
                     },
                     {
                         path: "tickets",
