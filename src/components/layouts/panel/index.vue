@@ -2,7 +2,7 @@
     <main class="min-w-0 flex-1 border-gray-200 xl:flex">
         <slot name="area">
             <section aria-labelledby="message-heading" class="bg-white px-2 min-w-0 flex-1 h-full">
-                <x-container class="h-full flex flex-col overflow-hidden xl:order-last py-3">
+                <x-container class="h-full mx-auto flex flex-col overflow-hidden xl:order-last py-3">
                     <slot></slot>
                 </x-container>
             </section>

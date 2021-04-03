@@ -64,7 +64,7 @@
                 
                 <x-vertical-menu-item :active="filters.department_id == department.id" v-for="(department, departmentIndex) in departments.data" :key="'department_' + departmentIndex" @click.stop="selectFilter('department_id', department.id)">
                     <div class="flex items-center justify-between">
-                        <div class="truncate">
+                        <div class="flex items-center justify-center truncate">
                             <x-icon name="folder-small" :color="department.color"/>
                             {{ department.name }}
                         </div>
