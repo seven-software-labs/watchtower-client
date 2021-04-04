@@ -1,18 +1,22 @@
 <template>
-    <form v-bind="attrs" class="w-full">
+    <form v-bind="attributes" class="w-full">
         <slot></slot>
     </form>
 </template>
 
-<script>
-export default {
-    inheritAttrs: false,
-    computed: {
-        attrs() {
-            return {
-                ...this.$attrs,
-            };
-        },
+<script lang="ts">
+import { defineComponent, computed } from "vue";
+
+export default defineComponent({
+    setup(props, { attrs }) {
+        /**
+         * The component's attributes.
+         */
+        const attributes = computed(() => attrs);
+
+        return {
+            attributes,
+        };
     },
-};
+});
 </script>

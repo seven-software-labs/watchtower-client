@@ -59,7 +59,7 @@ export default {
     },
     setup(props) {
         // Base classes for the component.
-        const baseClasses = "x-button inline-flex items-center border shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:border-4";
+        const baseClasses = "x-button inline-flex items-center justify-center border shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:border-4";
 
         // List of available colors for the component.
         const colors = {

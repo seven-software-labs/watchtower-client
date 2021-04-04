@@ -76,6 +76,28 @@ class AuthService {
     }
 
     /**
+     * Request for a new account.
+     * 
+     * @param { Object } payload
+     * @return { Promise }
+     */
+    register(payload = {}) {
+        return new Promise((resolve, reject) => {
+            const handleSuccess = (response) => {
+                resolve(response);
+            };
+
+            const handleFailure = (error) => {
+                reject(error);
+            };
+
+            this.requestClient.post("/api/register", payload)
+                .then(handleSuccess)
+                .catch(handleFailure);
+        });
+    }
+
+    /**
      * Fetch the currently authenticated user.
      * 
      * @return { Promise }

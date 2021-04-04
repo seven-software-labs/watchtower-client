@@ -20,6 +20,7 @@ import CardContent from "./components/card-content.vue";
 import CardFooter from "./components/card-footer.vue";
 import Card from "./components/card.vue";
 import Container from "./components/container.vue";
+import Heading from "./components/heading.vue";
 import FormCheckbox from "./components/form/checkbox.vue";
 import FormEditor from "./components/form/editor.vue";
 import FormGroup from "./components/form/group.vue";
@@ -30,6 +31,7 @@ import Form from "./components/form/form.vue";
 import Icon from "./components/icon.vue";
 import Iframe from "./components/iframe.vue";
 import Link from "./components/link.vue";
+import Paragraph from "./components/paragraph.vue";
 import SectionHeader from "./components/section-header.vue";
 import SectionToolbar from "./components/section-toolbar.vue";
 import Section from "./components/section.vue";
@@ -52,6 +54,7 @@ const components = {
     "x-card-footer": CardFooter,
     "x-card": Card,
     "x-container": Container,
+    "x-heading": Heading,
     "x-form-checkbox": FormCheckbox,
     "x-form-editor": FormEditor,
     "x-form-group": FormGroup,
@@ -62,6 +65,7 @@ const components = {
     "x-icon": Icon,
     "x-iframe": Iframe,
     "x-link": Link,
+    "x-paragraph": Paragraph,
     "x-section-header": SectionHeader,
     "x-section-toolbar": SectionToolbar,
     "x-section": Section,

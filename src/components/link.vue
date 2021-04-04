@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { defineComponent, computed } from "vue";
 
-export default {
+export default defineComponent({
     name: "x-link",
     inheritAttrs: false,
     props: {
@@ -39,7 +39,7 @@ export default {
     },
     setup(props) {
         // Base classes for the component.
-        const baseClasses = "x-link cursor-pointer";
+        const baseClasses = "x-link font-medium cursor-pointer";
 
         // List of available colors for the component.
         const colors = {
@@ -55,5 +55,5 @@ export default {
             classes: compiledClasses,
         };
     },
-};
+});
 </script>
