@@ -43,8 +43,9 @@ const customColors = {
 };
 
 module.exports = {
-    purge: [],
-    darkMode: false, // or 'media' or 'class'
+    content: [
+        "./src/**/*.{js,jsx,ts,tsx,vue}",
+    ],
     theme: {
         extend: {
             colors: {
@@ -55,7 +56,7 @@ module.exports = {
                 success: colors.green,
                 warning: colors.amber,
                 danger: customColors.vermilion,
-                gray: colors.coolGray,
+                gray: colors.stone,
             },
             fontFamily: {
                 sans: ["Inter var", ...defaultTheme.fontFamily.sans],
@@ -63,12 +64,6 @@ module.exports = {
                 "kollektif": ["Kollektif"],
                 "montserrat": ["Montserrat"],
             },
-        },
-    },
-    variants: {
-        extend: {
-            opacity: ["disabled"],
-            cursor: ["disabled"],
         },
     },
     plugins: [
