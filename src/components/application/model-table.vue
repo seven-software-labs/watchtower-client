@@ -39,7 +39,7 @@
         <div class="w-full" v-if="items.meta && !isLoading">
             <nav class="bg-white py-3 flex items-center justify-between border-t border-gray-200" aria-label="Pagination">
                 <div class="hidden sm:block">
-                    <p class="text-sm text-gray-700">
+                    <p class="text-sm text-gray-600">
                         Showing
                         <span class="font-medium">
                             {{ items.meta.from || "0" }}
