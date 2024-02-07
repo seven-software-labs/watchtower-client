@@ -9,7 +9,7 @@
                 </x-section-header>
             
                 <x-section-toolbar>
-                    <x-button :to="{ name: 'users.create' }" color="blue">
+                    <x-button :to="{ name: 'users.create' }" color="primary">
                         Create User
                     </x-button>
                 </x-section-toolbar>

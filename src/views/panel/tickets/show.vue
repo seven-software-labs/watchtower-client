@@ -107,7 +107,7 @@
                                     Send Note
                                 </x-button>
 
-                                <x-button color="blue" @click.prevent="submitMessageForm(messageForm, 1)">
+                                <x-button color="primary" @click.prevent="submitMessageForm(messageForm, 1)">
                                     Send Reply
                                 </x-button>
                             </div>

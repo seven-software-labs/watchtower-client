@@ -46,7 +46,7 @@
             </div>
 
             <div>
-                <x-button type="submit" color="blue" class="w-full flex items-center justify-center" :disabled="isLoading">
+                <x-button type="submit" color="primary" class="w-full flex items-center justify-center" :disabled="isLoading">
                     Sign in
                 </x-button>
             </div>

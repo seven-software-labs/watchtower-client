@@ -109,7 +109,7 @@
                 </x-section-header>
 
                 <x-section-toolbar>
-                    <x-button :to="{ name: 'tickets.create' }" color="blue">
+                    <x-button :to="{ name: 'tickets.create' }" color="primary">
                         Create Ticket
                     </x-button>
                 </x-section-toolbar>
